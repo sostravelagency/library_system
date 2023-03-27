@@ -21,6 +21,7 @@ import Socket from "./component/Socket/Socket";
 import Category from "./component/Category/Category";
 import News from "./component/News/News";
 import NotFound from "./component/Component/NotFound";
+import About from "./component/About/About";
 
 export const AppContext = createContext();
 const App = () => {
@@ -91,6 +92,7 @@ const App = () => {
               <Route path={"/staff/*"} element={<Staff />} />
               <Route path={"/news/*"} element={<News />} />
               <Route path={"/404"} element={<NotFound />} />
+              <Route path={"/about"} element={<About />} />
             </Routes>
             {
               auth=== true && parseInt(user?.role)=== 1 &&  

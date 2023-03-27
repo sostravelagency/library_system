@@ -1,0 +1,125 @@
+.main-page{
+    font-family: monospace;
+}
+.section-white {
+    background-color: white;
+    padding: 70px 0;
+}
+
+.section-title{
+    text-align: center;
+}
+
+.team-item {
+    background-color: #f4f5f6;
+    text-align: center;
+    margin: 20px 0;
+    padding: 50px 20px 40px 20px;
+    border-radius: 8px 8px;
+    -webkit-animation: all 0.25s ease-in-out;
+    -moz-animation: all 0.25s ease-in-out;
+    -ms-transititon: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.team-item:hover {
+    background: #FAAE2D;
+    color: black;
+}
+
+.team-item h3{
+    margin: 20px 0 1px 0 !important;
+    color: #454545;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    -webkit-animation: all 0.25s ease-in-out;
+    -moz-animation: all 0.25s ease-in-out;
+    transition: all 0,25 ease-in-out;
+}
+
+.section-subtitle{
+    white-space: pre-line;
+    margin-left: 500px;
+    margin-right: 500px;
+}
+
+.team-item:hover h3{
+    color: black;
+}
+
+.team-info {
+    display: block;
+    margin-bottom: 0;
+}
+
+.team-info p {
+    color: black;
+    font-style: italic ;
+}
+
+.team-info::after{
+    background: #008aff;
+    background: -webkit-linear-gradient(
+        135deg,#6B02FF 0%, #985BEF 100%
+    );
+    background: -o-linear-gradient(
+        135deg,#6B02FF 0%, #985BEF 100%
+    );
+    background: -moz-linear-gradient(
+        135deg,#6B02FF 0%, #985BEF 100%
+    );
+    background: linear-gradient(
+        135deg,#6B02FF 0%, #985BEF 100%
+    );
+
+    display: inline-block;
+    vertical-align: middle;
+    content: '';
+    width: 50px;
+    height: 3px;
+    margin-top: -20px;
+}
+
+.team.img {
+    max-width: 140px;
+    padding: 6px 6px;
+    background-color: #dedede;
+    border-radius: 50%;
+    -webkit-border-radius: 50%
+}
+
+ul.team-icon {
+    margin-top: 25px;
+}
+
+ul.team-icon li {
+    display: inline-block;
+    margin: 0 3px;
+    -webkit-animation: all 0.25s ease-in-out;
+    -moz-animation: all 0.25s ease-in-out;
+    -ms-transititon: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+ul.team-icon li a{
+    margin: 0;
+    display: inline-block;
+    padding: 8px 8px;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+}
+
+.container-big{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-big .container{
+    width: 25%;
+}
