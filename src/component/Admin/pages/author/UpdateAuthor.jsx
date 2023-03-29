@@ -10,11 +10,6 @@ import Slide from "@mui/material/Slide";
 import Box from "@mui/material/Box";
 import { Button } from "semantic-ui-react";
 import { TextField } from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
 import get_author_by_id from "../../../../api/author/get_author_by_id";
 import put_author from "../../../../api/author/put_author";
 
@@ -32,7 +27,7 @@ function RedBar() {
   );
 }
 
-function UpdateAuthor({ authorId, fetchData }) {
+function UpdateAuthor({ authorId, fetchData, props }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -40,20 +35,10 @@ function UpdateAuthor({ authorId, fetchData }) {
   const [data, setData] = useState({});
   const [valueForm, setValueForm] = useState({
     authorName: "",
-    authorAvatar: "",
-    authorBirthday: "",
-    authorEmail: "",
-    authorGender: "",
-    authorPhone: "",
   });
 
   const [errorForm, setErrorForm] = useState({
     authorName: "",
-    authorAvatar: "",
-    authorBirthday: "",
-    authorEmail: "",
-    authorGender: "",
-    authorPhone: "",
   });
 
   useEffect(() => {
@@ -65,15 +50,7 @@ function UpdateAuthor({ authorId, fetchData }) {
 
   useEffect(() => {
     setValueForm({
-      authorName: data?.author_name,
-      authorAvatar: data?.author_avatar,
-      authorBirthday: data?.author_brithday,
-      authorEmail: data?.author_email,
-      authorGender: data?.author_gender,
-      authorPhone: data?.author_phone,
-    });
-    const currentDate = new Date(data?.author_brithday);
-    setValue(dayjs(data?.author_brithday));
+      authorName: data?.author_name})
   }, [data, authorId]);
 
   const handleClose = () => {
@@ -85,7 +62,7 @@ function UpdateAuthor({ authorId, fetchData }) {
 
     setValueForm({
       ...valueForm,
-      [name]: value.trim(),
+      [name]: value,
     });
   };
 
@@ -122,80 +99,6 @@ function UpdateAuthor({ authorId, fetchData }) {
               error={errorForm.authorName.length > 0 ? true : false}
             />
             <RedBar />
-            <TextField
-              fullWidth
-              placeholder={"Ảnh đại diện"}
-              value={valueForm.authorAvatar}
-              name="authorAvatar"
-              onChange={handleChange}
-              helperText={
-                errorForm.authorAvatar.length > 0 ? errorForm.authorAvatar : ""
-              }
-              error={errorForm.authorAvatar.length > 0 ? true : false}
-            />
-            <RedBar />
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
-                <DatePicker
-                  value={value}
-                  onChange={(newValue) => {
-                    const convertedDate = new Date(newValue).toISOString();
-                    // console.log("convertedDate", convertedDate);
-                    setValue(newValue);
-                    setValueForm({
-                      ...valueForm,
-                      authorBirthday: convertedDate,
-                    });
-                  }}
-                  disableFuture
-                  slotProps={{
-                    textField: {
-                      helperText:
-                        !value || valueForm?.authorBirthday > 0
-                          ? "Chọn ngày"
-                          : "",
-                    },
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-            <RedBar />
-            <TextField
-              fullWidth
-              name="authorEmail"
-              value={valueForm.authorEmail}
-              onChange={handleChange}
-              placeholder={"Email"}
-              helperText={
-                errorForm.authorEmail.length > 0 ? errorForm.authorEmail : ""
-              }
-              error={errorForm.authorEmail.length > 0 ? true : false}
-            />
-            <RedBar />
-            <TextField
-              fullWidth
-              name="authorPhone"
-              value={valueForm.authorPhone}
-              onChange={handleChange}
-              placeholder={"Số điện thoại"}
-              helperText={
-                errorForm.authorPhone.length > 0 ? errorForm.authorPhone : ""
-              }
-              error={errorForm.authorPhone.length > 0 ? true : false}
-            />
-            <RedBar />
-            <TextField
-              fullWidth
-              name="authorGender"
-              value={valueForm.authorGender}
-              onChange={handleChange}
-              placeholder={"Giới tính"}
-              helperText={
-                errorForm.authorGender.length > 0 ? errorForm.authorGender : ""
-              }
-              error={errorForm.authorGender.length > 0 ? true : false}
-            />
           </DialogContentText>
         </DialogContent>
 
@@ -219,65 +122,26 @@ function UpdateAuthor({ authorId, fetchData }) {
               } else {
                 newError.authorName = "";
               }
-
-              if (valueForm.authorAvatar.length === 0) {
-                isValid = false;
-                newError.authorAvatar = "Nhập số lượng";
-              } else {
-                newError.authorAvatar = "";
-              }
-
-              if (valueForm.authorBirthday.length === 0) {
-                isValid = false;
-                newError.authorBirthday = "Nhập rating";
-              } else {
-                newError.authorBirthday = "";
-              }
-
-              if (valueForm.authorGender.length === 0) {
-                isValid = false;
-                newError.authorGender = "Nhập mô tả";
-              } else {
-                newError.authorGender = "";
-              }
-
-              if (valueForm.authorEmail.length === 0) {
-                isValid = false;
-                newError.authorEmail = "Nhập tác giả";
-              } else {
-                newError.authorEmail = "";
-              }
-
               if (isValid) {
                 const {
                   authorName,
-                  authorAvatar,
-                  authorBirthday,
-                  authorEmail,
-                  authorGender,
-                  authorPhone,
                 } = valueForm;
                 const res = await put_author(
                   authorId,
                   authorName,
-                  authorAvatar,
-                  authorBirthday,
-                  authorEmail,
-                  authorGender,
-                  authorPhone
                 );
                 // console.log("res: ", res);
                 if (res?.update === true) {
                   swal(
-                    "Thông báo",
-                    "Bạn đã cập nhật tác gia thành công",
+                    "Notice",
+                    "Updated",
                     "success"
                   ).then(() => {
                     handleClose();
                     fetchData();
                   });
                 } else {
-                  swal("Thông báo", "Error", "error");
+                  swal("Notice", "Error", "error");
                 }
                 setValueForm({
                   authorName: "",
@@ -295,9 +159,9 @@ function UpdateAuthor({ authorId, fetchData }) {
             }}
             loading={loading}
           >
-            Lưu
+            Save
           </Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

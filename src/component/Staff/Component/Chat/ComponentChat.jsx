@@ -17,7 +17,7 @@ const ComponentChat = () => {
   useEffect(() => {
     (async () => {
       const result = await get_detail_conversation(id_conversation);
-      return setData(result);
+      return setData(result.reverse());
     })();
   }, [id_conversation]);
   //

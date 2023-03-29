@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./book.css";
-import put_book from "../../../../api/book/put_book";
+// import put_book from "../../../../api/book/put_book";
 import get_category from "../../../../api/get_category";
 import get_list_author from "../../../../api/author/get_list_author";
 import Dialog from "@mui/material/Dialog";
@@ -12,14 +12,17 @@ import Slide from "@mui/material/Slide";
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
 import { Button } from "semantic-ui-react";
-import { TextField } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
 import swal from "sweetalert";
-import get_book_by_id from "../../../../api/book/get_book_by_id";
+// import get_book_by_id from "../../../../api/book/get_book_by_id";
+import upload_image from "../../../../api/upload_image";
+import UploadImage from "../../../Component/UploadImage";
+import update_book from "../../../../api/book/update_book";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,29 +48,45 @@ function RedBar() {
     />
   );
 }
+// 
 
-export default function Book({ bookId, fetchData }) {
+export default function Book({ bookId, fetchData, props }) {
   const [open, setOpen] = useState(false);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAuthor, setDataAuthor] = useState([]);
-  const [personAuthor, setPersonAuthor] = useState([]);
-  const [personCategory, setPersonCategory] = useState([]);
-
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
-
+  const [personAuthor, setPersonAuthor] = React.useState([]);
+  
+  const [personCategory, setPersonCategory] = React.useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [authorChoosen, setAuthorChoosen]= useState("")
+  const [image, setImage]= useState("")
   const [valueForm, setValueForm] = useState({
-    bookName: "",
-    bookQuantity: "",
-    bookRating: "",
-    bookDescription: "",
-    coverPhoto: "",
-    authorId: "",
-    linkBook: "",
+    bookName: props?.props?.book_name,
+    bookQuantity: props?.props?.book_quantity,
+    bookRating: props?.props?.book_rating,
+    bookDescription: props?.props?.book_description,
+    coverPhoto: props?.props?.cover_photo,
+    linkBook: props?.props?.link_book,
     categoryId: "",
   });
+  
+  useEffect(()=> {
+    setValueForm({
+      bookId: props?.book_id,
+      bookName: props?.book_name,
+      bookQuantity: props?.book_quantity,
+      bookRating: parseFloat(props?.book_rating).toFixed(1),
+      bookDescription: props?.book_description,
+      coverPhoto: props?.cover_photo,
+      linkBook: props?.link_book,
+      categoryId: "",
+    })
+    setPersonCategory(JSON.parse(props?.categories))
+    setPersonAuthor(()=> props?.author_id)
+  }, [props])
 
   const [errorForm, setErrorForm] = useState({
+    bookId: "",
     bookName: "",
     bookQuantity: "",
     bookRating: "",
@@ -76,13 +95,6 @@ export default function Book({ bookId, fetchData }) {
     linkBook: "",
     categoryId: "",
   });
-
-  useEffect(() => {
-    (async () => {
-      const result = await get_book_by_id(bookId);
-      return setData(result);
-    })();
-  }, [bookId]);
 
   useEffect(() => {
     (async () => {
@@ -98,52 +110,27 @@ export default function Book({ bookId, fetchData }) {
     })();
   }, []);
 
-  useEffect(() => {
-    setValueForm({
-      bookName: data?.book_name,
-      bookQuantity: data?.book_quantity,
-      bookRating: data?.book_rating,
-      bookDescription: data?.book_description,
-      coverPhoto: data?.cover_photo,
-      authorId: "",
-      linkBook: data?.link_book,
-      categoryId: "",
-    });
-
-    const categoryNames = data?.categories?.map(
-      (category) => category.category_name
-    );
-
-    const authorNames = data?.auths?.map((auth) => auth.author_name);
-    if (categoryNames) {
-      setPersonCategory(categoryNames);
-    }
-    if (authorNames) {
-      setPersonAuthor(authorNames);
-    }
-  }, [data, bookId]);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "authorId") {
-      setPersonAuthor(typeof value === "string" ? value.split(",") : value);
+      setPersonAuthor(value);
     } else if (name === "categoryId") {
       setPersonCategory(typeof value === "string" ? value.split(",") : value);
     } else {
       setValueForm({
         ...valueForm,
-        [name]: value.trim(),
+        [name]: value,
       });
     }
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div>
-      <Button
+    <Button
         onClick={() => setOpen(!open)}
         style={{ margin: "8px 0", display: "flex", alignItems: "center" }}
       >
@@ -158,13 +145,13 @@ export default function Book({ bookId, fetchData }) {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>{"Chỉnh sửa sách"}</DialogTitle>
+        <DialogTitle>{"Edit book"}</DialogTitle>
 
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField
               fullWidth
-              placeholder={"Tên sách"}
+              placeholder={"Book's name"}
               value={valueForm.bookName}
               name="bookName"
               onChange={handleChange}
@@ -176,7 +163,7 @@ export default function Book({ bookId, fetchData }) {
             <RedBar />
             <TextField
               fullWidth
-              placeholder={"Số lượng"}
+              placeholder={"Amount"}
               value={valueForm.bookQuantity}
               name="bookQuantity"
               onChange={handleChange}
@@ -192,7 +179,7 @@ export default function Book({ bookId, fetchData }) {
               name="bookRating"
               value={valueForm.bookRating}
               onChange={handleChange}
-              placeholder={"Xếp hạng"}
+              placeholder={"Rating"}
               helperText={
                 errorForm.bookRating.length > 0 ? errorForm.bookRating : ""
               }
@@ -201,22 +188,24 @@ export default function Book({ bookId, fetchData }) {
             <RedBar />
             <TextField
               fullWidth
-              name="coverPhoto"
-              value={valueForm.coverPhoto}
+              name="linkBook"
+              value={valueForm.linkBook}
               onChange={handleChange}
-              placeholder={"Hình ảnh"}
+              placeholder={"Link book"}
               helperText={
-                errorForm.coverPhoto.length > 0 ? errorForm.coverPhoto : ""
+                errorForm.linkBook.length > 0 ? errorForm.linkBook : ""
               }
-              error={errorForm.coverPhoto.length > 0 ? true : false}
+              error={errorForm.linkBook.length > 0 ? true : false}
             />
+            <RedBar />
+            <UploadImage title={"Upload cover book"} setImage={setImage} />
             <RedBar />
             <TextField
               fullWidth
               name="bookDescription"
               value={valueForm.bookDescription}
               onChange={handleChange}
-              placeholder={"Mô tả"}
+              placeholder={"Description"}
               helperText={
                 errorForm.bookDescription.length > 0
                   ? errorForm.bookDescription
@@ -227,82 +216,65 @@ export default function Book({ bookId, fetchData }) {
             <RedBar />
             <Select
               onChange={handleChange}
-              value={personCategory || []}
+              value={personCategory}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
               name="categoryId"
               fullWidth
-              // renderValue={(value) => {
-              //   const findEle = dataCategory?.find(
-              //     (item) => item.id === value
-              //   )?.category_name;
-              //   return value?.length ? findEle : "Thể loại";
-              // }}
               input={<OutlinedInput />}
               renderValue={(selected) => {
-                if (selected?.length === 0) {
+                if (selected.length === 0) {
                   return <span>Thể loại</span>;
                 }
 
-                return selected?.join(", ");
+                return selected?.map(item=> item?.category_name + ",")
               }}
               multiple
               MenuProps={MenuProps}
-              error={personCategory?.length === 0 ? true : false}
+              error={personCategory.length === 0 ? true : false}
             >
               {dataCategory?.map((item) => (
-                <MenuItem value={item.category_name} key={item.category_name}>
+                <MenuItem value={item} key={item.category_name}>
                   {/* {item.category_name} */}
                   <Checkbox
-                    checked={personCategory?.indexOf(item.category_name) > -1}
+                    checked={personCategory.map(item=> item?.category_name).indexOf(item.category_name) > -1}
                   />
                   <ListItemText primary={item.category_name} />
                 </MenuItem>
               ))}
             </Select>
-            {personCategory?.length === 0 && (
-              <FormHelperText>Chọn thể loại</FormHelperText>
+
+            
+            {personCategory.length === 0 && (
+              <FormHelperText>Category</FormHelperText>
             )}
             <RedBar />
             <Select
-              onChange={handleChange}
               value={personAuthor}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
               name="authorId"
               fullWidth
-              // renderValue={(value) => {
-              //   const findEle = dataAuthor?.find(
-              //     (item) => item.author_id === value
-              //   )?.author_name;
-              //   return value?.length ? findEle : "Tác giả";
-              // }}
               input={<OutlinedInput />}
               renderValue={(selected) => {
                 if (selected.length === 0) {
-                  return <span>Tác giả</span>;
+                  return <span>Author</span>;
                 }
 
-                return selected.join(", ");
+                return dataAuthor.find(item=> item?.author_id=== selected)?.author_name;
               }}
-              multiple
               MenuProps={MenuProps}
-              error={personAuthor.length === 0 ? true : false}
             >
-              {dataAuthor?.map((item) => (
-                // <MenuItem value={item.author_id} key={item.author_id}>
-                //   {item.author_name}
-                // </MenuItem>
-                <MenuItem key={item.author_name} value={item.author_name}>
-                  <Checkbox
-                    checked={personAuthor.indexOf(item.author_name) > -1}
-                  />
-                  <ListItemText primary={item.author_name} />
-                </MenuItem>
+              <RadioGroup value={personAuthor} onChange={(e)=> setPersonAuthor(e.target.value)} style={{padding: 10}}>
+
+                {dataAuthor?.map((item, key) => (
+                  
+                  <FormControlLabel checked={(item?.author_id === personAuthor) ? true : false } key={key} value={item?.author_id} control={<Radio />} label={item?.author_name} />
               ))}
+              </RadioGroup>
             </Select>
             {personAuthor.length === 0 && (
-              <FormHelperText>Chọn tác giả</FormHelperText>
+              <FormHelperText>Choose an author</FormHelperText>
             )}
           </DialogContentText>
         </DialogContent>
@@ -311,113 +283,31 @@ export default function Book({ bookId, fetchData }) {
           <Button
             color={"facebook"}
             onClick={async () => {
-              setLoading(true);
-              let isValid = true;
-              const newError = {
-                bookName: "",
-                bookQuantity: "",
-                bookRating: "",
-                bookDescription: "",
-                coverPhoto: "",
-                linkBook: "",
-                categoryId: "",
-              };
-              if (valueForm.bookName.length === 0) {
-                isValid = false;
-                newError.bookName = "Nhập tên sách";
-              } else {
-                newError.bookName = "";
-              }
-
-              if (valueForm.bookQuantity.length === 0) {
-                isValid = false;
-                newError.bookQuantity = "Nhập số lượng";
-              } else {
-                newError.bookQuantity = "";
-              }
-
-              if (valueForm.bookRating.length === 0) {
-                isValid = false;
-                newError.bookRating = "Nhập rating";
-              } else {
-                newError.bookRating = "";
-              }
-
-              if (valueForm.bookDescription.length === 0) {
-                isValid = false;
-                newError.bookDescription = "Nhập mô tả";
-              } else {
-                newError.bookDescription = "";
-              }
-
-              if (valueForm.coverPhoto.length === 0) {
-                isValid = false;
-                newError.coverPhoto = "Nhập tác giả";
-              } else {
-                newError.coverPhoto = "";
-              }
-
-              const filteredAuthors = dataAuthor.filter((author) =>
-                personAuthor.includes(author.author_name)
-              );
-              const filteredCategories = dataCategory.filter((category) =>
-                personCategory.includes(category.category_name)
-              );
-              if (isValid) {
-                const {
-                  bookName,
-                  bookQuantity,
-                  bookRating,
-                  bookDescription,
-                  coverPhoto,
-                  linkBook,
-                } = valueForm;
-                const res = await put_book(
-                  bookId,
-                  bookName,
-                  bookQuantity,
-                  bookRating,
-                  bookDescription,
-                  coverPhoto,
-                  filteredAuthors,
-                  linkBook,
-                  filteredCategories
-                );
-                if (res?.updated === true) {
-                  swal(
-                    "Thông báo",
-                    "Bạn đã chỉnh sửa sách thành công",
-                    "success"
-                  ).then(() => {
-                    handleClose();
-                    fetchData();
-                  });
-                } else {
-                  swal("Thông báo", "Error", "error");
+              if(image?.thumbUrl) {
+                const resultImage= await upload_image(image?.thumbUrl)
+                const result= await update_book(valueForm.bookId, valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, resultImage, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
+                if(result?.update === true ) {
+                  swal("Notice", "Update book successfully", "success")
                 }
-                setValueForm({
-                  bookName: "",
-                  bookQuantity: "",
-                  bookRating: "",
-                  bookDescription: "",
-                  coverPhoto: "",
-                  authorId: "",
-                  linkBook: "",
-                  categoryId: "",
-                });
+                else {
+                  swal("", "Error", "error")
+                }
 
-                setPersonAuthor([]);
-                setPersonCategory([]);
               }
-
-              setErrorForm({ ...newError });
-              setLoading(false);
+              else {
+                const result= await update_book(valueForm.bookId,valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, valueForm.coverPhoto, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
+                if(result?.update === true ) {
+                  swal("Notice", "Update book successfully", "success")
+                }
+                else {
+                  swal("", "Error", "error")
+                }
+              }
             }}
-            loading={loading}
           >
-            Lưu
+            Save
           </Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

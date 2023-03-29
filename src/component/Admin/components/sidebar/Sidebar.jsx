@@ -71,7 +71,7 @@ export default function Sidebar() {
             </Link>
           </ul>
         </div>
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Thông báo</h3>
           <ul className="sidebarList">
              <Link to="/admin/messages" className="link">
@@ -87,7 +87,7 @@ export default function Sidebar() {
               )}
             </Link>
           </ul>
-        </div>
+        </div> */}
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Manage book</h3>
           <ul className="sidebarList">
@@ -103,23 +103,6 @@ export default function Sidebar() {
                 </li>
               )}
             </Link>
-
-            {/* <li className="sidebarListItem">
-              <AddIcon className="sidebarIcon" />
-                Thêm sách
-            </li> */}
-            {/* <Link to="/admin/newbook" className="link">
-              {({ isActive }) => (
-                <li
-                  className={`sidebarListItem ${
-                    isActive === true ? "active" : ""
-                  }`}
-                >
-                  <AddIcon className="sidebarIcon" />
-                  Thêm sách
-                </li>
-              )}
-            </Link> */}
             <li className="sidebarListItem">
               <Link to="/admin/category" className="link">
                 {({ isActive }) => (
@@ -151,23 +134,6 @@ export default function Sidebar() {
                 </li>
               )}
             </Link>
-
-            {/* <li className="sidebarListItem">
-              <AddIcon className="sidebarIcon" />
-                Thêm sách
-            </li> */}
-            {/* <Link to="/admin/newbook" className="link">
-              {({ isActive }) => (
-                <li
-                  className={`sidebarListItem ${
-                    isActive === true ? "active" : ""
-                  }`}
-                >
-                  <AddIcon className="sidebarIcon" />
-                  Thêm sách
-                </li>
-              )}
-            </Link> */}
           </ul>
         </div>
         <div className="sidebarMenu">

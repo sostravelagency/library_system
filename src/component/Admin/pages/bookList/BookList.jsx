@@ -79,13 +79,10 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            {/* <Link to={"/admin/book/" + params.row.book_id}>
-              <button className="bookListEdit">Edit</button>
-            </Link> */}
-            <Book bookId={params.row.book_id} fetchData={fetchData} />
+            
+            <Book props={params.row} bookId={params.row.book_id} fetchData={fetchData} />
             <DeleteOutline
               className="bookListDelete"
-              // onClick={() => handleDelete(params.row.book_id)}
               onClick={() => {
                 setBookId(params.row.book_id);
                 setOpen(true);
@@ -100,14 +97,13 @@ export default function ProductList() {
   return (
     <div className="userList">
       <NewBook fetchData={fetchData} />
-      <div style={{ marginBottom: 8 }}>Danh sách book</div>
+      <div style={{ marginBottom: 8 }}>List books</div>
 
       <DataGrid
         rows={data}
         columns={columns}
         disableSelectionOnClick
         pageSize={8}
-        checkboxSelection
         getRowId={(row) => row.book_id}
         getRowHeight={() => "auto"}
       />
@@ -119,27 +115,27 @@ export default function ProductList() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Bạn có muốn xóa sách này không?"}</DialogTitle>
+        <DialogTitle>{"Are you want to delete this book?"}</DialogTitle>
         <DialogActions>
           <Button
             color={"facebook"}
             onClick={async () => {
               const result = await delete_book(bookId);
               if (result?.delete === true) {
-                swal("Thông báo", "Bạn đã xóa sách thành công", "success").then(
+                swal("Notice", "Deleted", "success").then(
                   () => {
                     fetchData();
                     handleClose();
                   }
                 );
               } else {
-                swal("Thông báo", "Error", "error");
+                swal("Notice", "Error", "error");
               }
             }}
           >
-            Xóa
+            Delete
           </Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

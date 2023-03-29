@@ -4,11 +4,6 @@ import { API_URL } from "../../config";
 const put_author = async (
   authorId,
   authorName,
-  authorAvatar,
-  authorBirthday,
-  authorEmail,
-  authorGender,
-  authorPhone
 ) => {
   const res = await axios({
     url: API_URL + "/api/v3/author",
@@ -16,11 +11,6 @@ const put_author = async (
     data: {
       author_id: authorId,
       author_name: authorName,
-      author_gender: authorGender,
-      author_email: authorEmail,
-      author_brithday: authorBirthday,
-      author_avatar: authorAvatar,
-      author_phone: authorPhone,
     },
   });
   const result = await res.data;

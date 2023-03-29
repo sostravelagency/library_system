@@ -4,7 +4,7 @@ const connection = require("../../database/connect");
 
 const stats= expressAsyncHandler(async (req, res)=> {
     try {
-        const [rows]= await connection.execute("SELECT * FROM history WHERE state= 1")
+        const [rows]= await connection.execute("SELECT * FROM history WHERE state= 1 AND is_borrow= 1")
         if(Boolean(req.query.time_range)=== true ) {
             const rowsStats= rows?.filter(item=> (moment(item?.time_approve).diff(moment(req.query.time_start, "DD-MM-YYYY")) >= 0) && (moment(item?.time_approve).diff(moment(req.query.time_end, "DD-MM-YYYY")) <= 0)) 
             const newRowStats= rowsStats?.map(({book_id, history_id, state, time_approve, time_book, user_id, ...rest})=> ({
@@ -12,7 +12,6 @@ const stats= expressAsyncHandler(async (req, res)=> {
                 name: moment(time_approve).format("DD-MM-YYYY"),
                 ...rest
             }))
-            // console.log(moment(req.query.time_end, "DD-MM-YYYY").diff(moment(req.query.time_start, "DD-MM-YYYY"), "days"))
             const time_start_f= moment(req.query.time_start, "DD-MM-YYYY")
             const time_end_f= moment(req.query.time_end, "DD-MM-YYYY")
             const datesArray = [];
@@ -25,7 +24,6 @@ const stats= expressAsyncHandler(async (req, res)=> {
             currentDate = moment(currentDate).add(1, 'days');
             }
 
-            // console.log(datesArray);
             newRowStats.forEach((item) => {
             const index = datesArray.findIndex((value) => value.name === item.name);
             if (index !== -1) {

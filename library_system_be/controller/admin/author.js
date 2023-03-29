@@ -16,15 +16,10 @@ const author= {
     add: expressAsyncHandler(async(req, res)=> {
         try {
             // eslint-disable-next-line
-            await connection.execute("INSERT INTO author VALUES(?, ?, ?, ?, ?, ?, ?)", 
+            await connection.execute("INSERT INTO author VALUES(?, ?)", 
             [
                 v4(), 
                 req.body.author_name,
-                req.body.author_gender,
-                req.body.author_email,
-                req.body.author_brithday,
-                req.body.author_avatar,
-                req.body.author_phone
             ]);
 
             return res.status(200).json({add: true})
@@ -36,14 +31,9 @@ const author= {
     update: expressAsyncHandler(async(req, res)=> {
         try {
             // eslint-disable-next-line
-            await connection.execute("UPDATE author SET author_name= ?, author_gender= ?, author_email= ?, author_brithday= ?, author_avatar= ?, author_phone= ? WHERE author.author_id =?", 
+            await connection.execute("UPDATE author SET author_name= ? WHERE author.author_id =?", 
             [
                 req.body.author_name,
-                req.body.author_gender,
-                req.body.author_email,
-                req.body.author_brithday,
-                req.body.author_avatar,
-                req.body.author_phone,
                 req.body.author_id
             ]);
 
