@@ -4,7 +4,7 @@ const connection = require("../../database/connect")
 const blog= {
     add: expressAsyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("INSERT INTO blogs(content, time_created, title, image) VALUES(?, ?)", [req.body.content, req.body.time_created, req.body.title, req.body.image])
+            const [rows]= await connection.execute("INSERT INTO blogs(content, time_created, title, image) VALUES(?, ?, ?, ?)", [req.body.content, req.body.time_created, req.body.title, req.body.image?.img])
             return res.status(200).json({add: true})
             
         } catch (error) {

@@ -6,7 +6,8 @@ const options = {
     
     keys: [
       "book_name",
-      "category_name"
+      "category_name",
+      "author_name"
     ]
   };
   
