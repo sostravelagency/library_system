@@ -1,7 +1,7 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import Home from "./pages/home/Home";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
@@ -38,6 +38,7 @@ function IndexAdmin() {
           <Route path="/category" element={<Category />} />
           <Route path={"/news/*"} element={<NewsAdmin />} />
           <Route path={"/staff/*"} element={<ManageStaff />} />
+          <Route path={"*"} element={<Navigate to={"/404"} />} />
         </Routes>
       </div>
     </>

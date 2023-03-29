@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-const add_book = async (
+const update_book = async (
+  bookId,
   bookName,
   bookQuantity,
   bookRating,
@@ -13,9 +14,10 @@ const add_book = async (
   author_id
 ) => {
   const res = await axios({
-    url: API_URL + "/api/v3/book",
+    url: API_URL + "/api/v3/book/update",
     method: "post",
     data: {
+      book_id: bookId,
       book_name: bookName,
       book_quantity: bookQuantity,
       book_rating: bookRating,
@@ -33,4 +35,4 @@ const add_book = async (
   return result;
 };
 
-export default add_book;
+export default update_book;

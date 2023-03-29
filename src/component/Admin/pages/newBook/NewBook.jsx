@@ -20,7 +20,12 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import UploadImage from "../../../Component/UploadImage"
 import "./newBook.css";
+import upload_image from "../../../../api/upload_image";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -52,9 +57,11 @@ export default function NewBook({ fetchData }) {
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAuthor, setDataAuthor] = useState([]);
   const [personAuthor, setPersonAuthor] = React.useState([]);
-  const [personCategory, setPersonCategory] = React.useState([]);
-  const [loading, setLoading] = useState(false);
 
+  const [personCategory, setPersonCategory] = React.useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [authorChoosen, setAuthorChoosen]= useState("")
+  const [image, setImage]= useState("")
   const [valueForm, setValueForm] = useState({
     bookName: "",
     bookQuantity: "",
@@ -96,13 +103,13 @@ export default function NewBook({ fetchData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "authorId") {
-      setPersonAuthor(typeof value === "string" ? value.split(",") : value);
+      setPersonAuthor(value);
     } else if (name === "categoryId") {
       setPersonCategory(typeof value === "string" ? value.split(",") : value);
     } else {
       setValueForm({
         ...valueForm,
-        [name]: value.trim(),
+        [name]: value,
       });
     }
   };
@@ -113,7 +120,7 @@ export default function NewBook({ fetchData }) {
         onClick={() => setOpen(!open)}
         style={{ margin: "8px 0", display: "flex", alignItems: "center" }}
       >
-        <span>Thêm sách</span>
+        <span>Add book</span>
         <AddIcon />
       </Button>
       <Dialog
@@ -131,7 +138,7 @@ export default function NewBook({ fetchData }) {
           <DialogContentText id="alert-dialog-slide-description">
             <TextField
               fullWidth
-              placeholder={"Tên sách"}
+              placeholder={"Name's book"}
               value={valueForm.bookName}
               name="bookName"
               onChange={handleChange}
@@ -143,7 +150,7 @@ export default function NewBook({ fetchData }) {
             <RedBar />
             <TextField
               fullWidth
-              placeholder={"Số lượng"}
+              placeholder={"Amount"}
               value={valueForm.bookQuantity}
               name="bookQuantity"
               onChange={handleChange}
@@ -159,7 +166,7 @@ export default function NewBook({ fetchData }) {
               name="bookRating"
               value={valueForm.bookRating}
               onChange={handleChange}
-              placeholder={"Xếp hạng"}
+              placeholder={"Rating"}
               helperText={
                 errorForm.bookRating.length > 0 ? errorForm.bookRating : ""
               }
@@ -168,22 +175,24 @@ export default function NewBook({ fetchData }) {
             <RedBar />
             <TextField
               fullWidth
-              name="coverPhoto"
-              value={valueForm.coverPhoto}
+              name="linkBook"
+              value={valueForm.linkBook}
               onChange={handleChange}
-              placeholder={"Hình ảnh"}
+              placeholder={"Link book"}
               helperText={
-                errorForm.coverPhoto.length > 0 ? errorForm.coverPhoto : ""
+                errorForm.linkBook.length > 0 ? errorForm.linkBook : ""
               }
-              error={errorForm.coverPhoto.length > 0 ? true : false}
+              error={errorForm.linkBook.length > 0 ? true : false}
             />
+            <RedBar />
+            <UploadImage title={"Upload cover book"} setImage={setImage} />
             <RedBar />
             <TextField
               fullWidth
               name="bookDescription"
               value={valueForm.bookDescription}
               onChange={handleChange}
-              placeholder={"Mô tả"}
+              placeholder={"Description"}
               helperText={
                 errorForm.bookDescription.length > 0
                   ? errorForm.bookDescription
@@ -199,77 +208,60 @@ export default function NewBook({ fetchData }) {
               inputProps={{ "aria-label": "Without label" }}
               name="categoryId"
               fullWidth
-              // renderValue={(value) => {
-              //   const findEle = dataCategory?.find(
-              //     (item) => item.id === value
-              //   )?.category_name;
-              //   return value?.length ? findEle : "Thể loại";
-              // }}
               input={<OutlinedInput />}
               renderValue={(selected) => {
                 if (selected.length === 0) {
-                  return <span>Thể loại</span>;
+                  return <span>Category</span>;
                 }
 
-                return selected.join(", ");
+                return selected?.map(item=> item?.category_name + ",")
               }}
               multiple
               MenuProps={MenuProps}
               error={personCategory.length === 0 ? true : false}
             >
               {dataCategory?.map((item) => (
-                <MenuItem value={item.category_name} key={item.category_name}>
+                <MenuItem value={item} key={item.category_name}>
                   {/* {item.category_name} */}
                   <Checkbox
-                    checked={personCategory.indexOf(item.category_name) > -1}
+                    checked={personCategory.map(item=> item?.category_name).indexOf(item.category_name) > -1}
                   />
                   <ListItemText primary={item.category_name} />
                 </MenuItem>
               ))}
             </Select>
+
+            
             {personCategory.length === 0 && (
-              <FormHelperText>Chọn thể loại</FormHelperText>
+              <FormHelperText>Choose category</FormHelperText>
             )}
             <RedBar />
             <Select
-              onChange={handleChange}
               value={personAuthor}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
               name="authorId"
               fullWidth
-              // renderValue={(value) => {
-              //   const findEle = dataAuthor?.find(
-              //     (item) => item.author_id === value
-              //   )?.author_name;
-              //   return value?.length ? findEle : "Tác giả";
-              // }}
               input={<OutlinedInput />}
               renderValue={(selected) => {
                 if (selected.length === 0) {
-                  return <span>Tác giả</span>;
+                  return <span>Author</span>;
                 }
 
-                return selected.join(", ");
+                return dataAuthor.find(item=> item?.author_id=== selected)?.author_name;
               }}
-              multiple
               MenuProps={MenuProps}
-              error={personAuthor.length === 0 ? true : false}
             >
-              {dataAuthor?.map((item) => (
-                // <MenuItem value={item.author_id} key={item.author_id}>
-                //   {item.author_name}
-                // </MenuItem>
-                <MenuItem key={item.author_name} value={item.author_name}>
-                  <Checkbox
-                    checked={personAuthor.indexOf(item.author_name) > -1}
-                  />
-                  <ListItemText primary={item.author_name} />
-                </MenuItem>
+              <RadioGroup value={personAuthor} onChange={(e)=> setPersonAuthor(e.target.value)} style={{padding: 10}}>
+
+                {dataAuthor?.map((item, key) => (
+                  
+                  <FormControlLabel key={key} value={item?.author_id} control={<Radio />} label={item?.author_name} />
               ))}
+              </RadioGroup>
             </Select>
             {personAuthor.length === 0 && (
-              <FormHelperText>Chọn tác giả</FormHelperText>
+              <FormHelperText>Choose author</FormHelperText>
             )}
           </DialogContentText>
         </DialogContent>
@@ -278,114 +270,19 @@ export default function NewBook({ fetchData }) {
           <Button
             color={"facebook"}
             onClick={async () => {
-              setLoading(true);
-              let isValid = true;
-              const newError = {
-                bookName: "",
-                bookQuantity: "",
-                bookRating: "",
-                bookDescription: "",
-                coverPhoto: "",
-                linkBook: "",
-                categoryId: "",
-              };
-              if (valueForm.bookName.length === 0) {
-                isValid = false;
-                newError.bookName = "Nhập tên sách";
-              } else {
-                newError.bookName = "";
+              const resultImage= await upload_image(image?.thumbUrl)
+              const result= await add_book(valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, resultImage, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
+              if(result?.add === true ) {
+                swal("Notice", "Add book successfully", "success")
               }
-
-              if (valueForm.bookQuantity.length === 0) {
-                isValid = false;
-                newError.bookQuantity = "Nhập số lượng";
-              } else {
-                newError.bookQuantity = "";
+              else {
+                swal("", "Error", "error")
               }
-
-              if (valueForm.bookRating.length === 0) {
-                isValid = false;
-                newError.bookRating = "Nhập rating";
-              } else {
-                newError.bookRating = "";
-              }
-
-              if (valueForm.bookDescription.length === 0) {
-                isValid = false;
-                newError.bookDescription = "Nhập mô tả";
-              } else {
-                newError.bookDescription = "";
-              }
-
-              if (valueForm.coverPhoto.length === 0) {
-                isValid = false;
-                newError.coverPhoto = "Nhập tác giả";
-              } else {
-                newError.coverPhoto = "";
-              }
-
-              const filteredAuthors = dataAuthor.filter((author) =>
-                personAuthor.includes(author.author_name)
-              );
-              const filteredCategories = dataCategory.filter((category) =>
-                personCategory.includes(category.category_name)
-              );
-              // console.log("filteredAuthors: ", filteredAuthors);
-              if (isValid) {
-                const {
-                  bookName,
-                  bookQuantity,
-                  bookRating,
-                  bookDescription,
-                  coverPhoto,
-                  linkBook,
-                } = valueForm;
-                const res = await add_book(
-                  bookName,
-                  bookQuantity,
-                  bookRating,
-                  bookDescription,
-                  coverPhoto,
-                  filteredAuthors,
-                  linkBook,
-                  filteredCategories
-                );
-                // console.log("res: ", res);
-                if (res?.add === true) {
-                  swal(
-                    "Thông báo",
-                    "Bạn đã tạo sách thành công",
-                    "success"
-                  ).then(() => {
-                    handleClose();
-                    fetchData();
-                  });
-                } else {
-                  swal("Thông báo", "Error", "error");
-                }
-                setValueForm({
-                  bookName: "",
-                  bookQuantity: "",
-                  bookRating: "",
-                  bookDescription: "",
-                  coverPhoto: "",
-                  authorId: "",
-                  linkBook: "",
-                  categoryId: "",
-                });
-
-                setPersonAuthor([]);
-                setPersonCategory([]);
-              }
-
-              setErrorForm({ ...newError });
-              setLoading(false);
             }}
-            loading={loading}
           >
-            Thêm
+            Add
           </Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

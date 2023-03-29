@@ -37,35 +37,7 @@ function Author() {
   };
 
   const columns = [
-    // { field: "book_id", headerName: "ID", width: 90 },
-    {
-      field: "author_avatar",
-      headerName: "Avatar",
-      width: 160,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img
-              className="productListImg"
-              src={params.row.author_avatar}
-              alt=""
-            />
-          </div>
-        );
-      },
-    },
     { field: "author_name", headerName: "Name", width: 200 },
-    { field: "author_gender", headerName: "Gender", width: 120 },
-    { field: "author_email", headerName: "Email", width: 120 },
-    {
-      field: "author_brithday",
-      headerName: "Birthday",
-      width: 120,
-      renderCell: (params) => {
-        return new Date(params.row.author_brithday).toLocaleDateString();
-      },
-    },
-    { field: "author_phone", headerName: "Phone", width: 200 },
     {
       field: "action",
       headerName: "Action",
@@ -74,6 +46,7 @@ function Author() {
         return (
           <>
             <UpdateAuthor
+              props={params.row}
               authorId={params.row.author_id}
               fetchData={fetchData}
             />
@@ -94,14 +67,6 @@ function Author() {
     <div className="userList">
       <AddAuthor fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>Danh sách book</div>
-      {/* <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        getRowId={(row) => row.author_id}
-      /> */}
       {data.length > 0 ? (
         <DataGrid
           rows={data}
@@ -115,17 +80,6 @@ function Author() {
       ) : (
         <div>Loading data...</div>
       )}
-
-      {/* <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        getRowId={(row) => row.author_id}
-        getRowHeight={() => "auto"}
-      /> */}
-
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -133,7 +87,7 @@ function Author() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Bạn có muốn xóa tác giả này không?"}</DialogTitle>
+        <DialogTitle>{"Are you want to delete this book?"}</DialogTitle>
         <DialogActions>
           <Button
             color={"facebook"}

@@ -70,6 +70,7 @@ router.post("/api/v3/book", adminBook.add);
 router.put("/api/v3/book", adminBook.update);
 router.delete("/api/v3/book", adminBook.delete);
 router.get("/api/v3/book/detail", adminBook.getById);
+router.post("/api/v3/book/update", adminBook.update)
 // Author
 router.get("/api/v3/author", adminAuthor.get);
 router.get("/api/v3/author/detail", adminAuthor.getById);
@@ -87,8 +88,8 @@ router.get("/api/v3/blogs/get", verifyToken, blog.get)
 router.post("/api/v3/blogs/delete", is_admin, blog.delete)
 router.post("/api/v3/user/update", is_admin, user.updateUser)
 router.post("/api/v3/user/delete", is_admin, user.delete)
-router.post("/api/v3/staff/add", user.addStaff)
-router.post("/api/v3/blog/delete", blog.delete)
+router.post("/api/v3/staff/add", is_admin , user.addStaff)
+router.post("/api/v3/blog/delete", is_admin, blog.delete)
 
 router.post("/api/v1/book/rating", verifyToken, rating)
 
