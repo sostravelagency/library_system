@@ -21,7 +21,10 @@ import Socket from "./component/Socket/Socket";
 import Category from "./component/Category/Category";
 import News from "./component/News/News";
 import NotFound from "./component/Component/NotFound";
+
 import About from "./component/About/About";
+
+import ForgotPassword from "./component/ForgotPassword/ForgotPassword";
 
 export const AppContext = createContext();
 const App = () => {
@@ -67,6 +70,7 @@ const App = () => {
                 }
               />
               <Route path={"/signup"} element={<Signup />} />
+              <Route path={"/forgot-password"} element={<ForgotPassword />} />
               {auth === true ? (
                 <Route
                   path={"/login"}

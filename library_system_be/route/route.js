@@ -31,6 +31,9 @@ const adminAuthor = require("../controller/admin/author")
 const blog = require("../controller/blog/blog")
 const uploadImage = require("../controller/upload_image")
 const rating = require("../controller/rating")
+const forgot_password = require("../controller/forgot_password")
+const recover_password = require("../controller/recover_password")
+const reset_password = require("../controller/reset_password")
 
 const router= express.Router()
 
@@ -92,5 +95,7 @@ router.post("/api/v3/staff/add", is_admin , user.addStaff)
 router.post("/api/v3/blog/delete", is_admin, blog.delete)
 
 router.post("/api/v1/book/rating", verifyToken, rating)
-
+router.post("/forgot-password", forgot_password)
+router.post("/recover-password", recover_password)
+router.post("/reset-password", reset_password)
 module.exports= router
