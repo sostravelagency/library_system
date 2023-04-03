@@ -155,3 +155,38 @@ code {
   background-color: #2e89ff !important;
   
 }
+
+
+.c-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lll {
+  width: 40px !important;
+  height: 40px !important;
+  border: 1px solid #000 !important;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.asw {
+  height: 50px;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.ant-picker-dropdown {
+  z-index: 999999 !important
+}
+
+.home {
+  overflow-x: auto;
+}
+
+.active-link {
+  color: #2e89ff !important
+}
+
+/*  */
+

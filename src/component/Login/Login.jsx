@@ -165,7 +165,7 @@ const SignInUser = (props) => {
             Remember me
           </div>
         </div>
-        <div style={{ fontSize: 17, fontWeight: 600 }}>Forgot password?</div>
+        <div onClick={()=> navigate("/forgot-password")} style={{ fontSize: 17, fontWeight: 600, cursor: "pointer" }}>Forgot password?</div>
       </div>
       <div
         onClick={async () => {
