@@ -4,6 +4,7 @@ import "./home.css";
 // import { userData } from "../../dummyData";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
+import WidgetTop from "../../components/widgetTop/WidgetTop";
 import { useEffect, useState } from "react";
 import get_stats from "../../../../api/manage/get_stats";
 import get_dashboard from "../../../../api/manage/get_dashboard";
@@ -39,6 +40,14 @@ export default function Home() {
   return (
     <div className="home">
       {/* <FeaturedInfo /> */}
+      <div className="topHome">
+            <div className="topWidget">
+            <WidgetTop type="user"/>
+            <WidgetTop type="book"/>
+            <WidgetTop type="order"/>
+            <WidgetTop type="news"/>
+            </div>
+      </div>
       <div style={{margin: 20}}>
       {/* <p>Selected Range: {JSON.stringify(dateRangeString)}</p> */}
         <Space direction="vertical" size={12} >
