@@ -9,11 +9,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Image } from 'antd'
 import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 
 const News = () => {
   const [data, setData]= useState([])
   const [loading, setLoading]= useState(true)
   const [error, setError]= useState()
+  const navigate= useNavigate()
+
   useEffect(()=> {
     (async ()=> {
       try {
@@ -26,7 +29,7 @@ const News = () => {
         setLoading(false)
       }
     })()
-  })
+  }, [])
   if(loading=== true) {
     return <Loading />
   }
@@ -39,7 +42,7 @@ const News = () => {
       <div style={{padding: 20, width: "100%", position: "relative"}}>
         {
           data?.map((item, key)=> <List key={key}>
-            <ListItem>
+            <ListItem onClick={()=> navigate("/news/"+ item?.id)}>
               <ListItemButton>
                 <Image style={{width: 200, aspectRatio: 3 / 2, background: "#e7e7e7", borderRadius: 10}} src={item?.image} alt={""}  />
                 <ListItemText style={{marginLeft: 10}}>

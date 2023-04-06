@@ -9,7 +9,7 @@ const ComponentBook = (item) => {
   
   return (
     <div style={{padding: 10, width: item.width}}>
-      <div onClick={()=> navigate("/book/"+ item.book_id)} style={{cursor: "pointer"}}>
+      <div className={"wrap-book"} onClick={()=> navigate("/book/"+ item.book_id)} style={{cursor: "pointer"}}>
           <Image fallback={fallBackImage} style={{width: "100%", aspectRatio: 2 / 3, objectFit: "cover"}} src={item?.cover_photo} alt="" />
           <div className={"b-1-1"} style={{margin: "12px 0", fontWeight: 600, fontSize: 18, maxWidth: "100%"}}>
               {item?.book_name}

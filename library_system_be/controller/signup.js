@@ -3,7 +3,11 @@ const asyncHandler = require('express-async-handler')
 const {v4}= require("uuid")
 const md5 = require("md5")
 const nodemailer = require('nodemailer');
+const verifyMail = require("../utils/mail");
 
+function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 const signup = {
     signUp: asyncHandler(async (req, res)=> {
         try {
@@ -33,12 +37,9 @@ const signup = {
                     subject,
                     html,
                   };
-                  // eslint-disable-next-line sonarjs/no-identical-functions
                   transporter.sendMail(mailConfigurations, function (error) {
                     if (error) {
-                      throw new UnprocessableEntityException(
-                        "Something Bad Happen! Couldn't send the email!",
-                      );
+                     
                     }else{
                         console.log("Code send successfully!!");
                     }
@@ -62,13 +63,16 @@ const signup = {
 
     verifyEmail: asyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("SELECT * FROM verify_email WHERE verify_code= ?", [req.query.code]);
+            const [rows]= await connection.execute("SELECT * FROM user WHERE user_email= ?", [req.body.email])
             if(rows.length > 0) {
-                await connection.execute("DELETE FROM verify_email WHERE verify_code= ?", [req.query.code]);
-                return res.status(200).json({verify_email: true})
+                return res.status(200).json({exist: true})
             }
             else {
-                return res.status(400).json({verify_email: false})
+                const verifyCode= randomIntFromInterval(100000, 999999)
+                const [rows1]= await connection.execute("DELETE FROM verify_email WHERE email= ?", [req.body.email])
+                const result= await verifyMail(req.body.email, verifyCode)
+                const [rows2]= await connection.execute("INSERT INTO verify_email VALUES (?, ?)",[req.body.email, verifyCode])
+                return res.status(200).json({exist: false})
             }
         } catch (error) {
             console.log(error)

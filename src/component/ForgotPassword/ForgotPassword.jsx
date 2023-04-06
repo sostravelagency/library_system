@@ -9,7 +9,7 @@ import reset_password from "../../api/reset_password";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = (props) => {
-  const { setOpen } = props;
+  // const { setOpen } = props;
   const [email, setEmail] = useState("");
   const [open2, setOpen2] = useState(false);
   const [verifyCode, setVerifyCode] = useState(0);
