@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import checkout from '../../api/checkout'
 import swal from 'sweetalert'
 import { Button } from 'antd'
+import confirm_borrow_book from '../../api/confirm_borrow_book'
 
 const Cart = () => {
   const navigate= useNavigate()
@@ -65,7 +66,9 @@ export const ComponentCart= (props)=> {
 
   return (
     <div onClick={()=> {
-      props?.setChooseBook(props?.book_id)
+      if(props?.setChooseBook) {
+        props?.setChooseBook(props?.book_id)
+      }
       
     }}
     // eslint-disable-next-line
@@ -84,7 +87,10 @@ export const ComponentCart= (props)=> {
               }
               {
                 (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 0) && <div style={{}}><div style={{fontWeight: 600, marginBottom: 8}}>Xác nhận mượn (hiệu lực trong vòng 3 phút kể từ lúc thông báo) </div> <div>
-                  <Button type={"primary"}>Confirm</Button>
+                  <Button onClick={async ()=> {
+                    const result= await confirm_borrow_book(props?.book_id)
+                    console.log(result)
+                  }} type={"primary"}>Confirm</Button>
                 </div></div>
               }
               {

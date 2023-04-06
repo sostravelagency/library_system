@@ -12,6 +12,10 @@ import { Button } from "semantic-ui-react";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import verify_email from "../../api/admin/verify_email";
+import OtpInput from "react-otp-input";
+import confirm_account from "../../api/confirm_account";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,13 +32,14 @@ function RedBar() {
 }
 
 const Signup = () => {
+  const [verify, setVerify] = useState(false);
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
-
+  const [verifyCode, setVerifyCode] = useState("");
   const [open, setOpen] = useState(false);
   const [valueForm, setValueForm] = useState({
     otp: "",
@@ -87,179 +92,253 @@ const Signup = () => {
                 color: "#fff",
                 textAlign: "center",
                 margin: "24px 0",
+                lineHeight: 1.8
               }}
             >
               Sign up and start managing your candidates!
             </div>
-            <div style={{ width: "100%" }} className={"c-flex-center"}>
-              <div>
-                <div style={{ width: 350, height: 55, margin: "24px 0" }}>
-                  <input
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    className={"l-i"}
-                    placeholder={"Username"}
-                    type="text"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      padding: 10,
-                      background: "#224957",
-                      borderRadius: 10,
-                      border: "none",
-                      outline: "none",
-                      color: "#fff",
-                      fontSize: 17,
+            {verify === false && (
+              <div style={{ width: "100%" }} className={"c-flex-center"}>
+                <div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+                    <input
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Username"}
+                      type="text"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+                    <input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Email"}
+                      type="text"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+                    <input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Phone number"}
+                      type="text"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+                    <input
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Address"}
+                      type="text"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+                    <input
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Password"}
+                      type="password"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
+                  <div
+                    onClick={async () => {
+                      
+                      const result= await verify_email(email)
+                      if(result?.exist=== true) {
+                        swal("Notice", "Email is exists, Please try with email else!")
+                      }
+                      else if(result?.exist=== false) {
+                        setVerify(() => true)
+                      }
                     }}
-                  />
-                </div>
-                <div style={{ width: 350, height: 55, margin: "24px 0" }}>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={"l-i"}
-                    placeholder={"Email"}
-                    type="text"
+                    className={"h-e"}
+                    style={{ margin: "24px 0", width: 350, cursor: "pointer" }}
+                  >
+                    <img
+                      style={{ width: "100%" }}
+                      src="https://res.cloudinary.com/cockbook/image/upload/v1676453029/single/Login_btn_1_pmysr5.png"
+                      alt=""
+                    />
+                  </div>
+                  <div
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      padding: 10,
-                      background: "#224957",
-                      borderRadius: 10,
-                      border: "none",
-                      outline: "none",
-                      color: "#fff",
+                      margin: "24px 0",
+                      textAlign: "center",
                       fontSize: 17,
+                      fontWeight: 600,
+                      color: "#fff",
                     }}
-                  />
-                </div>
-                <div style={{ width: 350, height: 55, margin: "24px 0" }}>
-                  <input
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className={"l-i"}
-                    placeholder={"Phone number"}
-                    type="text"
+                  >
+                    Already have account ?
+                  </div>
+                  <div
+                    onClick={() => navigate("/login")}
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      padding: 10,
-                      background: "#224957",
-                      borderRadius: 10,
-                      border: "none",
-                      outline: "none",
-                      color: "#fff",
+                      margin: "24px 0",
+                      textAlign: "center",
                       fontSize: 17,
-                    }}
-                  />
-                </div>
-                <div style={{ width: 350, height: 55, margin: "24px 0" }}>
-                  <input
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className={"l-i"}
-                    placeholder={"Address"}
-                    type="text"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      padding: 10,
-                      background: "#224957",
-                      borderRadius: 10,
-                      border: "none",
-                      outline: "none",
+                      fontWeight: 600,
                       color: "#fff",
-                      fontSize: 17,
+                      cursor: "pointer",
                     }}
-                  />
-                </div>
-                <div style={{ width: 350, height: 55, margin: "24px 0" }}>
-                  <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={"l-i"}
-                    placeholder={"Password"}
-                    type="password"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      padding: 10,
-                      background: "#224957",
-                      borderRadius: 10,
-                      border: "none",
-                      outline: "none",
-                      color: "#fff",
-                      fontSize: 17,
-                    }}
-                  />
-                </div>
-                <div
-                  onClick={async () => {
-                    const result = await signup(
-                      userName,
-                      email,
-                      phone,
-                      password,
-                      address
-                    );
-                    // if(email.includes("fpt")=== false ) {
-                    //     return swal("Thông báo", "Email của bạn không đúng định dạng", "error")
-                    // }
-                    if (result.signup === true) {
-                      // swal(
-                      //   "Thông báo ",
-                      //   "Bạn đã đăng ký thành công",
-                      //   "success"
-                      // ).then(() => {
-                      //   setOpen(true);
-                      //   //   navigate("/login");
-                      // });
-                      setOpen(true);
-                    } else if (result.exist === true) {
-                      swal(
-                        "Thông báo",
-                        "Email đã tồn tại vui lòng thử lại với email khác",
-                        "error"
-                      );
-                    } else {
-                      swal("Thông báo", "Đăng ký thất bại", "error");
-                    }
-                  }}
-                  className={"h-e"}
-                  style={{ margin: "24px 0", width: 350, cursor: "pointer" }}
-                >
-                  <img
-                    style={{ width: "100%" }}
-                    src="https://res.cloudinary.com/cockbook/image/upload/v1676453029/single/Login_btn_1_pmysr5.png"
-                    alt=""
-                  />
-                </div>
-                <div
-                  style={{
-                    margin: "24px 0",
-                    textAlign: "center",
-                    fontSize: 17,
-                    fontWeight: 600,
-                    color: "#fff",
-                  }}
-                >
-                  Already have account ?
-                </div>
-                <div
-                  onClick={() => navigate("/login")}
-                  style={{
-                    margin: "24px 0",
-                    textAlign: "center",
-                    fontSize: 17,
-                    fontWeight: 600,
-                    color: "#fff",
-                    cursor: "pointer",
-                  }}
-                >
-                  Login
+                  >
+                    Login
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+            {verify === true && (
+              <>
+                <div
+                  className="container-1"
+                  style={{
+                    padding: 20,
+                    borderRadius: 10,
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <section className="wrapper">
+                    <div className="heading">
+                      <div style={{ textAlign: "center", display: "flex", alignItems: "center" }}>
+                      <h1 className="text text-large">
+                  <Button
+                    onClick={() => setVerify(()=> false)}
+                    style={{ aspectRatio: 1 / 1, borderRadius: "50%" }}
+                  >
+                    <ArrowBackIcon />
+                  </Button>
+                </h1>
+                        We've just send your email a code inclues 6 digit,
+                        Please check your email and type to below form to
+                        complete register process
+                      </div>
+                      <OtpInput
+                        containerStyle={"asw"}
+                        inputStyle={"lll"}
+                        value={verifyCode}
+                        onChange={setVerifyCode}
+                        numInputs={6}
+                        separator={<span>&nbsp;&nbsp;</span>}
+                      />
+                      <br />
+                      <div className={"c-flex-center"}>
+                        <Button
+                          onClick={async () => {
+                            const result = await confirm_account(
+                              email,
+                              verifyCode
+                            );
+                            if (result?.verify === false) {
+                              swal(
+                                "",
+                                "Verify code is invalid. Please try again",
+                                "error"
+                              );
+                            } else if (result?.verify === true) {
+                              // setOpen2(() => undefined);
+                              const result = await signup(
+                                userName,
+                                email,
+                                phone,
+                                password,
+                                address
+                              );
+                              // if(email.includes("fpt")=== false ) {
+                              //     return swal("Notice", "Email của bạn không đúng định dạng", "error")
+                              // }
+                              if (result.signup === true) {
+                                swal(
+                                  "Notice ",
+                                  "Register is successfully",
+                                  "success"
+                                ).then(() => {
+                                  // setOpen(true);
+                                    navigate("/login");
+                                });
+                                // setOpen(true);
+                              } else if (result.exist === true) {
+                                swal(
+                                  "Notice",
+                                  "Email is exist, Please try with another email",
+                                  "error"
+                                );
+                              } else {
+                                swal("Notice", "Register failed", "error");
+                              }
+                            } else {
+                              swal("", "Error");
+                            }
+                          }}
+                          variant={"contained"}
+                        >
+                          Verify
+                        </Button>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </>
+            )}
           </div>
         </div>
         {/* background */}
@@ -323,7 +402,7 @@ const Signup = () => {
                 console.log("res: ", res);
                 if (res?.verify_email === true) {
                   swal(
-                    "Thông báo",
+                    "Notice",
                     "Bạn cập nhật mật khẩu thành công",
                     "success"
                   ).then(() => {
@@ -331,7 +410,7 @@ const Signup = () => {
                     handleClose();
                   });
                 } else {
-                  swal("Thông báo", "Error", "error");
+                  swal("Notice", "Error", "error");
                 }
                 setValueForm({
                   otp: "",

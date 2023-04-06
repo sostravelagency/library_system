@@ -188,5 +188,8 @@ code {
   color: #2e89ff !important
 }
 
+.wrap-book .ant-image {
+  width: 100% !important;
+}
 /*  */
 

@@ -34,6 +34,8 @@ const rating = require("../controller/rating")
 const forgot_password = require("../controller/forgot_password")
 const recover_password = require("../controller/recover_password")
 const reset_password = require("../controller/reset_password")
+const confirm_account = require("../controller/confirm_account")
+const confirm_borrow_book = require("../controller/confirm_borrow_book")
 
 const router= express.Router()
 
@@ -83,7 +85,7 @@ router.delete("/api/v3/author", adminAuthor.delete);
 // Reset password
 router.get("/api/v3/user/profile", user.getById);
 router.put("/api/v3/user/reset-password", reestPassword);
-router.get("/api/v3/user/verify-email", signup.verifyEmail);
+router.post("/api/v3/user/verify-email", signup.verifyEmail);
 
 router.post("/api/v3/blogs/add", is_admin, blog.add)
 router.post("/api/v1/upload-image", uploadImage)
@@ -98,4 +100,8 @@ router.post("/api/v1/book/rating", verifyToken, rating)
 router.post("/forgot-password", forgot_password)
 router.post("/recover-password", recover_password)
 router.post("/reset-password", reset_password)
+router.post("/api/v1/account/confirm", confirm_account)
+router.post("/api/v1/book/borrow/confirm", confirm_borrow_book)
+router.get("/api/v1/news/detail", blog.getDetail)
+
 module.exports= router

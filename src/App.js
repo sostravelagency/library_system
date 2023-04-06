@@ -25,6 +25,7 @@ import NotFound from "./component/Component/NotFound";
 import About from "./component/About/About";
 
 import ForgotPassword from "./component/ForgotPassword/ForgotPassword";
+import DetailNew from "./component/DetailNew/DetailNew";
 
 export const AppContext = createContext();
 const App = () => {
@@ -94,7 +95,8 @@ const App = () => {
               />
               <Route path={"/admin/*"} element={<Admin />} />
               <Route path={"/staff/*"} element={<Staff />} />
-              <Route path={"/news/*"} element={<News />} />
+              <Route path={"/news"} element={<News />} />
+              <Route path={"/news/:new_id"} element={<DetailNew />} />
               <Route path={"/404"} element={<NotFound />} />
               <Route path={"/about"} element={<About />} />
             </Routes>
