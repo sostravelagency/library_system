@@ -11,6 +11,9 @@ import { Button } from "semantic-ui-react";
 import swal from 'sweetalert';
 import update_category from '../../../../api/category/update_category';
 import { TextField } from '@mui/material';
+import { Input } from 'antd';
+
+const { TextArea } = Input;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,6 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function UpdateCategory(props) {
   const [open, setOpen] = React.useState(false);
   const [categoryName, setCategoryName]= React.useState(props?.categoryName)
+  const [categoryDescription, setCategoryDescription]= React.useState(props?.categoryDescription)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,6 +47,10 @@ export default function UpdateCategory(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} />
+            <div></div>
+            <br />
+            <div></div>
+            <TextArea placeholder={"Category description"} value={categoryDescription} onChange={(e)=> setCategoryDescription(e.target.value)} rows={4} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

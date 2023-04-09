@@ -10,7 +10,7 @@ const category= {
     add: expressAsyncHandler(async (req, res)=> {
         try {
             // eslint-disable-next-line
-            const [rows]= await connection.execute("INSERT INTO category VALUES(?, ?)", [v4(), req.body.category_name])
+            const [rows]= await connection.execute("INSERT INTO category VALUES(?, ?, ?)", [v4(), req.body.category_name, req.body?.category_description])
             return res.status(200).json({add: true})
         } catch (error) {
            return res.status(500).send(error) 

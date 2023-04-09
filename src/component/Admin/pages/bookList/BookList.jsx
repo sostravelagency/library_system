@@ -57,7 +57,11 @@ export default function ProductList() {
     },
     { field: "book_name", headerName: "Name", width: 200 },
     { field: "book_quantity", headerName: "Quantity", width: 120 },
-    { field: "book_rating", headerName: "Rating", width: 120 },
+    { field: "book_rating", headerName: "Rating", width: 120,
+      renderCell: (params)=> {
+        return parseFloat(params.row?.book_rating).toFixed(1)
+      }
+    },
     {
       field: "author_name",
       headerName: "Author",

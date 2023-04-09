@@ -10,7 +10,9 @@ import { Button } from "semantic-ui-react";
 import { TextField } from '@mui/material';
 import swal from 'sweetalert';
 import add_category from '../../../../api/category/add_category';
+import { Input } from 'antd';
 
+const { TextArea } = Input;
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -18,6 +20,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function AddCategoryComponent(props) {
   const [open, setOpen] = React.useState(false);
   const [categoryName, setCategoryName]= React.useState("")
+  const [categoryDescription, setCategoryDescription]= React.useState("")
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,6 +47,10 @@ export default function AddCategoryComponent(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} />
+            <div></div>
+            <br />
+            <div></div>
+            <TextArea placeholder={"Category description"} value={categoryDescription} onChange={(e)=> setCategoryDescription(e.target.value)} rows={4} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -51,7 +59,7 @@ export default function AddCategoryComponent(props) {
               swal("Thông báo", "Bạn hãy nhập thể loại")
             }
             else {
-              const result= await add_category(categoryName)
+              const result= await add_category(categoryName, categoryDescription)
               if(result?.add=== true) {
                 swal("Thông báo", "Bạn đã tạo thể loại thành công", "success")
                 .then(()=> {

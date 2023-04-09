@@ -15,6 +15,9 @@ import verify_email from "../../api/admin/verify_email";
 import OtpInput from "react-otp-input";
 import confirm_account from "../../api/confirm_account";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import validatePhoneNumber from "../../util/validatePhone";
+import validatePassword from "../../util/validatePassword";
+import validateEmail from "../../util/validateEmail";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -202,7 +205,15 @@ const Signup = () => {
                   </div>
                   <div
                     onClick={async () => {
-                      
+                      if(validatePhoneNumber(phone) !== true) {
+                        swal("Notice", "Phone is invalid, try again", "error")
+                      }
+                      if(validatePassword(password) !== true) {
+                        swal("Notice", "Pass is invalid, password must have less than 8 charaters includes 1 number, 1 uppercase and 1 special charater, try again", "error")
+                      }
+                      if(validateEmail(email) !== true) {
+                        swal("Notice", "Email is not correct form, email must belongs to fpt corporation", "error")
+                      }
                       const result= await verify_email(email)
                       if(result?.exist=== true) {
                         swal("Notice", "Email is exists, Please try with email else!")

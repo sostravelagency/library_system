@@ -15,6 +15,7 @@ import Badge from "@mui/material/Badge";
 const History = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [change, setChange]= useState(false)
   useEffect(() => {
     const fetchData = async () => {
       const result = await get_history();
@@ -25,7 +26,7 @@ const History = () => {
       fetchData();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [change]);
   const [value, setValue] = React.useState("0");
 
   const handleChange = (event, newValue) => {
@@ -131,6 +132,36 @@ const History = () => {
                   }
                   value="4"
                 />
+                <Tab
+                  label={
+                    <Badge
+                      max={99}
+                      badgeContent={
+                        data?.filter((item) => (parseInt(item?.state) === 3))
+                          ?.length
+                      }
+                      color="primary"
+                    >
+                      <div style={{ fontSize: 16 }}>Finish</div>
+                    </Badge>
+                  }
+                  value="5"
+                />
+                <Tab
+                  label={
+                    <Badge
+                      max={99}
+                      badgeContent={
+                        data?.filter((item) => (parseInt(item?.state) === 4))
+                          ?.length
+                      }
+                      color="primary"
+                    >
+                      <div style={{ fontSize: 16 }}>Overdue</div>
+                    </Badge>
+                  }
+                  value="6"
+                />
               </TabList>
             </Box>
             <TabPanel value="0">
@@ -143,6 +174,7 @@ const History = () => {
                     {...item}
                     data={data}
                     setData={setData}
+                    setChange={setChange}
                   />
                 ))}
               </div>
@@ -159,6 +191,7 @@ const History = () => {
                       {...item}
                       data={data}
                       setData={setData}
+                      setChange={setChange}
                     />
                   ))}
               </div>
@@ -175,6 +208,7 @@ const History = () => {
                       {...item}
                       data={data}
                       setData={setData}
+                      setChange={setChange}
                     />
                   ))}
               </div>
@@ -191,6 +225,7 @@ const History = () => {
                       {...item}
                       data={data}
                       setData={setData}
+                      setChange={setChange}
                     />
                   ))}
               </div>
@@ -207,6 +242,41 @@ const History = () => {
                       {...item}
                       data={data}
                       setData={setData}
+                      setChange={setChange}
+                    />
+                  ))}
+              </div>
+            </TabPanel>
+            <TabPanel value="5">
+              <div style={{ width: "100%", margin: "24px 0" }}>
+                {/*  */}
+                {data
+                  ?.filter((item) => (parseInt(item?.state) === 3))
+                  ?.map((item, key) => (
+                    <ComponentCart
+                      is_history={true}
+                      key={key}
+                      {...item}
+                      data={data}
+                      setData={setData}
+                      setChange={setChange}
+                    />
+                  ))}
+              </div>
+            </TabPanel>
+            <TabPanel value="6">
+              <div style={{ width: "100%", margin: "24px 0" }}>
+                {/*  */}
+                {data
+                  ?.filter((item) => (parseInt(item?.state) === 4))
+                  ?.map((item, key) => (
+                    <ComponentCart
+                      is_history={true}
+                      key={key}
+                      {...item}
+                      data={data}
+                      setData={setData}
+                      setChange={setChange}
                     />
                   ))}
               </div>

@@ -9,6 +9,7 @@ const jwtInit= (user)=> {
 const verifyToken= expressAsyncHandler(async (req, res, next)=> {
     const token= req.token
     jwt.verify(token, process.env.JWT_SECRET_KEY, function(err, decoded) {
+        req.user= decoded.user_id
         if(err) {
             return res.status(401).json({message: "Not authorized"})
         }
