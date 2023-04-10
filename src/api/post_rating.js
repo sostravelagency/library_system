@@ -1,13 +1,13 @@
 import axios from "axios"
+import { API_URL } from "../config"
 import Cookies from "js-cookie"
-import { API_URL } from "../../config"
 
-const add_category= async (category_name, category_description)=> {
+const post_rating= async (score, book_id,)=> {
     const res= await axios({
-        url: API_URL+ "/api/v3/category/add",
+        url: API_URL+ "/api/rating/post",
         method: "post",
         data: {
-           category_name, category_description
+            score, book_id, user_id: Cookies.get("uid")
         },
         headers: {
             "authorization": "Bearer "+ Cookies.get("accessToken")
@@ -17,4 +17,4 @@ const add_category= async (category_name, category_description)=> {
     return result
 }
 
-export default add_category
+export default post_rating

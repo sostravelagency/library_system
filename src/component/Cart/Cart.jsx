@@ -13,6 +13,8 @@ import checkout from '../../api/checkout'
 import swal from 'sweetalert'
 import { Button } from 'antd'
 import confirm_borrow_book from '../../api/confirm_borrow_book'
+import RatingComponent from './Rating'
+import give_book_back from '../../api/give_book_back'
 
 const Cart = () => {
   const navigate= useNavigate()
@@ -59,6 +61,7 @@ const Cart = () => {
   )
 }
 
+
 export const ComponentCart= (props)=> {
   // eslint-disable-next-line
   const [amount, setAmount]= useState(props.amount)
@@ -81,12 +84,45 @@ export const ComponentCart= (props)=> {
           <div style={{fontSize: 18, fontWeight: 600, marginBottom: 12}}>{props?.book_name}</div>
           <div>{props?.author_name}</div>
           {
-            props?.is_history=== true && <div>Trạng thái:&nbsp;
+            props?.is_history=== true && <div>Status:&nbsp;
               {
-                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 1) && <div style={{display: "flex", alignItmems: "center", gap: 10}}><strong>Đã duyệt </strong> <CheckIcon style={{color: "#2dc275"}} /></div>
+                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 1) && <div style={{display: "flex", alignItmems: "center", gap: 10}}><strong>Approved </strong> <CheckIcon style={{color: "#2dc275"}} /></div>
               }
               {
-                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 0) && <div style={{}}><div style={{fontWeight: 600, marginBottom: 8}}>Xác nhận mượn (hiệu lực trong vòng 3 phút kể từ lúc thông báo) </div> <div>
+                parseInt(props?.state)=== 4 && <div style={{fontWeight: 600}}>Overdue</div>
+              }
+              {
+                parseInt(props?.state)=== 3 && <div style={{fontWeight: 600}}>Finish</div>
+              }
+              {
+                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 1) &&  <RatingComponent setChange={props?.setChange} score={props?.score} book_id={props?.book_id} book_id_rating={props?.book_id_rating} />
+              }
+              {
+                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 1) && <Button onClick={async ()=> {
+                  const result= await give_book_back(props?.history_id)
+                  if(result?.finish=== true ){
+                    swal("Notice", "Are you sure to give book back ?", {
+                      buttons: {
+                        ok: "Confirm",
+                        cancel: "Cancel"
+                      }
+                    })
+                    .then(value=> {
+                      if(value=== "ok") {
+                        props?.setChange(prev=> !prev)
+                      }
+                      else {
+                        return null
+                      }
+                    })
+                  }
+                  else {
+                    swal("Notice", "Error occured", "error")
+                  }
+                }} type={"primary"}>Give book back</Button>
+              }
+              {
+                (parseInt(props?.state )=== 1 && parseInt(props?.is_borrow)=== 0) && <div style={{}}><div style={{fontWeight: 600, marginBottom: 8}}>Confirm borrow (effective within 3 minutes from the time of announcement) </div> <div>
                   <Button onClick={async ()=> {
                     const result= await confirm_borrow_book(props?.book_id)
                     console.log(result)

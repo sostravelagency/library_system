@@ -22,8 +22,13 @@ const Category = () => {
         { field: "id", headerName: "ID", width: 150 },
         {
             field: "category_name",
-            headerName: "Category",
+            headerName: " name",
             width: 200,
+        },
+        {
+            field: "category_description",
+            headerName: "Category description",
+            width: 400,
         },
         {
             field: "action",

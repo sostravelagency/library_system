@@ -4,7 +4,7 @@ const connection = require("../../database/connect");
 
 const stats= expressAsyncHandler(async (req, res)=> {
     try {
-        const [rows]= await connection.execute("SELECT * FROM history WHERE state= 1 AND is_borrow= 1")
+        const [rows]= await connection.execute("SELECT * FROM history WHERE is_borrow= 1")
         if(Boolean(req.query.time_range)=== true ) {
             const rowsStats= rows?.filter(item=> (moment(item?.time_approve).diff(moment(req.query.time_start, "DD-MM-YYYY")) >= 0) && (moment(item?.time_approve).diff(moment(req.query.time_end, "DD-MM-YYYY")) <= 0)) 
             const newRowStats= rowsStats?.map(({book_id, history_id, state, time_approve, time_book, user_id, ...rest})=> ({

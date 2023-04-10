@@ -36,6 +36,10 @@ const recover_password = require("../controller/recover_password")
 const reset_password = require("../controller/reset_password")
 const confirm_account = require("../controller/confirm_account")
 const confirm_borrow_book = require("../controller/confirm_borrow_book")
+const post_rating = require("../controller/post_rating")
+const detail_category = require("../controller/detail_category")
+const finish_book = require("../controller/finish_book")
+const get_rating_book = require("../controller/get_rating_book")
 
 const router= express.Router()
 
@@ -103,5 +107,9 @@ router.post("/reset-password", reset_password)
 router.post("/api/v1/account/confirm", confirm_account)
 router.post("/api/v1/book/borrow/confirm", confirm_borrow_book)
 router.get("/api/v1/news/detail", blog.getDetail)
+router.post("/api/rating/post", verifyToken, post_rating)
+router.get("/api/category/detail", detail_category)
+router.post("/api/v1/book/action/finish", verifyToken, finish_book)
+router.get("/api/v1/book/score", get_rating_book)
 
 module.exports= router

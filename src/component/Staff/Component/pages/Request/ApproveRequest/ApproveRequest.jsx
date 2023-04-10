@@ -50,7 +50,7 @@ export default function ApproveRequest(props) {
             color={"facebook"}
             onClick={async () => {
               handleClose();
-              const { value: ipAddress } = await Swal.fire({
+              const { value: dayBorrow } = await Swal.fire({
                 title: "Enter the number of days to lend the book",
                 input: "text",
                 showCancelButton: true,
@@ -61,9 +61,9 @@ export default function ApproveRequest(props) {
                   }
                 },
               })
-                if(ipAddress && typeof parseInt(ipAddress)=== "number") {
+                if(dayBorrow && typeof parseInt(dayBorrow)=== "number") {
 
-                  const result = await action_book(props?.id, 1, 0);
+                  const result = await action_book(props?.id, 1, 0, dayBorrow);
                   if (result?.update === true) {
                     swal(
                       "Notice",

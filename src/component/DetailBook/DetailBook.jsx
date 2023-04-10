@@ -8,6 +8,9 @@ import AddToCart from './AddToCart'
 import Rating from '@mui/material/Rating';
 import Loading from '../Loading/Loading'
 import ErrorFallback from '../Error/Error'
+import ShowMoreText from "react-show-more-text";
+import RatingComponent from './RatingComponent'
+import ComnunityReview from './ComnunityReview'
 
 const DetailBook = () => {
   const [amount, setAmount]= useState(()=> 1)
@@ -63,31 +66,42 @@ const DetailBook = () => {
                     </div>
                     <br />
                     <div style={{display: "flex", alignItems: "center", gap: 10}}>
-
-                        <Rating readOnly size={"large"} name="half-rating" value={parseFloat(data?.book_rating)} precision={0.1} />
-                        <span style={{fontSize: 24, fontWeight: 600, color: "#00000080"}}>{parseFloat(data?.book_rating).toFixed(1)}</span>
+                        <RatingComponent />
+                        {/* <Rating readOnly size={"large"} name="half-rating" value={parseFloat(data?.book_rating)} precision={0.1} /> */}
+                        {/* <span style={{fontSize: 24, fontWeight: 600, color: "#00000080"}}>{parseFloat(data?.book_rating).toFixed(1)}</span> */}
                     </div>
                     <br />
                     <div style={{margin: "4px 0"}}>
                         <span style={{fontSize: 18, marginBottom: 10}}>Description: </span>
                     </div>
-                    <div style={{maxWidth: "70%"}}>
-                        {
-                            data?.book_description?.split("\n")?.map((item, key)=> <Fragment key={key}>
-                                <div >
-                                    <div style={{margin: "6px 0", fontSize: 20, marginBottom: 16}}>
-                                        {item}
+                    <ShowMoreText
+                        lines={5}
+                        anchorClass="show-more-less-clickable"
+                        more="Show more"
+                        less="Show less"
+                        width={"100%"}
+                        truncatedEndingComponent={"... "}
+                        expanded={false}
+                    >
+                        <div style={{maxWidth: "70%"}}>
+                            {
+                                data?.book_description?.split("\n")?.map((item, key)=> <Fragment key={key}>
+                                    <div >
+                                        <div style={{margin: "6px 0", fontSize: 20, marginBottom: 16}}>
+                                            {item}
+                                        </div>
                                     </div>
-                                </div>
-                                <Divider />
-                            </Fragment>)
-                        }
-                    </div>
+                                </Fragment>)
+                            }
+                        </div>
+                    </ShowMoreText>
                     {
                         data?.link_book?.length > 0 && <div>
                             Link book <a rel="noreferrer" href={data?.link_book} target={"_blank"} style={{color: "#2e89ff", fontWeight: 600}}>here</a>
                         </div>
                     }
+                    <br />
+                    <Divider />
                     <br />
                     {
                         categories?.length > 0 && 
@@ -107,6 +121,10 @@ const DetailBook = () => {
                     <AddToCart amount={amount} setAmount={setAmount} {...data} />
                     <div ></div>
                     <br />
+                    <ComnunityReview />
+                    <div></div>
+                    <br />
+                    <Divider />
                     <br />
                     <div style={{width: "100%", padding: 5}}>
                         <CommentComponent />

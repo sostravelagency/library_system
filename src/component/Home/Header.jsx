@@ -17,9 +17,11 @@ const Header = (props) => {
     <>
         <div style={{width: "100%", height: 60, position: "fixed", top: 0, left: 0, zIndex: 9, padding: "0 20px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff"}}>
             {/* Logo */}
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center",}}>
-                <div onClick={()=> navigate("/") } style={{width: 300, aspectRatio: 1 / 0.5, cursor: "pointer", }} className={"c-flex-center"}>
-                    <img src="https://res.cloudinary.com/dsqzrmptp/image/upload/c_scale,w_311/v1679503108/e-lib_soxhlf.png" style={{width: 500, height: 60, }} alt="" />
+
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <div onClick={()=> navigate("/") } style={{width: 300, height: 60, cursor: "pointer", }} className={"c-flex-center"}>
+                    <img src="https://res.cloudinary.com/cockbook/image/upload/v1679076923/single/97e47f98424b9f15c65a_b6ojoi.png" style={{width: "100%", height: "100%", objectFit: "contain"}} alt="" />
+
                 </div>
                 <NavLink aria-current={"page"} className={"nav-link"}  to={"/"} style={{color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: "center", alignItems: 'center', padding: 10}}>
                     Home

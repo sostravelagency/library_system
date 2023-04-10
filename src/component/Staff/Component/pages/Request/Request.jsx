@@ -24,17 +24,16 @@ const Request = () => {
     setValue(newValue);
   };
   useEffect(() => {
-    const fetchData= (async () => {
+    const fetchData = async () => {
       const result = await request_book();
       return setData(result);
-    })
-    fetchData(); 
+    };
+    fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 5000); 
+    }, 5000);
 
-    return ()=> clearInterval(interval)
-
+    return () => clearInterval(interval);
   }, [change]);
 
   const columns = [
@@ -73,12 +72,13 @@ const Request = () => {
                 Pending <PendingIcon style={{ color: "#2e89ff" }} />
               </div>
             )}
-            {(params.row.state === 1 && parseInt(params.row.is_borrow)=== 1) && (
+            {params.row.state === 1 && parseInt(params.row.is_borrow) === 1 && (
               <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
-                Approved <CheckIcon style={{ color: "#2dc275" }} /> (Wating to confirm)
+                Approved <CheckIcon style={{ color: "#2dc275" }} /> (Wating to
+                confirm)
               </div>
             )}
-            {(params.row.state === 1 && parseInt(params.row.is_borrow)=== 0) && (
+            {params.row.state === 1 && parseInt(params.row.is_borrow) === 0 && (
               <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
                 (Wating to user confirm)
               </div>
@@ -87,6 +87,16 @@ const Request = () => {
             {params.row.state === 2 && (
               <div className={"c-flex-center"} style={{ color: "#f00" }}>
                 Declined <CloseIcon style={{ color: "#f00" }} />
+              </div>
+            )}
+            {params.row.state === 3 && (
+              <div className={"c-flex-center"} style={{ }}>
+                Finish
+              </div>
+            )}
+            {params.row.state === 4 && (
+              <div className={"c-flex-center"} style={{ }}>
+                Overdue
               </div>
             )}
           </div>
@@ -99,20 +109,46 @@ const Request = () => {
       headerName: "Action",
       width: 300,
       renderCell: (params) => {
-        if(parseInt(params.row?.state) === 1 && parseInt(params.row?.is_borrow) === 1) {
-          return <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
-          Approved <CheckIcon style={{ color: "#2dc275" }} />
-        </div>
+        if (
+          parseInt(params.row?.state) === 1 &&
+          parseInt(params.row?.is_borrow) === 1
+        ) {
+          return (
+            <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
+              Approved <CheckIcon style={{ color: "#2dc275" }} />
+            </div>
+          );
         }
-        if(parseInt(params.row?.state) === 1 && parseInt(params.row?.is_borrow) === 0) {
-          return <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
-          Waiting to user confirm 
-        </div>
+        if (
+          parseInt(params.row?.state) === 1 &&
+          parseInt(params.row?.is_borrow) === 0
+        ) {
+          return (
+            <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
+              Waiting to user confirm
+            </div>
+          );
         }
-        if(parseInt(params.row?.state) === 2) {
-          return <div className={"c-flex-center"} style={{ color: "#f00" }}>
-          Declined <CloseIcon style={{ color: "#f00" }} />
-        </div>
+        if (parseInt(params.row?.state) === 2) {
+          return (
+            <div className={"c-flex-center"} style={{ color: "#f00" }}>
+              Declined <CloseIcon style={{ color: "#f00" }} />
+            </div>
+          );
+        }
+        if (parseInt(params.row?.state) === 3) {
+          return (
+            <div className={"c-flex-center"} style={{  }}>
+              Finish
+            </div>
+          );
+        }
+        if (parseInt(params.row?.state) === 4) {
+          return (
+            <div className={"c-flex-center"} style={{  }}>
+              Overdue
+            </div>
+          );
         }
 
         return (
@@ -158,7 +194,11 @@ const Request = () => {
                 <Badge
                   max={99}
                   badgeContent={
-                    data?.filter((item) => (parseInt(item?.state) === 1 && parseInt(item?.is_borrow) === 1))?.length
+                    data?.filter(
+                      (item) =>
+                        parseInt(item?.state) === 1 &&
+                        parseInt(item?.is_borrow) === 1
+                    )?.length
                   }
                   color="primary"
                 >
@@ -186,7 +226,11 @@ const Request = () => {
                 <Badge
                   max={99}
                   badgeContent={
-                    data?.filter((item) => parseInt(item?.state) === 1 && parseInt(item?.is_borrow)=== 0)?.length
+                    data?.filter(
+                      (item) =>
+                        parseInt(item?.state) === 1 &&
+                        parseInt(item?.is_borrow) === 0
+                    )?.length
                   }
                   color="primary"
                 >
@@ -194,6 +238,34 @@ const Request = () => {
                 </Badge>
               }
               value="4"
+            />
+            <Tab
+              label={
+                <Badge
+                  max={99}
+                  badgeContent={
+                    data?.filter((item) => parseInt(item?.state) === 3)?.length
+                  }
+                  color="primary"
+                >
+                  <div style={{ fontSize: 16 }}>Finish</div>
+                </Badge>
+              }
+              value="5"
+            />
+            <Tab
+              label={
+                <Badge
+                  max={99}
+                  badgeContent={
+                    data?.filter((item) => parseInt(item?.state) === 4)?.length
+                  }
+                  color="primary"
+                >
+                  <div style={{ fontSize: 16 }}>Overdue</div>
+                </Badge>
+              }
+              value="6"
             />
           </TabList>
         </Box>
@@ -226,7 +298,10 @@ const Request = () => {
         <TabPanel value="2">
           <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
             <DataGrid
-              rows={data?.filter((item) => (parseInt(item?.state) === 1 && parseInt(item?.is_borrow) === 1))}
+              rows={data?.filter(
+                (item) =>
+                  parseInt(item?.state) === 1 && parseInt(item?.is_borrow) === 1
+              )}
               disableSelectionOnClick
               columns={columns}
               pageSize={5}
@@ -252,7 +327,36 @@ const Request = () => {
         <TabPanel value="4">
           <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
             <DataGrid
-              rows={data?.filter((item) => (parseInt(item?.state) === 1 && parseInt(item?.is_borrow)=== 0))}
+              rows={data?.filter(
+                (item) =>
+                  parseInt(item?.state) === 1 && parseInt(item?.is_borrow) === 0
+              )}
+              disableSelectionOnClick
+              columns={columns}
+              pageSize={5}
+              pagination={true}
+              paginationMode="client"
+              checkboxSelection
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value="5">
+          <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
+            <DataGrid
+              rows={data?.filter((item) => parseInt(item?.state) === 3)}
+              disableSelectionOnClick
+              columns={columns}
+              pageSize={5}
+              pagination={true}
+              paginationMode="client"
+              checkboxSelection
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value="6">
+          <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
+            <DataGrid
+              rows={data?.filter((item) => parseInt(item?.state) === 4)}
               disableSelectionOnClick
               columns={columns}
               pageSize={5}
