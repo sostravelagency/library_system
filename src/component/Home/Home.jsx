@@ -26,7 +26,7 @@ const Home = () => {
 //   const {isSeaching, searchResult }= useContext(AppContext)
 
   return (
-    <div style={{width: "100%"}}>
+    <div style={{width: "100%",fontFamily: 'Open Sans'}}>
         <Header searchOn={searchOn} setSearchOn={setSearchOn} />
         {/* {
             searchOn=== true && <div style={{padding: 20, width: "100%"}} className={"c-flex-center"}>

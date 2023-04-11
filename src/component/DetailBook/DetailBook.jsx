@@ -43,7 +43,7 @@ const DetailBook = () => {
     return <ErrorFallback error={error} />
   }
   return (
-    <>
+    <div style={{ fontFamily: 'Open Sans' }}>
         <Header searchOn={searchOn} setSearchOn={setSearchOn} />
         {
             searchOn=== true && <div style={{padding: 20, width: "100%"}} className={"c-flex-center"}>
@@ -61,7 +61,7 @@ const DetailBook = () => {
                 <div style={{flex: "1 1 0"}}>
                     <div style={{fontWeight: 600, fontSize: 32, marginBottom: 20, lineHeight: 1.8}}>{data?.book_name}</div>
                     <div style={{margin: "4px 0", display: "flex", alignItems: "center"}}>
-                        <span style={{fontSize: 20}}>Author: </span>
+                        <span style={{fontSize: 20,marginRight: '10px'}}>Author: </span>
                         <span style={{fontSize: 24, fontWeight: 600}}>{data?.author_name}</span>
                     </div>
                     <br />
@@ -72,8 +72,19 @@ const DetailBook = () => {
                     </div>
                     <br />
                     <div style={{margin: "4px 0"}}>
-                        <span style={{fontSize: 18, marginBottom: 10}}>Description: </span>
+                        <span style={{fontSize: 24, marginBottom: 10}}>Description: </span>
                     </div>
+                      <div style={{ maxWidth: "80%", fontFamily: 'Open Sans' }}>
+                          {
+                              data?.book_description?.split("\n")?.map((item, key) => <Fragment key={key}>
+                                  <div>
+                                      <div style={{ margin: "6px 0", fontSize: 20, marginBottom: 16 }}>
+                                          {item}
+                                      </div>
+                                  </div>
+                              </Fragment>)
+                          }
+                      </div>
                     <ShowMoreText
                         lines={5}
                         anchorClass="show-more-less-clickable"
@@ -83,7 +94,7 @@ const DetailBook = () => {
                         truncatedEndingComponent={"... "}
                         expanded={false}
                     >
-                        <div style={{maxWidth: "70%"}}>
+                        <div style={{maxWidth: "80%",fontFamily: 'Open Sans'}}>
                             {
                                 data?.book_description?.split("\n")?.map((item, key)=> <Fragment key={key}>
                                     <div >
@@ -133,7 +144,7 @@ const DetailBook = () => {
             </div>
         </div>
         
-    </>
+    </div>
   )
 }
 

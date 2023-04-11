@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import detail_new from '../../api/detail_new'
 import Header from '../Home/Header'
+import Footer from '../Footer/Footer'
 import { Image } from 'antd'
 import moment from "moment"
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -17,7 +18,7 @@ const DetailNew = () => {
     })()
   }, [new_id])
   return (
-    <>
+    <div style={{ fontFamily: 'Open Sans' }}>
         <Header />
         <div className={"c-flex-center"} style={{width: "100%"}}>
           <div style={{width: "100%", maxWidth: 1200, display: "flex"}}>
@@ -32,7 +33,7 @@ const DetailNew = () => {
                         <CalendarMonthIcon /> {moment(data?.time_created).format("DD/MM/YYYY")}
                       </div>
                 <br />
-                <div style={{overflow: "hidden", textOverflow: "ellipsis"}} dangerouslySetInnerHTML={{__html: data?.content}}></div>
+                <div style={{overflow: "hidden", textOverflow: "ellipsis", fontSize: 18}} dangerouslySetInnerHTML={{__html: data?.content}}></div>
             </div>
             <div style={{width: 700}}>
               <div style={{fontSize: 24, fontWeight: 600, paddingLeft: 52, marginTop: 20}}>Newest</div>
@@ -40,7 +41,8 @@ const DetailNew = () => {
             </div>
           </div>
         </div>
-    </>
+        <Footer/>
+    </div>
   )
 }
 

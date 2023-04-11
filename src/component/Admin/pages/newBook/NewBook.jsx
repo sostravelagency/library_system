@@ -163,18 +163,6 @@ export default function NewBook({ fetchData }) {
 
             <TextField
               fullWidth
-              name="bookRating"
-              value={valueForm.bookRating}
-              onChange={handleChange}
-              placeholder={"Rating"}
-              helperText={
-                errorForm.bookRating.length > 0 ? errorForm.bookRating : ""
-              }
-              error={errorForm.bookRating.length > 0 ? true : false}
-            />
-            <RedBar />
-            <TextField
-              fullWidth
               name="linkBook"
               value={valueForm.linkBook}
               onChange={handleChange}
@@ -187,8 +175,11 @@ export default function NewBook({ fetchData }) {
             <RedBar />
             <UploadImage title={"Upload cover book"} setImage={setImage} />
             <RedBar />
-            <TextField
+            <TextField             
               fullWidth
+              multiline
+              rows={5}
+              maxRows={10}
               name="bookDescription"
               value={valueForm.bookDescription}
               onChange={handleChange}

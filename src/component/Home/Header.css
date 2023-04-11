@@ -1,0 +1,11 @@
+.nav-link:hover {
+    background-color: #FAAE2D;
+  }
+
+  .nav-link.active {
+    text-decoration: none;
+  }
+  
+  .nav-link:focus {
+    outline: none;
+  }

@@ -1,14 +1,10 @@
 import React from "react";
 import "./WidgetTop.css"
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import BookIcon from '@mui/icons-material/Book';
+import { Link } from 'react-router-dom';
 import get_dashboard from "../../../../api/manage/get_dashboard";
 import { useEffect, useState } from "react";
 
 const WidgetTop = ({type}) => {
-
-    const amount = 100;
-    const diff = 20;
 
     let wg;
 
@@ -16,17 +12,23 @@ const WidgetTop = ({type}) => {
 
     useEffect(()=> {
         (async ()=> {
-          const result= await get_dashboard()
-          return setData(result)
+            try {
+                const result = await get_dashboard();
+                if (result) {
+                    setData(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         })()
-      }, [])
-
+    }, [])
+    
     switch(type){
         case "user":
             wg={
                 title:"USERS",
-                number: data?.numUser?.toString() ?? 0,
-                link:"See all user",
+                number: data?.numUser?.toString() ?? "0",
+                link:<Link to ="/admin/users">See all user</Link>,
                 icon: <box-icon type='solid' name='user-circle'></box-icon>,
             };
             break;
@@ -34,7 +36,7 @@ const WidgetTop = ({type}) => {
             wg={
                 title:"BOOKS",
                 number: data?.numBook?.toString(),
-                link:"See all book",
+                link:<Link to ="/admin/books">See all book</Link>,
                 icon: <box-icon type='solid' name='book'></box-icon>,
             };
             break;
@@ -50,7 +52,7 @@ const WidgetTop = ({type}) => {
             wg={
                 title:"NEWS",
                 number: data?.numNews?.toString(),
-                link:"See all news",
+                link:<Link to ="/admin/news">See all news</Link>,
                 icon: <box-icon name='news' ></box-icon>,
             };
             break;
@@ -67,7 +69,6 @@ const WidgetTop = ({type}) => {
             </div>
             <div className="right"> 
                 <div className="percentage positive">
-                    {diff} % <ArrowDropUpIcon/>
                 </div>    
             <div className="icon">{wg.icon}</div>
             </div>

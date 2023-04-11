@@ -23,7 +23,7 @@ export default function MenuCategory(props) {
   };
 
   return (
-    <div> 
+    <div style={{ fontFamily: 'Open Sans' }}> 
       <Menu
         id="basic-menu"
         anchorEl={props?.anchorEl}
@@ -33,7 +33,7 @@ export default function MenuCategory(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <Title level={4} style={{padding: 10}}>Genres</Title>
+        <Title level={4} style={{padding: 10}}>Category</Title>
         <Grid container>
             {
                 data?.map((item, key)=> <Grid key={key} item xs={4}>
