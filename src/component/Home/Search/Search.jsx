@@ -50,7 +50,7 @@ const Search = (props) => {
           const result = await search(e.target.value);
           setSearchResult(() => result);
         }}
-        placeholder="Search"
+        placeholder="Search book/author"
         type="text"
         style={{
           width: "100%",
@@ -59,6 +59,7 @@ const Search = (props) => {
           outlineColor: "#2e89ff",
           padding: 10,
           border: "1px solid #000",
+          fontFamily: "Open Sans"
         }}
       />
       <div

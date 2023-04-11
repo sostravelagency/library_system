@@ -22,7 +22,7 @@ code {
   background-repeat: no-repeat;
 }
 .l-i::placeholder {
-  color: #fff;
+  color: #000000;
 }
 .c-flex-center {
   display: flex;

@@ -67,7 +67,7 @@ const Login = (props) => {
           width: "100%",
           height: "100%",
           backgroundImage:
-            "url(https://res.cloudinary.com/cockbook/image/upload/v1676451115/single/Login_lnt2ke.jpg)",
+            "url(https://res.cloudinary.com/dsqzrmptp/image/upload/v1681215763/Frame_3_1_agi81a.png)",
         }}
       ></div>
     </div>
@@ -83,7 +83,7 @@ const SignInUser = (props) => {
         style={{
           fontSize: 64,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
         }}
@@ -94,7 +94,7 @@ const SignInUser = (props) => {
         style={{
           fontSize: 24,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
           padding: 10,
@@ -102,7 +102,7 @@ const SignInUser = (props) => {
       >
         Sign in to use service
       </div>
-      <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+      <div style={{ width: 350, height: 55, margin: "24px 0", }}>
         <input
           value={props?.account}
           onChange={(e) => props?.setAccount(e.target.value)}
@@ -113,11 +113,12 @@ const SignInUser = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
             border: "none",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
+            fontWeight: 600,
             fontSize: 17,
           }}
         />
@@ -133,11 +134,12 @@ const SignInUser = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
             border: "none",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
+            fontWeight: 600,
             fontSize: 17,
           }}
         />
@@ -161,7 +163,7 @@ const SignInUser = (props) => {
               background: "#224957",
             }}
           />
-          <div style={{ fontSize: 17, color: "#224957", fontWeight: 600 }}>
+          <div style={{ fontSize: 17, color: "#000000", fontWeight: 600 }}>
             Remember me
           </div>
         </div>
@@ -188,7 +190,7 @@ const SignInUser = (props) => {
       >
         <img
           style={{ width: "100%" }}
-          src="https://res.cloudinary.com/cockbook/image/upload/v1676452271/single/Login_btn_fo4xk8.png"
+          src="https://res.cloudinary.com/dsqzrmptp/image/upload/v1681217826/assets_869ccd20-3acd-495a-aad3-327a828c048e_agp1y0.png"
           alt=""
         />
       </div>
@@ -209,7 +211,7 @@ const SignInUser = (props) => {
           textAlign: "center",
           fontSize: 17,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           cursor: "pointer",
         }}
       >
@@ -338,7 +340,7 @@ const SignInStaff = (props) => {
       >
         <img
           style={{ width: "100%" }}
-          src="https://res.cloudinary.com/cockbook/image/upload/v1676452271/single/Login_btn_fo4xk8.png"
+          src="https://res.cloudinary.com/dsqzrmptp/image/upload/v1681217826/assets_869ccd20-3acd-495a-aad3-327a828c048e_agp1y0.png"
           alt=""
         />
       </div>

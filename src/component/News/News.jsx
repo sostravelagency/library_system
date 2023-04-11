@@ -55,12 +55,12 @@ export const NewList= (props)=> {
 
 
   return (
-<div style={{padding: 20, width: "100%", position: "relative"}}>
+<div style={{padding: 20, width: "100%", position: "relative", fontFamily:"Open Sans"}}>
             {
               data?.map((item, key)=> <List key={key}>
                 <ListItem onClick={()=> navigate("/news/"+ item?.id)}>
                   <ListItemButton style={{alignItems: "flex-start", gap: 20}}>
-                    <Image style={{width: 200, aspectRatio: 3 / 2, background: "#e7e7e7", borderRadius: 10}} src={item?.image} alt={""}  />
+                    <Image style={{width: 200 ,objectFit: "cover", aspectRatio: 3 / 2, background: "#e7e7e7", borderRadius: 10}} src={item?.image} alt={""}  />
                     <div>
                       <div style={{textTransform: "uppercase", color: "#2e89ff", fontSize: 18}}>{item?.title?.length > 0 ? item?.title : "Không có tiêu đề"}</div>
                       <br />

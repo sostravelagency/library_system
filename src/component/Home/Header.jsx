@@ -7,7 +7,6 @@ import DropDownCategory from './DropDownCategory'
 import Search from './Search/Search'
 import UserProfile from './UserProfile'
 import './Header.css'
-import { orange } from '@mui/material/colors'
 
 const Header = (props) => {
 
@@ -15,27 +14,27 @@ const Header = (props) => {
   const {auth, user}= useContext(AppContext)
   
   return (
-    <div style={{ fontFamily: 'Open Sans', backgroundColor:'#F4F1EA' }}>
-      <div style={{ width: "100%", height: 60, position: "fixed", top: 0, left: 0, zIndex: 9, padding: "0 20px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff" }}>
+    <div className='header' style={{ fontFamily: 'Open Sans',}}>
+      <div style={{ width: "100%", height: 60, position: "fixed", top: 0, left: 0, zIndex: 9, padding: "0 20px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#fff",borderBottom: "1px solid #ccc", }}>
         {/* Logo and navigation links */}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div onClick={() => navigate("/")} style={{ width: 300, height: 60, cursor: "pointer" }} className={"c-flex-center"}>
             <img src="https://res.cloudinary.com/cockbook/image/upload/v1679076923/single/97e47f98424b9f15c65a_b6ojoi.png" style={{ width: "100%", height: "100%", objectFit: "contain" }} alt="" />
           </div>
-          <NavLink aria-current={"page"} className={"nav-link"} exact activeClassName={"active"} to={"/"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 10px',}}>
+          <NavLink aria-current={"page"} className={"nav-link"} exact activeClassName={"active"} to={"/"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 15px',}}>
           Home
           </NavLink>
           <DropDownCategory />
-          <NavLink aria-current={"page"} className={"nav-link"}  to={"/about"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 10px' }}>
+          <NavLink aria-current={"page"} className={"nav-link"}  to={"/about"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 15px' }}>
             About
           </NavLink>
-          <NavLink aria-current={"page"} className={"nav-link"} to={"/news"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 10px' }}>
+          <NavLink aria-current={"page"} className={"nav-link"} to={"/news"} style={{ color: "#000", fontSize: 18, height: 60, display: "flex", justifyContent: 'center', alignItems: 'center', padding: '0 15px' }}>
             News
           </NavLink>
         </div>
 
         {/* User account and cart */}
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 24, marginRight: 20 }}>
           <Search {...props} />
           {
             auth === false &&

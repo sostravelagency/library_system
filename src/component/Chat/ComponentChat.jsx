@@ -43,6 +43,7 @@ const ComponentChat = () => {
     });
     setMessage("");
   };
+
   return (
     <Box
       sx={{
@@ -55,7 +56,7 @@ const ComponentChat = () => {
         flexDirection: "column",
       }}
     >
-      <div style={{ fontSize: 18, fontWeight: 600, padding: 10 }}>
+      <div style={{ fontSize: 18, fontWeight: 600, padding: 10, fontFamily: "Open Sans" }}>
         Chat with librarian
       </div>
       <Divider style={{margin: 0}} />
@@ -76,6 +77,7 @@ const ComponentChat = () => {
               
               padding: "0 5px",
               maxHeight: "400px",
+              
             }}
           >
             {data?.message?.map((item, key) => (
@@ -86,18 +88,25 @@ const ComponentChat = () => {
                       width: "100%",
                       direction: "rtl",
                       marginBottom: 10,
+                      fontFamily: "Open Sans"
                     }}
                   >
                     <div
                       style={{
                         padding: "10px",
-                        borderRadius: 80,
+                        borderRadius: 30,
                         backgroundColor: "#2e89ff",
                         color: "#fff",
                         width: "max-content",
+                        fontFamily: "Open Sans",
+                        whiteSpace: "pre-wrap",
+                        wordWrap: "break-word",
+                        maxWidth: "80%",
+                        minWidth: "50px",
+                        textAlign: "left"
                       }}
                     >
-                      {item?.message}
+                      {item?.message.replace(/\n/g, "<br>")}
                     </div>
                   </div>
                 ) : (
@@ -105,13 +114,18 @@ const ComponentChat = () => {
                     <div
                       style={{
                         padding: "10px",
-                        borderRadius: 80,
+                        borderRadius: 30,
                         backgroundColor: "#555",
                         color: "#fff",
                         width: "max-content",
+                        fontFamily: "Open Sans",
+                        whiteSpace: "pre-wrap",
+                        wordWrap: "break-word",
+                        maxWidth: "80%",
+                        minWidth: "50px"
                       }}
                     >
-                      {item?.message}
+                      {item?.message.replace(/\n/g, "<br>")}
                     </div>
                   </div>
                 )}
@@ -134,8 +148,14 @@ const ComponentChat = () => {
             <Input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  sendNewMessage();
+                }
+              }}
               style={{ flex: 1, width: "100%" }}
               placeholder={"Type message"}
+              rowsMax={5}
             />
           </Box>
           <Box>
