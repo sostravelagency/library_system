@@ -68,15 +68,17 @@ function Author() {
       <AddAuthor fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>Danh sách book</div>
       {data.length > 0 ? (
-        <DataGrid
-          rows={data}
-          disableSelectionOnClick
-          columns={columns}
-          pageSize={8}
-          checkboxSelection
-          getRowId={(row) => row.author_id}
-          getRowHeight={() => "auto"}
-        />
+        <div style={{height: 500}}> 
+          <DataGrid
+            rows={data}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+            getRowId={(row) => row.author_id}
+            getRowHeight={() => "auto"}
+          />
+        </div>
       ) : (
         <div>Loading data...</div>
       )}

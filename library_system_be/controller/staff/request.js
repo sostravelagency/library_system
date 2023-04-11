@@ -24,7 +24,7 @@ const request = {
     action: expressAsyncHandler(async(req, res)=> {
         try {
             // eslint-disable-next-line
-            const [rows] = await connection.execute("UPDATE history SET state= ?, time_approve= ?, is_borrow= ?, borrow_time= ? WHERE history_id= ?", [req.body.status, new Date(), req.body?.is_borrow || 0, req.body.id, req.body?.day_borrow || 0])
+            const [rows] = await connection.execute("UPDATE history SET state= ?, time_approve= ?, is_borrow= ?, borrow_time= ? WHERE history_id= ?", [req.body.status, new Date(), req.body?.is_borrow || 0, parseInt(req.body?.day_borrow) || 0, req.body.id])
             return res.status(200).json({update: true})
         } catch (error) {
             console.log(error)

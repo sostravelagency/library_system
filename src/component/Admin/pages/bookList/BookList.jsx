@@ -102,15 +102,16 @@ export default function ProductList() {
     <div className="userList">
       <NewBook fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>List books</div>
-
-      <DataGrid
-        rows={data}
-        columns={columns}
-        disableSelectionOnClick
-        pageSize={8}
-        getRowId={(row) => row.book_id}
-        getRowHeight={() => "auto"}
-      />
+      <div style={{height: 500}}>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          disableSelectionOnClick
+          pageSize={8}
+          getRowId={(row) => row.book_id}
+          getRowHeight={() => "auto"}
+        />
+      </div>
 
       <Dialog
         open={open}

@@ -77,15 +77,17 @@ export default function ManageStaff() {
   return (
     <div className="userList">
       <AddStaff setChange={setChange} />
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        checkboxSelection
-        pageSize={5}
-        pagination={true}
-        paginationMode="client"
-      />
+      <div style={{height: 500}}> 
+        <DataGrid
+          rows={data}
+          disableSelectionOnClick
+          columns={columns}
+          checkboxSelection
+          pageSize={5}
+          pagination={true}
+          paginationMode="client"
+        />
+      </div>
     </div>
   );
 }
