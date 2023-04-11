@@ -8,6 +8,9 @@ import {
 } from "@material-ui/icons";
 import { NavLink as Link } from "react-router-dom";
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import BookIcon from "@mui/icons-material/Book";
+// import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import CategoryIcon from "@mui/icons-material/Category";
 
 export default function Sidebar() {
   return (
@@ -53,6 +56,37 @@ export default function Sidebar() {
                 </li>)
               }
             </Link>
+          </ul>
+        </div>
+        <div className="sidebarMenu">
+          <h3 className="sidebarTitle">Manage book</h3>
+          <ul className="sidebarList">
+            <Link to="/staff/books" className="link">
+              {({ isActive }) => (
+                <li
+                  className={`sidebarListItem ${
+                    isActive === true ? "active" : ""
+                  }`}
+                >
+                  <BookIcon className="sidebarIcon" />
+                  Books
+                </li>
+              )}
+            </Link>
+            <li className="sidebarListItem">
+              <Link to="/staff/category" className="link">
+                {({ isActive }) => (
+                  <li
+                    className={`sidebarListItem ${
+                      isActive === true ? "active" : ""
+                    }`}
+                  >
+                    <CategoryIcon className="sidebarIcon" />
+                    Categories
+                  </li>
+                )}
+              </Link>
+            </li>
           </ul>
         </div>
         {/* <div className="sidebarMenu">

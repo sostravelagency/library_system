@@ -72,7 +72,7 @@ export default function UserList() {
   ];
 
   return (
-    <div className="userList">
+    <div className="userList" style={{height: "500px"}}>
       
       <DataGrid
         rows={data}

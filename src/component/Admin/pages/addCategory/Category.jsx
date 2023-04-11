@@ -48,15 +48,18 @@ const Category = () => {
         <div className="userList">
             <AddCategoryComponent setChange={setChange} />
             <div style={{marginBottom: 8}}>Danh sách danh mục</div>
-            <DataGrid
-                rows={data}
-                disableSelectionOnClick
-                columns={columns}
-                checkboxSelection
-                pageSize={5}
-                pagination={true}
-                paginationMode="client"
-            />
+            <div style={{height: "500px"}}>
+
+                <DataGrid
+                    rows={data}
+                    disableSelectionOnClick
+                    columns={columns}
+                    checkboxSelection
+                    pageSize={5}
+                    pagination={true}
+                    paginationMode="client"
+                />
+            </div>
 
         </div>
     )

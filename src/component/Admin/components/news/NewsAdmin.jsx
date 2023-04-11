@@ -119,14 +119,16 @@ const ListBlog = () => {
       >
         Add new blog
       </Button>
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={5}
-        pagination={true}
-        paginationMode="client"
-      />
+      <div style={{height: 500}}>
+        <DataGrid
+          rows={data}
+          disableSelectionOnClick
+          columns={columns}
+          pageSize={5}
+          pagination={true}
+          paginationMode="client"
+        />
+      </div>
     </div>
   );
 };
