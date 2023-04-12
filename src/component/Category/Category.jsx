@@ -29,17 +29,22 @@ const Category = () => {
   return (
     <div style={{ fontFamily: 'Open Sans' }}>
         <Header searchOn={false} />
-        <Box sx={{width: "100%", padding: 1.25, marginLeft: 20,}}>         
-            <div style={{margin: "12px 0", fontWeight: 600, fontSize: 20}}>{dataCategory?.category_name}</div>
-            <div style={{margin: "8px 0", fontSize: 16, maxWidth:"50%"}}>{dataCategory?.category_description?.split("\n")?.map((item, key)=> <div style={{margin: "8px 0"}} key={key}>{item}</div>)}</div>
-            <div style={{margin: "12px 0", fontWeight: 600, fontSize: 20, textTransform: "uppercase"}}>Most read with tags "{dataCategory?.category_name}"</div>
-            <Divider />
-            <Grid container padding={2.5} spacing={2}>
-                {
-                    data?.map((item, key)=> <Grid xs={2} item key={key}>
+        <Box sx={{width: "100%", padding: 1.25,}}>         
+            <div style={{margin: "12px 0", fontWeight: 600, fontSize: 28, marginLeft:150}}>{dataCategory?.category_name}</div>
+            <div style={{margin: "25px 0", fontSize: 16, maxWidth:"50%",marginLeft:150}}>{dataCategory?.category_description?.split("\n")?.map((item, key)=> <div style={{margin: "8px 0"}} key={key}>{item}</div>)}</div>
+            <div style={{margin: "12px 0", fontWeight: 600, fontSize: 16, textTransform: "uppercase",marginLeft:150}}>Most borrow with tags "{dataCategory?.category_name}"</div>
+            <Divider style={{ width: '85%', marginLeft:150}} />
+            <Grid container padding={2.5} spacing={2} style={{ justifyContent: 'flex-start' }}>
+                  <Grid container item xs={12} spacing={2} justifyContent="center"> 
+                    {data?.slice(0, 15).map((item, key)=> (
+                      <React.Fragment key={key}>
+                      {key % 5 === 0 && <Grid item xs={12} />}
+                      <Grid item xs={2}>
                         <ComponentBook {...item} />
-                    </Grid>)
-                }
+                      </Grid>
+                    </React.Fragment>
+                    ))}
+                  </Grid>
             </Grid>
         </Box>
         <Footer/>

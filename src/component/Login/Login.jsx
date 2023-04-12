@@ -115,10 +115,9 @@ const SignInUser = (props) => {
             padding: 10,
             background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
             color: "#000000",
-            fontWeight: 600,
             fontSize: 17,
           }}
         />
@@ -136,10 +135,9 @@ const SignInUser = (props) => {
             padding: 10,
             background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
             color: "#000000",
-            fontWeight: 600,
             fontSize: 17,
           }}
         />
@@ -161,6 +159,7 @@ const SignInUser = (props) => {
               height: 20,
               borderRadius: 10,
               background: "#224957",
+              border: "1px solid #000000"
             }}
           />
           <div style={{ fontSize: 17, color: "#000000", fontWeight: 600 }}>
@@ -230,7 +229,7 @@ const SignInStaff = (props) => {
         style={{
           fontSize: 64,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
           lineHeight: 1.6,
@@ -242,7 +241,7 @@ const SignInStaff = (props) => {
         style={{
           fontSize: 24,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
           padding: 10,
@@ -261,11 +260,11 @@ const SignInStaff = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
             fontSize: 17,
           }}
         />
@@ -281,11 +280,11 @@ const SignInStaff = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
             fontSize: 17,
           }}
         />
@@ -309,7 +308,7 @@ const SignInStaff = (props) => {
               background: "#224957",
             }}
           />
-          <div style={{ fontSize: 17, color: "#224957", fontWeight: 600 }}>
+          <div style={{ fontSize: 17, color: "#000000", fontWeight: 600 }}>
             Remember me
           </div>
         </div>
@@ -344,29 +343,6 @@ const SignInStaff = (props) => {
           alt=""
         />
       </div>
-      <div
-        style={{
-          margin: "24px 0",
-          textAlign: "center",
-          fontSize: 17,
-          fontWeight: 600,
-        }}
-      >
-        Don't have account ?
-      </div>
-      <div
-        onClick={() => navigate("/signup")}
-        style={{
-          margin: "24px 0",
-          textAlign: "center",
-          fontSize: 17,
-          fontWeight: 600,
-          color: "#224957",
-          cursor: "pointer",
-        }}
-      >
-        Sign up
-      </div>
     </div>
   );
 };
@@ -380,7 +356,7 @@ const SignInAdmin = (props) => {
         style={{
           fontSize: 64,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
           lineHeight: 1.6,
@@ -392,13 +368,13 @@ const SignInAdmin = (props) => {
         style={{
           fontSize: 24,
           fontWeight: 600,
-          color: "#224957",
+          color: "#000000",
           textAlign: "center",
           margin: "24px 0",
           padding: 10,
         }}
       >
-        Sign in to use all of service
+        Sign in and start managing your system
       </div>
       <div style={{ width: "100%", height: 55, margin: "24px 0" }}>
         <input
@@ -411,11 +387,11 @@ const SignInAdmin = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
             fontSize: 17,
           }}
         />
@@ -431,11 +407,11 @@ const SignInAdmin = (props) => {
             width: "100%",
             height: "100%",
             padding: 10,
-            background: "#224957",
+            background: "#ffffff",
             borderRadius: 10,
-            border: "none",
+            border: "1px solid #000000",
             outline: "none",
-            color: "#fff",
+            color: "#000000",
             fontSize: 17,
           }}
         />
@@ -456,10 +432,10 @@ const SignInAdmin = (props) => {
               width: 20,
               height: 20,
               borderRadius: 10,
-              background: "#224957",
+              background: "#000000",
             }}
           />
-          <div style={{ fontSize: 17, color: "#224957", fontWeight: 600 }}>
+          <div style={{ fontSize: 17, color: "#000000", fontWeight: 600 }}>
             Remember me
           </div>
         </div>
@@ -490,32 +466,9 @@ const SignInAdmin = (props) => {
       >
         <img
           style={{ width: "100%" }}
-          src="https://res.cloudinary.com/cockbook/image/upload/v1676452271/single/Login_btn_fo4xk8.png"
+          src="https://res.cloudinary.com/dsqzrmptp/image/upload/v1681217826/assets_869ccd20-3acd-495a-aad3-327a828c048e_agp1y0.png"
           alt=""
         />
-      </div>
-      <div
-        style={{
-          margin: "24px 0",
-          textAlign: "center",
-          fontSize: 17,
-          fontWeight: 600,
-        }}
-      >
-        Don't have account ?
-      </div>
-      <div
-        onClick={() => navigate("/signup")}
-        style={{
-          margin: "24px 0",
-          textAlign: "center",
-          fontSize: 17,
-          fontWeight: 600,
-          color: "#224957",
-          cursor: "pointer",
-        }}
-      >
-        Sign up
       </div>
     </div>
   );

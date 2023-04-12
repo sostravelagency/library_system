@@ -54,11 +54,11 @@ const DetailBook = () => {
 
         </>
         <div className={"c-flex-center"} style={{width: "100%", marginTop: 12}}>
-            <div style={{width: "100%", maxWidth: 1200, display: "flex", gap: 20, padding: 5}}>
-                <div className={"x-2-a"} style={{width: 350}}>
-                    <img style={{width: "100%", aspectRatio: 2 / 3, borderRadius: 10}} src={data?.cover_photo} alt="" />
+            <div style={{width: "100%", maxWidth: 1200, display: "flex", gap: 20, padding: 5,}}>
+                <div className={"x-2-a"} style={{width: 350,position: "fixed"}}>
+                    <img style={{width: "100%", aspectRatio: 1 / 1, borderRadius: 10}} src={data?.cover_photo} alt="" />
                 </div>
-                <div style={{flex: "1 1 0"}}>
+                <div style={{flex: "1 1 0",paddingLeft: 370}}>
                     <div style={{fontWeight: 600, fontSize: 32, marginBottom: 20, lineHeight: 1.8}}>{data?.book_name}</div>
                     <div style={{margin: "4px 0", display: "flex", alignItems: "center"}}>
                         <span style={{fontSize: 20,marginRight: '10px'}}>Author: </span>

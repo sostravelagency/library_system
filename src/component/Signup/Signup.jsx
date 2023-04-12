@@ -81,7 +81,7 @@ const Signup = () => {
               style={{
                 fontSize: 64,
                 fontWeight: 600,
-                color: "#fff",
+                color: "#000000",
                 textAlign: "center",
                 margin: "24px 0",
               }}
@@ -92,13 +92,13 @@ const Signup = () => {
               style={{
                 fontSize: 24,
                 fontWeight: 600,
-                color: "#fff",
+                color: "#000000",
                 textAlign: "center",
                 margin: "24px 0",
                 lineHeight: 1.8
               }}
             >
-              Sign up and start managing your candidates!
+              Sign up and get ready to experience!
             </div>
             {verify === false && (
               <div style={{ width: "100%" }} className={"c-flex-center"}>
@@ -114,11 +114,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />
@@ -134,11 +134,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />
@@ -154,11 +154,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />
@@ -174,11 +174,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />
@@ -194,11 +194,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />
@@ -227,7 +227,7 @@ const Signup = () => {
                   >
                     <img
                       style={{ width: "100%" }}
-                      src="https://res.cloudinary.com/cockbook/image/upload/v1676453029/single/Login_btn_1_pmysr5.png"
+                      src="https://res.cloudinary.com/dsqzrmptp/image/upload/v1681267832/Signup_btn_wcs5up.png"
                       alt=""
                     />
                   </div>
@@ -237,7 +237,7 @@ const Signup = () => {
                       textAlign: "center",
                       fontSize: 17,
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "#000000",
                     }}
                   >
                     Already have account ?
@@ -249,7 +249,7 @@ const Signup = () => {
                       textAlign: "center",
                       fontSize: 17,
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "#000000",
                       cursor: "pointer",
                     }}
                   >
@@ -362,7 +362,7 @@ const Signup = () => {
             width: "100%",
             height: "100%",
             backgroundImage:
-              "url(https://res.cloudinary.com/cockbook/image/upload/v1676452569/single/Signup_xjqcfk.jpg)",
+              "url(https://res.cloudinary.com/dsqzrmptp/image/upload/v1681215763/Frame_3_1_agi81a.png)",
           }}
         ></div>
       </div>

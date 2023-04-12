@@ -199,7 +199,7 @@ const ForgotPassword = (props) => {
             width: "100%",
             height: "100%",
             backgroundImage:
-              "url(https://res.cloudinary.com/cockbook/image/upload/v1676451115/single/Login_lnt2ke.jpg)",
+              "url(https://res.cloudinary.com/dsqzrmptp/image/upload/v1681215763/Frame_3_1_agi81a.png)",
           }}
         ></div>
     </div>
