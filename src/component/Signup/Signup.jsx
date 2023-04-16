@@ -18,6 +18,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import validatePhoneNumber from "../../util/validatePhone";
 import validatePassword from "../../util/validatePassword";
 import validateEmail from "../../util/validateEmail";
+import validateConfirmPassword from "../../util/validateConfirmPassword";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -41,6 +42,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword]= useState("");
   const [address, setAddress] = useState("");
   const [verifyCode, setVerifyCode] = useState("");
   const [open, setOpen] = useState(false);
@@ -76,7 +78,7 @@ const Signup = () => {
             zIndex: 3,
           }}
         >
-          <div style={{ width: "100%", maxWidth: 600 }}>
+          <div style={{ width: "100%", maxWidth: 600, marginTop: 150 }}>
             <div
               style={{
                 fontSize: 64,
@@ -95,7 +97,8 @@ const Signup = () => {
                 color: "#000000",
                 textAlign: "center",
                 margin: "24px 0",
-                lineHeight: 1.8
+                lineHeight: 1.8,
+                marginTop: 100
               }}
             >
               Sign up and get ready to experience!
@@ -203,23 +206,50 @@ const Signup = () => {
                       }}
                     />
                   </div>
+                  <div style={{ width: 350, height: 55, margin: "24px 0" }}>
+
+                    <input
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className={"l-i"}
+                      placeholder={"Confirm password"}
+                      type="password"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        padding: 10,
+                        background: "#224957",
+                        borderRadius: 10,
+                        border: "none",
+                        outline: "none",
+                        color: "#fff",
+                        fontSize: 17,
+                      }}
+                    />
+                  </div>
                   <div
                     onClick={async () => {
                       if(validatePhoneNumber(phone) !== true) {
-                        swal("Notice", "Phone is invalid, try again", "error")
+                        return swal("Notice", "Phone is invalid, try again", "error")
                       }
                       if(validatePassword(password) !== true) {
-                        swal("Notice", "Pass is invalid, password must have less than 8 charaters includes 1 number, 1 uppercase and 1 special charater, try again", "error")
+                        return swal("Notice", "Pass is invalid, password must have less than 8 charaters includes 1 number, 1 uppercase and 1 special charater, try again", "error")
                       }
                       if(validateEmail(email) !== true) {
-                        swal("Notice", "Email is not correct form, email must belongs to fpt corporation", "error")
+                        return swal("Notice", "Email is not correct form, email must belongs to fpt corporation", "error")
                       }
-                      const result= await verify_email(email)
-                      if(result?.exist=== true) {
-                        swal("Notice", "Email is exists, Please try with email else!")
+                      if(validateConfirmPassword(password, confirmPassword) !== true) {
+                        return swal("Notice", "Password is not match, try again", "error")
                       }
-                      else if(result?.exist=== false) {
-                        setVerify(() => true)
+                      else {
+
+                        const result= await verify_email(email)
+                        if(result?.exist=== true) {
+                          swal("Notice", "Email is exists, Please try with email else!")
+                        }
+                        else if(result?.exist=== false) {
+                          setVerify(() => true)
+                        }
                       }
                     }}
                     className={"h-e"}

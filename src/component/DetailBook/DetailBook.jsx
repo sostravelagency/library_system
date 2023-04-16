@@ -5,7 +5,7 @@ import get_detail_book from '../../api/get_detail_book'
 import CommentComponent from '../Comment/Comment'
 import Header from '../Home/Header'
 import AddToCart from './AddToCart'
-import Rating from '@mui/material/Rating';
+// import Rating from '@mui/material/Rating';
 import Loading from '../Loading/Loading'
 import ErrorFallback from '../Error/Error'
 import ShowMoreText from "react-show-more-text";

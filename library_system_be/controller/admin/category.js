@@ -28,7 +28,7 @@ const category= {
     update: expressAsyncHandler(async (req, res)=> {
         try {
             // eslint-disable-next-line
-            const [rows]= await connection.execute("UPDATE category SET category_name= ? WHERE category_id= ?", [req.body.category_name, req.body.id])
+            const [rows]= await connection.execute("UPDATE category SET category_name= ?, category_description= ? WHERE category_id= ?", [req.body.category_name, req.body.category_description, req.body.id])
             return res.status(200).json({update: true})
         
         } catch (error) {

@@ -15,6 +15,16 @@ import Box from "@mui/material/Box";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Badge from "@mui/material/Badge";
+import { TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import Fuse from "fuse.js"
+import { useMemo } from "react";
+// import { SearchResults } from "semantic-ui-react";
+import { useCallback } from "react";
+import { Button } from "antd";
+import accept_request_book_back from "../../../../../api/staff/accept_request_book_back";
+import swal from "sweetalert";
+import SimilarBookStatus from "./SimilarBookStatus";
 
 const Request = () => {
   const [data, setData] = useState([]);
@@ -23,19 +33,43 @@ const Request = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await request_book();
-      return setData(result);
-    };
-    fetchData();
-    const interval = setInterval(() => {
+  const options = useMemo(()=> ({
+    
+    keys: [
+      "book_name",
+    ]
+  }), []);
+  const [searchString, setSearchString]= useState("")
+  const fetchData = async () => {
+    const result = await request_book();
+    return setData(result);
+  };
+  const fetchData2 = useCallback(async () => {
+    const result = await request_book();
+    if(searchString.length > 0 ) {
+      return setData(new Fuse(result, options).search(searchString).map(item=> item.item));
+
+    }
+    else {
+      return setData(result)
+    }
+  }, [searchString, options]);
+  useEffect(()=> {
+    if(searchString.length <= 0) {
       fetchData();
+    }
+  }, [searchString])
+  useEffect(() => {
+    
+    const interval = setInterval(() => {
+      fetchData2();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [change]);
-
+  }, [change, fetchData2]);
+ 
+  const fuse= new Fuse(data, options)
+  
   const columns = [
     { field: "id", headerName: "ID", width: 150 },
     {
@@ -43,6 +77,7 @@ const Request = () => {
       headerName: "User name",
       width: 200,
     },
+    { field: "book_in_book_id", headerName: "Book id", width: 150 },
     {
       field: "book_name",
       headerName: "Book",
@@ -74,13 +109,12 @@ const Request = () => {
             )}
             {params.row.state === 1 && parseInt(params.row.is_borrow) === 1 && (
               <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
-                Approved <CheckIcon style={{ color: "#2dc275" }} /> (Wating to
-                confirm)
+                Approved <CheckIcon style={{ color: "#2dc275" }} />
               </div>
             )}
             {params.row.state === 1 && parseInt(params.row.is_borrow) === 0 && (
               <div className={"c-flex-center"} style={{ color: "#2dc275" }}>
-                (Wating to user confirm)
+                Wating to user confirm
               </div>
             )}
 
@@ -97,6 +131,11 @@ const Request = () => {
             {params.row.state === 4 && (
               <div className={"c-flex-center"} style={{ }}>
                 Overdue
+              </div>
+            )}
+            {params.row.state === 5 && (
+              <div className={"c-flex-center"} style={{ }}>
+                Request book back
               </div>
             )}
           </div>
@@ -150,6 +189,21 @@ const Request = () => {
             </div>
           );
         }
+        if (parseInt(params.row?.state) === 5) {
+          return (
+            <div className={"c-flex-center"}>
+              <Button onClick={async ()=> {
+                  const result= await accept_request_book_back(params.row.id)
+                  if(result?.finish=== true) {
+                    setChange(prev=> !prev)
+                  }
+                  else {
+                    swal("Notice", "Error", "error")
+                  }
+              }} type={"primary"}>Accept request</Button>
+            </div>
+          );
+        }
 
         return (
           <div style={{ gap: 10, display: "flex", alignItems: "center" }}>
@@ -159,10 +213,32 @@ const Request = () => {
         );
       },
     },
+    {
+      field: "similar_book_status",
+      headerName: "Similar book status",
+      width: 200, 
+      renderCell: (params)=> {
+        return <SimilarBookStatus {...params.row} />
+      }
+    }
   ];
+  
+
   return (
     <div className="userList">
       <div style={{ marginBottom: 8 }}>Danh sách đặt sách</div>
+      <div style={{position: "relative", width: 600}}>
+        <div style={{position: "absolute", top: "50%", right: 0, transform: "translate(-50%, -50%)", zIndex: 999}}>
+        <SearchIcon />
+      </div>
+        <TextField value={searchString} onChange={(e)=> {
+          setData(fuse.search(e.target.value).map(item=> item.item))
+          setSearchString(e.target.value)
+        }} placeholder="Search request" style={{width: 600}} />
+      </div>
+      <div></div>
+      <br />
+      <div></div>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -267,6 +343,20 @@ const Request = () => {
               }
               value="6"
             />
+            <Tab
+              label={
+                <Badge
+                  max={99}
+                  badgeContent={
+                    data?.filter((item) => parseInt(item?.state) === 5)?.length
+                  }
+                  color="primary"
+                >
+                  <div style={{ fontSize: 16 }}>Request book back</div>
+                </Badge>
+              }
+              value="7"
+            />
           </TabList>
         </Box>
         <TabPanel value="0">
@@ -362,7 +452,18 @@ const Request = () => {
               pageSize={5}
               pagination={true}
               paginationMode="client"
-              checkboxSelection
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value="7">
+          <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
+            <DataGrid
+              rows={data?.filter((item) => parseInt(item?.state) === 5)}
+              disableSelectionOnClick
+              columns={columns}
+              pageSize={5}
+              pagination={true}
+              paginationMode="client"
             />
           </div>
         </TabPanel>

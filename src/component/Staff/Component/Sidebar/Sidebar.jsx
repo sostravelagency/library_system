@@ -11,10 +11,11 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import BookIcon from "@mui/icons-material/Book";
 // import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import CategoryIcon from "@mui/icons-material/Category";
-
+import { useRef } from "react";
 export default function Sidebar() {
+  const ref= useRef()
   return (
-    <div className="sidebar">
+    <div ref={ref} className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
@@ -26,7 +27,6 @@ export default function Sidebar() {
                     Home
                 </li>)
               }
-            
             </Link>
           </ul>
         </div>
@@ -42,7 +42,6 @@ export default function Sidebar() {
                 }
               
             </Link>
-            
           </ul>
         </div>
         <div className="sidebarMenu">

@@ -50,7 +50,7 @@ function RedBar() {
 }
 // 
 
-export default function Book({ bookId, fetchData, props }) {
+export default function Book({ bookId, fetchData, props, setChange }) {
   const [open, setOpen] = useState(false);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAuthor, setDataAuthor] = useState([]);
@@ -288,6 +288,9 @@ export default function Book({ bookId, fetchData, props }) {
                 const result= await update_book(valueForm.bookId, valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, resultImage, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
                 if(result?.update === true ) {
                   swal("Notice", "Update book successfully", "success")
+                  .then(()=> setChange(prev=> !prev))
+                  .then(()=> handleClose())
+                  .catch(()=> swal("Notice", "Unknown error", "error"))
                 }
                 else {
                   swal("", "Error", "error")
@@ -298,9 +301,12 @@ export default function Book({ bookId, fetchData, props }) {
                 const result= await update_book(valueForm.bookId,valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, valueForm.coverPhoto, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
                 if(result?.update === true ) {
                   swal("Notice", "Update book successfully", "success")
+                  .then(()=> setChange(prev=> !prev))
+                  .then(()=> handleClose())
                 }
                 else {
                   swal("", "Error", "error")
+                  .then(()=> handleClose())
                 }
               }
             }}

@@ -4,7 +4,7 @@ const connection = require("../../database/connect")
 const request = {
     get: expressAsyncHandler(async (req, res) => {
         try {
-            const [rows] = await connection.execute("SELECT *, history.history_id AS id FROM history INNER JOIN user ON user.user_id = history.user_id INNER JOIN book ON book.book_id = history.book_id")
+            const [rows] = await connection.execute("SELECT *, history.history_id AS id FROM history INNER JOIN user ON user.user_id = history.user_id INNER JOIN book_in_book ON book_in_book.book_in_book_id = history.book_id INNER JOIN book ON book.book_id = book_in_book.book_id")
             return res.status(200).json(rows)
         } catch (error) {
             console.log(error)

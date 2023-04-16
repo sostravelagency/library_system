@@ -6,10 +6,10 @@ const stats= expressAsyncHandler(async (req, res)=> {
     try {
         const [rows]= await connection.execute("SELECT * FROM history WHERE is_borrow= 1")
         if(Boolean(req.query.time_range)=== true ) {
-            const rowsStats= rows?.filter(item=> (moment(item?.time_approve).diff(moment(req.query.time_start, "DD-MM-YYYY")) >= 0) && (moment(item?.time_approve).diff(moment(req.query.time_end, "DD-MM-YYYY")) <= 0)) 
-            const newRowStats= rowsStats?.map(({book_id, history_id, state, time_approve, time_book, user_id, ...rest})=> ({
+            const rowsStats= rows?.filter(item=> (moment(item?.time_borrow).diff(moment(req.query.time_start, "DD-MM-YYYY")) >= 0) && (moment(item?.time_borrow).diff(moment(req.query.time_end, "DD-MM-YYYY")) <= 0)) 
+            const newRowStats= rowsStats?.map(({book_id, history_id, state, time_borrow, time_book, user_id, ...rest})=> ({
                 stats: state,
-                name: moment(time_approve).format("DD-MM-YYYY"),
+                name: moment(time_borrow).format("DD-MM-YYYY"),
                 ...rest
             }))
             const time_start_f= moment(req.query.time_start, "DD-MM-YYYY")
@@ -35,13 +35,13 @@ const stats= expressAsyncHandler(async (req, res)=> {
         }
         else {
 
-                const s1= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().format("DD-MM-YYYY"))?.length
-                const s2= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(1, "days").format("DD-MM-YYYY"))?.length
-                const s3= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(2, "days").format("DD-MM-YYYY"))?.length
-                const s4= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(3, "days").format("DD-MM-YYYY"))?.length
-                const s5= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(4, "days").format("DD-MM-YYYY"))?.length
-                const s6= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(5, "days").format("DD-MM-YYYY"))?.length
-                const s7= rows?.filter(item=> moment(item?.time_approve).format("DD-MM-YYYY") === moment().subtract(6, "days").format("DD-MM-YYYY"))?.length
+                const s1= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().format("DD-MM-YYYY"))?.length
+                const s2= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(1, "days").format("DD-MM-YYYY"))?.length
+                const s3= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(2, "days").format("DD-MM-YYYY"))?.length
+                const s4= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(3, "days").format("DD-MM-YYYY"))?.length
+                const s5= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(4, "days").format("DD-MM-YYYY"))?.length
+                const s6= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(5, "days").format("DD-MM-YYYY"))?.length
+                const s7= rows?.filter(item=> moment(item?.time_borrow).format("DD-MM-YYYY") === moment().subtract(6, "days").format("DD-MM-YYYY"))?.length
                 
                 return res.status(200).json([{name: moment().format("DD-MM-YYYY"), stats: s1},
                 {name: moment().subtract(1, "days").format("DD-MM-YYYY"), stats: s2},

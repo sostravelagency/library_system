@@ -11,13 +11,13 @@ const RatingComponent = (props) => {
   return (
     <div style={{margin: "12px 0", }}>
       {
-        !props?.book_id_rating && 
+        !props?.score && 
         <>
         <div style={{margin: "8px 0"}}>Rating for this book: </div>
         <Rating name="half-rating" value={score} onChange={(e, value)=> setScore(value)} precision={0.5} size={"large"} />
         <br />
         <Button onClick={async ()=> {
-          const result= await post_rating(score, props?.book_id)
+          const result= await post_rating(score, props?.book_in_book_id)
           if(result?.add=== true ) {
             props?.setChange(prev=> !prev)
 
@@ -29,7 +29,7 @@ const RatingComponent = (props) => {
         </>
       }
       {
-        props?.book_id_rating && <>
+        props?.score && <>
         <Rating disabled={true} name="half-rating" value={score} onChange={(e, value)=> setScore(value)} precision={0.5} size={"large"} />
         <br />
         <div style={{margin: "8px 0"}}>You rated this book</div>

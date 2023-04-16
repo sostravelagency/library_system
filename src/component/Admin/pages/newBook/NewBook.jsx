@@ -52,7 +52,7 @@ function RedBar() {
   );
 }
 
-export default function NewBook({ fetchData }) {
+export default function NewBook({ fetchData, setChange }) {
   const [open, setOpen] = useState(false);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataAuthor, setDataAuthor] = useState([]);
@@ -132,7 +132,7 @@ export default function NewBook({ fetchData }) {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>{"Thêm sách"}</DialogTitle>
+        <DialogTitle>{"Add new book"}</DialogTitle>
 
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -265,6 +265,7 @@ export default function NewBook({ fetchData }) {
               const result= await add_book(valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, resultImage, authorChoosen, valueForm.linkBook, personCategory, personAuthor )
               if(result?.add === true ) {
                 swal("Notice", "Add book successfully", "success")
+                .then(()=> setChange(prev=> !prev))
               }
               else {
                 swal("", "Error", "error")

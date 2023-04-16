@@ -20,8 +20,7 @@ function Author() {
   const [data, setData] = useState([]);
   const [authorId, setAuthorId] = useState();
   const [open, setOpen] = useState(false);
-  console.log("data: ", data);
-
+  const [change, setChange]= useState(false)
   async function fetchData() {
     const res = await get_list_author();
     // const res = [];
@@ -30,7 +29,7 @@ function Author() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [change]);
 
   const handleClose = () => {
     setOpen(false);
@@ -46,6 +45,7 @@ function Author() {
         return (
           <>
             <UpdateAuthor
+              setChange={setChange}
               props={params.row}
               authorId={params.row.author_id}
               fetchData={fetchData}
@@ -65,7 +65,7 @@ function Author() {
   ];
   return (
     <div className="userList">
-      <AddAuthor fetchData={fetchData} />
+      <AddAuthor setChange={setChange} fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>Danh sách book</div>
       {data.length > 0 ? (
         <div style={{height: 500}}> 

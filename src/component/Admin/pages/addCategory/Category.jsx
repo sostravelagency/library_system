@@ -37,8 +37,8 @@ const Category = () => {
             renderCell: (params) => {
                 return (
                     <div style={{gap: 10, display: "flex", alignItems: "center"}}>
-                        <UpdateCategory id={params.row.id} setChange={setChange} />
-                        <DeleteCategory id={params.row.id} setChange={setChange} />
+                        <UpdateCategory {...params.row} id={params.row.id} setChange={setChange} />
+                        <DeleteCategory {...params.row} id={params.row.id} setChange={setChange} />
                     </div>
                 );
             },
