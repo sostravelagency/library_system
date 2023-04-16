@@ -193,7 +193,7 @@ const Request = () => {
           return (
             <div className={"c-flex-center"}>
               <Button onClick={async ()=> {
-                  const result= await accept_request_book_back(params.row.id)
+                  const result= await accept_request_book_back(params.row.id, params.row.user_id)
                   if(result?.finish=== true) {
                     setChange(prev=> !prev)
                   }

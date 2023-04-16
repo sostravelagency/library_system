@@ -25,6 +25,10 @@ const request = {
         try {
             // eslint-disable-next-line
             const [rows] = await connection.execute("UPDATE history SET state= ?, time_approve= ?, is_borrow= ?, borrow_time= ? WHERE history_id= ?", [req.body.status, new Date(), req.body?.is_borrow || 0, parseInt(req.body?.day_borrow) || 0, req.body.id])
+            if(parseInt(req.body.status)=== 2) {
+                const [rows]= await connection.execute("SELECT book_in_book.book_in_book_id FROM book_in_book INNER JOIN history ON history.book_id = book_in_book.book_in_book_id WHERE history.history_id= ?", [req.body.id])
+                const [rows1]= await connection.execute("UPDATE book_in_book SET checkouting= 0 WHERE book_in_book_id= ?", [req.body.book_id])
+            }
             return res.status(200).json({update: true})
         } catch (error) {
             console.log(error)

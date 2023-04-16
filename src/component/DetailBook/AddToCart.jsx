@@ -63,21 +63,7 @@ export default function AddToCart(props) {
             <DialogTitle>{"Add to cart"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
-                <div style={{padding: "10px 20px", borderRadius: 20, border: "1px solid #000", display: "flex", justifyContent: 'space-between', alignItems: "center", height: 40}}>
-                    <div style={{cursor: "pointer"}} onClick={()=> {
-                        return swal("Thông báo", "Chỉ được mượn ít nhất một quyển", "error")
-                        // eslint-disable-next-line
-                        if(amount> 1) {
-                            setAmount(()=> amount - 1)
-                        }
-                    }}>-</div>
-                    <div style={{padding: "0 16px", fontWeight: 600}}>{amount}</div>
-                    <div style={{cursor: "pointer"}} onClick={()=> {
-                       return swal("Thông báo", "Chỉ được mượn tối đa một quyển", "error")
-                        // eslint-disable-next-line
-                        setAmount(()=> amount + 1)
-                    }}>+</div>
-                </div>
+                <div>Are you sure want to add this book to cart ?</div>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -90,6 +76,9 @@ export default function AddToCart(props) {
                   }
                   else if(result?.exist=== true) {
                     swal("Thông báo", "Bạn đã đặt cuốn sách này", "error")
+                  }
+                  else if(result?.runout=== true) {
+                    swal("Notice", "Book ran out !, try at the moment else", "error")
                   }
                   else {
                     swal("Thông báo", "Error", "error")

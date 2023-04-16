@@ -253,7 +253,8 @@ export const ComponentCart = (props) => {
       >
         <div style={{ padding: 10, fontWeight: 600 }}>{amount}</div>
       </div>
-      <div
+      {
+        !props?.is_history=== true && <div
         onClick={async () => {
           // eslint-disable-next-line
           const result = await delete_cart(props?.book_id);
@@ -267,6 +268,7 @@ export const ComponentCart = (props) => {
       >
         <AiFillDelete size={24} />
       </div>
+      }
     </div>
   );
 };
