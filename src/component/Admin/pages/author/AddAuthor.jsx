@@ -27,7 +27,7 @@ function RedBar() {
   );
 }
 
-function AddAuthor({ fetchData }) {
+function AddAuthor({ fetchData, setChange }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -127,6 +127,7 @@ function AddAuthor({ fetchData }) {
                   ).then(() => {
                     handleClose();
                     fetchData();
+                    setChange(prev=> !prev)
                   });
                 } else {
                   swal("Notice", "Error", "error");

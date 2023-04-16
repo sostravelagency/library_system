@@ -203,7 +203,7 @@ const History = () => {
                   ?.filter((item) => (parseInt(item?.state) === 1 && parseInt(item?.is_borrow)=== 1))
                   ?.map((item, key) => (
                     <ComponentCart
-                      is_rating={true}
+                      
                       key={key}
                       {...item}
                       data={data}
@@ -254,6 +254,7 @@ const History = () => {
                   ?.filter((item) => (parseInt(item?.state) === 3))
                   ?.map((item, key) => (
                     <ComponentCart
+                      is_rating={true}
                       is_history={true}
                       key={key}
                       {...item}

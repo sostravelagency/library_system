@@ -21,8 +21,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function UpdateCategory(props) {
   const [open, setOpen] = React.useState(false);
-  const [categoryName, setCategoryName]= React.useState(props?.categoryName)
-  const [categoryDescription, setCategoryDescription]= React.useState(props?.categoryDescription)
+  const [categoryName, setCategoryName]= React.useState(props?.category_name)
+  const [categoryDescription, setCategoryDescription]= React.useState(props?.category_description)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -50,12 +50,12 @@ export default function UpdateCategory(props) {
             <div></div>
             <br />
             <div></div>
-            <TextArea placeholder={"Category description"} value={categoryDescription} onChange={(e)=> setCategoryDescription(e.target.value)} rows={4} />
+            <TextArea style={{width: 600}} placeholder={"Category description"} value={categoryDescription} onChange={(e)=> setCategoryDescription(e.target.value)} rows={4} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button color={"facebook"} onClick={async ()=> {
-              const result= await update_category(categoryName, props?.id)
+              const result= await update_category(categoryName, categoryDescription, props?.id)
               if(result?.update=== true) {
                 swal("Thông báo", "Bạn đã cập nhật thể loại thành công", "success")
                 .then(()=> {

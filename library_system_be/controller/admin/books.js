@@ -4,7 +4,7 @@ const {v4 }= require("uuid")
 
 const books= {
     get: expressAsyncHandler(async(req, res)=> {
-        const [rows]= await connection.execute("SELECT *,CONCAT('[',GROUP_CONCAT(JSON_OBJECT('category_id', category.category_id, 'category_name', category.category_name)),']') AS categories FROM book INNER JOIN category_book ON category_book.book_id = book.book_id INNER JOIN category ON category.category_id= category_book.category_id INNER JOIN author ON author.author_id=book.author_id GROUP BY book.book_id");
+        const [rows]= await connection.execute("SELECT book.*, author.* ,CONCAT('[',GROUP_CONCAT(JSON_OBJECT('category_id', category.category_id, 'category_name', category.category_name)),']') AS categories FROM book LEFT JOIN category_book ON category_book.book_id = book.book_id LEFT JOIN category ON category.category_id= category_book.category_id INNER JOIN author ON author.author_id=book.author_id GROUP BY book.book_id");
         
         return res.status(200).json(rows)
     }),
@@ -66,6 +66,7 @@ const books= {
         try {
             // eslint-disable-next-line
             const id = v4();
+            Array.from(Array(parseInt(req.body.book_quantity)).keys()).map(async item=> await connection.execute("INSERT INTO book_in_book(book_in_book_id, book_id) VALUES(?, ?)", [v4(), id]))
             await connection.execute("INSERT INTO book VALUES(?, ?, ?, ?, ?, ?, ?, ?)", 
             [
                 id, 
@@ -93,6 +94,13 @@ const books= {
     }),
     update: expressAsyncHandler(async (req, res)=> {
         try {
+            const [rows1]= await connection.execute("SELECT book_quantity FROM book WHERE book_id= ?", [req.body?.book_id])
+            if(rows1.length > 0) {
+                console.log(rows1)
+                if(parseInt(rows1?.[0]?.book_quantity) < parseInt(req.body?.book_quantity)) {
+                    Array.from(Array(parseInt(req.body?.book_quantity - parseInt(rows1?.[0]?.book_quantity))).keys()).map(async item=> await connection.execute("INSERT INTO book_in_book(book_in_book_id, book_id) VALUES(?, ?)", [v4(), req.body?.book_id]))
+                }
+            }
             // eslint-disable-next-line
             await connection.execute("UPDATE book SET book_name= ?, book_quantity= ?, book_rating= ?, book_description= ?, cover_photo= ?, link_book= ? WHERE book_id= ?", 
             [
@@ -112,7 +120,7 @@ const books= {
                 await connection.execute("INSERT INTO category_book VALUES(?, ?)", 
                 [
                     req.body.book_id,
-                    cb.category_id
+                    cb.category_id || ""
                 ]);
             });
 

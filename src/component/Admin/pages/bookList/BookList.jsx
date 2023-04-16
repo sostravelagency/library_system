@@ -21,16 +21,15 @@ export default function ProductList() {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [bookId, setBookId] = useState();
-
+  const [change, setChange]= useState(false)
   async function fetchData() {
-    const res = await get_list_book();
-    // const res = [];
-    setData(res);
+    const result = await get_list_book();
+    setData(result);
   }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [change]);
 
   const handleClose = () => {
     setOpen(false);
@@ -84,7 +83,7 @@ export default function ProductList() {
         return (
           <>
             
-            <Book props={params.row} bookId={params.row.book_id} fetchData={fetchData} />
+            <Book setChange={setChange} props={params.row} bookId={params.row.book_id} fetchData={fetchData} />
             <DeleteOutline
               className="bookListDelete"
               onClick={() => {
@@ -100,7 +99,7 @@ export default function ProductList() {
 
   return (
     <div className="userList">
-      <NewBook fetchData={fetchData} />
+      <NewBook setChange={setChange} fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>List books</div>
       <div style={{height: 500}}>
         <DataGrid
