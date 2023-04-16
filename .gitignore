@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/library_system_be
+/library_system_becd
 /.pnp
 .pnp.js
 /library_system_be/node_modules
