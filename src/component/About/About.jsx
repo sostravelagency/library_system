@@ -6,9 +6,9 @@ import Footer from "../Footer/Footer"
 
 
 const About = () => {
-    const message ='Chủ tịch FPT Software Hoàng Nam Tiến xuất hiện tại sân vận động của Khu Liên hợp thể thao quốc gia từ sớm và hào hứng tham gia các hoạt động trong Hội thao. Anh còn góp mặt trong màn diễu hành của FPT Software và tham gia trò vật tay ở hạng cân 90 kg với một học sinh lớp 10 trường THPT FPT.'
+    const message ='The development of e-library system websites has been made possible by advancements in technology as well as the widespread use of the internet and the fact that it is appearing more and more in schools in Vietnam is inevitable. So in this project our team would like to introduce a library management system website for schools. This system is a digital platform that allows users to access the resources and services of a library from a computer or mobile device. It is an important tool for modern libraries, as it enables them to reach a wider audience and provide convenient access to their materials and services.'
     return (
-        <div className="main-page" style={{width: "100%"}}>
+        <div className="main-page" style={{width: "100%",fontFamily: "Open Sans"}}>
         <Header/>
         <section className="section-white">
             <div className="container">
@@ -25,7 +25,7 @@ const About = () => {
                             <img src="https://res.cloudinary.com/dsqzrmptp/image/upload/c_scale,w_216/v1679914236/3135715_ibfyqj.png" className="team-image" alt="pic"></img>
                             <h3>ĐỖ LÊ HUY</h3>
                             <div className="team-info"><p>Team Leader</p></div>
-                                <p>Ông Hoàng Nam Tiến sinh năm 1969, tốt nghiệp ngành Công nghệ Thông tin Đại học Bách khoa Hà Nội. Gia nhập FPT từ năm 1993, đến năm 2011, ông Tiến giữ vị trí Chủ tịch của FPT Software. Trong 8 năm, FPT Software đạt tốc độ tăng trưởng trung bình trên 30%, trở thành một trong 500 công ty phần mềm lớn nhất trên thế giới.</p>
+                                <p>A Team Leader oversees a group of employees and motivates them to do their job efficiently. They provide daily objectives, develop reward systems for productivity that motivate new hires and seasoned workers alike and communicate any issues with upper management to reach business goals effectively.</p>
 
                                 <ul className="team-icon">
                                     <li><a href="">
