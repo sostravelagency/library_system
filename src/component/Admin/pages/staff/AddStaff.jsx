@@ -56,11 +56,11 @@ export default function AddStaff(props) {
             <div></div>
             <br />
             <div></div>
-            <TextField style={{width: 350}} value={email} onChange={(e)=> setEmail(e.target.value)} placeholder={"Account"} />
+            <TextField style={{width: 350}} value={email} onChange={(e)=> setEmail(e.target.value)} placeholder={"Phone"} />
             <div></div>
             <br />
             <div></div>
-            <TextField style={{width: 350}} value={phone} onChange={(e)=> setPhone(e.target.value)} placeholder={"Phone"} />
+            <TextField style={{width: 350}} value={phone} onChange={(e)=> setPhone(e.target.value)} placeholder={"Email"} />
             <div></div>
             <br />
             <div></div>

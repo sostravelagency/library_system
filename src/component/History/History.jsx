@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Badge from "@mui/material/Badge";
+import Header from "../Home/Header";
 
 const History = () => {
   const navigate = useNavigate();
@@ -34,23 +35,9 @@ const History = () => {
   };
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
-      <div style={{ width: "100%", padding: 10 }}>
-        <div
-          onClick={() => navigate(-1)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            cursor: "pointer",
-            paddingBottom: 10,
-            borderBottom: "1px solid #e7e7e7",
-            width: "100%",
-          }}
-        >
-          <IoIosArrowBack size={24} />
-          <div style={{ fontSize: 18, fontWeight: 600 }}>History</div>
-        </div>
+    <Box sx={{ width: "100%", typography: "body1",fontFamily:"Open Sans" }}>
+      <div style={{ width: "100%", padding: 10,fontFamily:"Open Sans" }}>
+        <Header/>
         <div style={{ margin: "12px 0" }}>
           <div style={{ fontSize: 20 }}>History</div>
           <div style={{ margin: "8px 0" }}>

@@ -23,7 +23,7 @@ const UserProfile = (props) => {
         nested
     >
         {close => (
-        <div className="modal" style={{borderRadius: 10}}>
+        <div className="modal" style={{borderRadius: 10,fontFamily:"Open Sans"}}>
             <div onClick={()=> {close();setUpdate(false)}} className={""} style={{cursor: "pointer", width: "100%", direction: "rtl"}}>
                     <AiOutlineClose size={20} />
                 </div>
@@ -54,7 +54,7 @@ const UserProfile = (props) => {
                     <Form>
                         <Form.Item
 
-                            label={<p style={{fontSize:"18px"}}>Username</p> }
+                            label={<p style={{fontSize:"18px",fontFamily:"Open Sans"}}>Username</p> }
                             name="username"
                             rules={[
                                 {
@@ -67,7 +67,7 @@ const UserProfile = (props) => {
                         </Form.Item>
                         <Form.Item
 
-                            label={<p style={{fontSize:"18px"}}>Phone number</p> }
+                            label={<p style={{fontSize:"18px",fontFamily:"Open Sans"}}>Phone number</p> }
                             name="phonenumber"
                             rules={[
                                 {
@@ -80,7 +80,7 @@ const UserProfile = (props) => {
                         </Form.Item>
                         <Form.Item
 
-                            label={<p style={{fontSize:"18px"}}>Address</p> }
+                            label={<p style={{fontSize:"18px",fontFamily:"Open Sans"}}>Address</p> }
                             name="address"
                             rules={[
                                 {
@@ -98,7 +98,7 @@ const UserProfile = (props) => {
             }
             <div className="actions" style={{direction: "rtl", display: "flex", gap: 16}}>
              <button
-                    style={{padding: "10px 30px", borderRadius: 80, background: "#555", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600}}
+                    style={{padding: "10px 30px", borderRadius: 80, background: "#555", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600,fontFamily:"Open Sans"}}
                     className="button"
                     onClick={() => {
                         Cookies.remove("uid")
@@ -109,7 +109,7 @@ const UserProfile = (props) => {
                     Logout
                 </button>
                 <button
-                    style={{padding: "10px 30px", borderRadius: 80, background: "#555", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600}}
+                    style={{padding: "10px 30px", borderRadius: 80, background: "#555", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600,fontFamily:"Open Sans"}}
                     className="button"
                     onClick={() => {
                         setUpdate(()=> false)
@@ -121,7 +121,7 @@ const UserProfile = (props) => {
                 {
                     update=== false && 
                     <button
-                        style={{padding: "10px 30px", borderRadius: 80, background: "#2e89ff", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600}}
+                        style={{padding: "10px 30px", borderRadius: 80, background: "#2e89ff", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600,fontFamily:"Open Sans"}}
                         className="button"
                         onClick={() => {
                             setUpdate(()=> true)
@@ -133,7 +133,7 @@ const UserProfile = (props) => {
                 {
                     update=== true && 
                     <button
-                        style={{padding: "10px 30px", borderRadius: 80, background: "#2e89ff", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600}}
+                        style={{padding: "10px 30px", borderRadius: 80, background: "#2e89ff", border: "none", outline: "none", color: "#fff", fontSize: 16, fontWeight: 600,fontFamily:"Open Sans"}}
                         className="button"
                         onClick={async () => {
                             const result= await update_user(userName, phoneNumber, address)

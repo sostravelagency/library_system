@@ -78,7 +78,7 @@ const Signup = () => {
             zIndex: 3,
           }}
         >
-          <div style={{ width: "100%", maxWidth: 600, marginTop: 150 }}>
+          <div style={{ width: "100%", maxWidth: 600, }}>
             <div
               style={{
                 fontSize: 64,
@@ -98,7 +98,7 @@ const Signup = () => {
                 textAlign: "center",
                 margin: "24px 0",
                 lineHeight: 1.8,
-                marginTop: 100
+                marginTop: 20
               }}
             >
               Sign up and get ready to experience!
@@ -218,11 +218,11 @@ const Signup = () => {
                         width: "100%",
                         height: "100%",
                         padding: 10,
-                        background: "#224957",
+                        background: "#ffffff",
                         borderRadius: 10,
-                        border: "none",
+                        border: "1px solid #000000",
                         outline: "none",
-                        color: "#fff",
+                        color: "#000000",
                         fontSize: 17,
                       }}
                     />

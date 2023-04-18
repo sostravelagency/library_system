@@ -15,6 +15,7 @@ import { Button } from "antd";
 import confirm_borrow_book from "../../api/confirm_borrow_book";
 import RatingComponent from "./Rating";
 import give_book_back from "../../api/give_book_back";
+import Header from "../Home/Header";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -29,22 +30,8 @@ const Cart = () => {
   }, []);
 
   return (
-    <div style={{ width: "100%", padding: 10 }}>
-      <div
-        onClick={() => navigate(-1)}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          cursor: "pointer",
-          paddingBottom: 10,
-          borderBottom: "1px solid #e7e7e7",
-          width: "100%",
-        }}
-      >
-        <IoIosArrowBack size={24} />
-        <div style={{ fontSize: 18, fontWeight: 600 }}>Cart</div>
-      </div>
+    <div style={{ width: "100%", padding: 10, fontFamily:"Open Sans" }}>
+      <Header/>
       <div style={{ margin: "12px 0" }}>
         <div style={{ fontSize: 20 }}>Cart</div>
         <div style={{ margin: "8px 0" }}>
@@ -135,7 +122,7 @@ export const ComponentCart = (props) => {
           onClick={() => navigate("/book/" + props?.book_id)}
         >
           <img
-            style={{ width: "100%", aspectRatio: 2 / 3, borderRadius: 10 }}
+            style={{ width: "100%", aspectRatio: 1 / 1, borderRadius: 10 }}
             src={props?.cover_photo}
             alt=""
           />
