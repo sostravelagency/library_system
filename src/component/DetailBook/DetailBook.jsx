@@ -118,7 +118,7 @@ const DetailBook = () => {
                         categories?.length > 0 && 
                         <Grid container>
                             <Grid item xs={2} padding={1} margin={1}>
-                                <div className={"c-flex-center"} style={{fontSize: 18}}>Genre: </div>
+                                <div className={"c-flex-center"} style={{fontSize: 18}}>Category: </div>
                             </Grid>
                             {
                                 categories?.map((item, key)=> <Grid margin={1} key={key} item xs={2} padding={1} style={{borderRadius: 80, color: "#fff", background: "#2e89ff", fontSize: 18, display: "flex", justifyContent: "center", alignItems: "center"}}>

@@ -37,6 +37,8 @@ const Request = () => {
     
     keys: [
       "book_name",
+      "user_email",
+      "book_in_book_id"
     ]
   }), []);
   const [searchString, setSearchString]= useState("")
@@ -73,8 +75,8 @@ const Request = () => {
   const columns = [
     { field: "id", headerName: "ID", width: 150 },
     {
-      field: "user_name",
-      headerName: "User name",
+      field: "user_email",
+      headerName: "Email",
       width: 200,
     },
     { field: "book_in_book_id", headerName: "Book id", width: 150 },
@@ -124,12 +126,12 @@ const Request = () => {
               </div>
             )}
             {params.row.state === 3 && (
-              <div className={"c-flex-center"} style={{ }}>
+              <div className={"c-flex-center"} style={{ color: "orange"}}>
                 Finish
               </div>
             )}
             {params.row.state === 4 && (
-              <div className={"c-flex-center"} style={{ }}>
+              <div className={"c-flex-center"} style={{ color: "gray"}}>
                 Overdue
               </div>
             )}
@@ -146,7 +148,7 @@ const Request = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 300,
+      width: 200,
       renderCell: (params) => {
         if (
           parseInt(params.row?.state) === 1 &&
@@ -177,14 +179,14 @@ const Request = () => {
         }
         if (parseInt(params.row?.state) === 3) {
           return (
-            <div className={"c-flex-center"} style={{  }}>
+            <div className={"c-flex-center"} style={{color: "orange"  }}>
               Finish
             </div>
           );
         }
         if (parseInt(params.row?.state) === 4) {
           return (
-            <div className={"c-flex-center"} style={{  }}>
+            <div className={"c-flex-center"} style={{ color: "gray" }}>
               Overdue
             </div>
           );
@@ -360,13 +362,13 @@ const Request = () => {
           </TabList>
         </Box>
         <TabPanel value="0">
-          <div style={{ width: "100%", margin: "24px 0", height: 500 }}>
+          <div style={{ width: "100%", margin: "24px 0", height: 650 }}>
             <DataGrid
               rows={data}
               disableSelectionOnClick
               columns={columns}
-              checkboxSelection
-              pageSize={5}
+              
+              pageSize={9}
               pagination={true}
               paginationMode="client"
             />
@@ -378,7 +380,7 @@ const Request = () => {
               rows={data?.filter((item) => parseInt(item?.state) === 0)}
               disableSelectionOnClick
               columns={columns}
-              checkboxSelection
+              
               pageSize={5}
               pagination={true}
               paginationMode="client"
@@ -397,7 +399,7 @@ const Request = () => {
               pageSize={5}
               pagination={true}
               paginationMode="client"
-              checkboxSelection
+              
             />
           </div>
         </TabPanel>
@@ -410,7 +412,7 @@ const Request = () => {
               pageSize={5}
               pagination={true}
               paginationMode="client"
-              checkboxSelection
+              
             />
           </div>
         </TabPanel>
@@ -426,7 +428,7 @@ const Request = () => {
               pageSize={5}
               pagination={true}
               paginationMode="client"
-              checkboxSelection
+              
             />
           </div>
         </TabPanel>
@@ -439,7 +441,7 @@ const Request = () => {
               pageSize={5}
               pagination={true}
               paginationMode="client"
-              checkboxSelection
+              
             />
           </div>
         </TabPanel>

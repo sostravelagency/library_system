@@ -186,18 +186,6 @@ export default function Book({ bookId, fetchData, props, setChange }) {
               error={errorForm.bookRating.length > 0 ? true : false}
             />
             <RedBar />
-            <TextField
-              fullWidth
-              name="linkBook"
-              value={valueForm.linkBook}
-              onChange={handleChange}
-              placeholder={"Link book"}
-              helperText={
-                errorForm.linkBook.length > 0 ? errorForm.linkBook : ""
-              }
-              error={errorForm.linkBook.length > 0 ? true : false}
-            />
-            <RedBar />
             <UploadImage title={"Upload cover book"} setImage={setImage} />
             <RedBar />
             <TextField

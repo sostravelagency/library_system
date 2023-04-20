@@ -101,12 +101,12 @@ export default function ProductList() {
     <div className="userList">
       <NewBook setChange={setChange} fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>List books</div>
-      <div style={{height: 500}}>
+      <div style={{height: 750}}>
         <DataGrid
           rows={data}
           columns={columns}
           disableSelectionOnClick
-          pageSize={8}
+          pageSize={11}
           getRowId={(row) => row.book_id}
           getRowHeight={() => "auto"}
         />

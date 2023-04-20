@@ -48,14 +48,13 @@ const Category = () => {
         <div className="userList">
             <AddCategoryComponent setChange={setChange} />
             <div style={{marginBottom: 8}}>Danh sách danh mục</div>
-            <div style={{height: "500px"}}>
+            <div style={{height: "750px"}}>
 
                 <DataGrid
                     rows={data}
                     disableSelectionOnClick
                     columns={columns}
-                    checkboxSelection
-                    pageSize={5}
+                    pageSize={11}
                     pagination={true}
                     paginationMode="client"
                 />

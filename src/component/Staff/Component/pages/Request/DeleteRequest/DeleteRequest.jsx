@@ -27,9 +27,7 @@ export default function ApproveRequest(props) {
 
   return (
     <div>
-        <Button onClick={handleClickOpen} style={{margin: "8px 0", display: "flex", alignItems: "center"}}>
-          Delete
-        </Button>
+        
       <Dialog
         open={open}
         TransitionComponent={Transition}

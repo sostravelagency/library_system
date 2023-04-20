@@ -42,7 +42,7 @@ export default function SimilarBookStatus(props) {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Watch similar book status
+        Watch similar book
       </Button>
       <Dialog
         open={open}

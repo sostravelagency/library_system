@@ -82,7 +82,6 @@ export default function ManageStaff() {
           rows={data}
           disableSelectionOnClick
           columns={columns}
-          checkboxSelection
           pageSize={5}
           pagination={true}
           paginationMode="client"

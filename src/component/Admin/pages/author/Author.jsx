@@ -36,6 +36,7 @@ function Author() {
   };
 
   const columns = [
+    { field: "author_id", headerName: "ID", width: 150 },
     { field: "author_name", headerName: "Name", width: 200 },
     {
       field: "action",
@@ -68,13 +69,12 @@ function Author() {
       <AddAuthor setChange={setChange} fetchData={fetchData} />
       <div style={{ marginBottom: 8 }}>Danh sách book</div>
       {data.length > 0 ? (
-        <div style={{height: 500}}> 
+        <div style={{height: 750}}> 
           <DataGrid
             rows={data}
             disableSelectionOnClick
             columns={columns}
-            pageSize={8}
-            checkboxSelection
+            pageSize={11}
             getRowId={(row) => row.author_id}
             getRowHeight={() => "auto"}
           />

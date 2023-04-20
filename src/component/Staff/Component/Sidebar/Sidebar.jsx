@@ -31,7 +31,7 @@ export default function Sidebar() {
           </ul>
         </div>
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Yêu cầu</h3>
+          <h3 className="sidebarTitle">Request</h3>
           <ul className="sidebarList">
             <Link to="/staff/request" className="link">
                 {
@@ -45,13 +45,13 @@ export default function Sidebar() {
           </ul>
         </div>
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Phản hồi</h3>
+          <h3 className="sidebarTitle">Inbox</h3>
           <ul className="sidebarList">
             <Link to="/staff/feedback/message" className="link">
               {
                 (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
                   <PermIdentity className="sidebarIcon" />
-                    Tin nhắn
+                    Message
                 </li>)
               }
             </Link>

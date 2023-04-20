@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import Cookies from "js-cookie";
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export default function Topbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,7 +22,7 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Staff</span>
+        <Link to ="/staff"> <span className="logo">Librarian</span> </Link>
         </div>
         <div className="topRight">
           <div onClick={handleClick} className="topbarIconContainer">
