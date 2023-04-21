@@ -88,10 +88,6 @@ export default function SimilarBookStatus(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
         </DialogActions>
       </Dialog>
     </div>
