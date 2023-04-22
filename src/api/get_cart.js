@@ -2,6 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
+// Define an asynchronous function called "get_cart"
 const get_cart= async ()=> {
     const res= await axios({
         url: API_URL+ "/api/cart",

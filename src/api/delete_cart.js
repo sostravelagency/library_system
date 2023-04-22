@@ -2,6 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
+// This function delete a item in cart.
 const delete_cart= async (book_id)=> {
     const res= await axios({
         url: API_URL+ "/api/cart/delete",

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// Define an asynchronous function named "sign_up"
 const signup= async (userName, email, phone, password, address)=> {
     const res= await axios({
         url: API_URL+ "/api/signup",

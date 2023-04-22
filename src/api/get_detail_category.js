@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// Define an asynchronous function called "get_detail_category"
 const get_detail_category= async (category_id)=> {
     const res= await axios({
         url: API_URL+ "/api/category/detail",

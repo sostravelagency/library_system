@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// This function confirms a user's email address using a verification code.
 const confirm_account= async (email, code)=> {
 
     const res= await axios({

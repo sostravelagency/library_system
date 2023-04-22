@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
+// This function about delete order
 const delete_request= async (id)=> {
     const res= await axios({
         url: API_URL+ "/staff/request/delete",

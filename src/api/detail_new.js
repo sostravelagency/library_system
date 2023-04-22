@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// This function fetches the details of a news article based on its ID
 const detail_new= async (new_id)=> {
     const res= await axios({
         url: API_URL+ "/api/v1/news/detail",

@@ -2,6 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
+// Define an asynchronous function named "update_user"
 const update_user= async (userName, phoneNumber, address)=> {
     const res= await axios({
         url: API_URL+ "/api/user/update",

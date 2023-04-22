@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
+// Function to get list of author from the server
 const get_list_author = async () => {
   const res = await axios({
     url: API_URL + "/api/v3/author",

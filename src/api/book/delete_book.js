@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
+// This function sends a delete request to delete a book from the server
 const delete_book = async (id) => {
   const res = await axios({
     url: API_URL + "/api/v3/book?id=" + id,

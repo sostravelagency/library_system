@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
+// This function update book on the server
 const put_book = async (
   booId,
   bookName,

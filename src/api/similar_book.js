@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// Define an asynchronous function named "similar_book"
 const similar_book= async (book_id)=> {
     const res= await axios({
         url: API_URL+ "/api/v2/similar/book/"+ book_id,

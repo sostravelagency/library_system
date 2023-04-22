@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
+// Define an function called that takes in a book_id parameter
 const get_book_by_id = async (book_id) => {
   const res = await axios({
     url: API_URL + "/api/v3/book/detail?id=" + book_id,

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
+// Define an asynchronous function named "login"
 const login= async (account, password)=> {
     const res= await axios({
         url: API_URL+ "/api/login",

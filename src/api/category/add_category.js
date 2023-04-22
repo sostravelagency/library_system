@@ -2,6 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../../config"
 
+// This function sends a POST request to add a new category to the server
 const add_category= async (category_name, category_description)=> {
     const res= await axios({
         url: API_URL+ "/api/v3/category/add",
