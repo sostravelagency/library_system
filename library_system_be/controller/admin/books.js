@@ -10,10 +10,16 @@ const books= {
     }),
     getById: expressAsyncHandler(async(req, res)=> {
         const [books]= await connection.execute("SELECT * FROM book INNER JOIN category_book ON category_book.book_id = book.book_id INNER JOIN category ON category.category_id= category_book.category_id INNER JOIN author_book ON author_book.book_id=book.book_id INNER JOIN author ON author.author_id=author_book.author_id WHERE book.book_id = '"+req.query.id+"';");
+        
+         // Create empty arrays to hold the result data, as well as book and author IDs to ensure uniqueness
         let result = [];
         let bookIds  =[];
+        
+        // Loop through each row returned by the query
         for(var e of books){
+            // Check if the book ID has already been added to the result array
             if(!bookIds.includes(e.book_id)){
+                // Round the book rating to one decimal place
                 const rating = Math.round(e.book_rating * 10) / 10;
                 let tmp = {};
                 let auths = [];
@@ -21,6 +27,7 @@ const books= {
                 let categories = [];
                 let categoryIds = [];
 
+                // Add basic book information to the result object
                 tmp.book_id = e.book_id;
                 tmp.book_name = e.book_name;
                 tmp.book_quantity = e.book_quantity;
@@ -29,7 +36,10 @@ const books= {
                 tmp.link_book = e.link_book;
                 tmp.book_rating = rating;
 
+                // Loop through all rows again to find categories and authors associated with this book
                 for(var value of books){
+
+                    // Check if this row corresponds to the same book ID as the current result object
                     if(value.book_id === tmp.book_id){
                         let category = {};
                         category.category_id = value.category_id;
@@ -58,13 +68,13 @@ const books= {
                 tmp.auths = auths;
                 result.push(tmp);
             }
+            // Add the book ID to the bookIds array to ensure uniqueness
             bookIds.push(e.book_id);
         }
         return res.status(200).json(result[0])
     }),
     add: expressAsyncHandler(async (req, res)=> {
         try {
-            // eslint-disable-next-line
             const id = v4();
             Array.from(Array(parseInt(req.body.book_quantity)).keys()).map(async item=> await connection.execute("INSERT INTO book_in_book(book_in_book_id, book_id) VALUES(?, ?)", [v4(), id]))
             await connection.execute("INSERT INTO book VALUES(?, ?, ?, ?, ?, ?, ?, ?)", 
@@ -101,7 +111,6 @@ const books= {
                     Array.from(Array(parseInt(req.body?.book_quantity - parseInt(rows1?.[0]?.book_quantity))).keys()).map(async item=> await connection.execute("INSERT INTO book_in_book(book_in_book_id, book_id) VALUES(?, ?)", [v4(), req.body?.book_id]))
                 }
             }
-            // eslint-disable-next-line
             await connection.execute("UPDATE book SET book_name= ?, book_quantity= ?, book_rating= ?, book_description= ?, cover_photo= ?, link_book= ? WHERE book_id= ?", 
             [
                 req.body.book_name,

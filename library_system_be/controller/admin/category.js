@@ -9,7 +9,7 @@ const category= {
     }),
     add: expressAsyncHandler(async (req, res)=> {
         try {
-            // eslint-disable-next-line
+            
             const [rows]= await connection.execute("INSERT INTO category VALUES(?, ?, ?)", [v4(), req.body.category_name, req.body?.category_description])
             return res.status(200).json({add: true})
         } catch (error) {
@@ -18,7 +18,7 @@ const category= {
     }),
     delete: expressAsyncHandler(async (req, res)=> {
         try {
-            // eslint-disable-next-line
+            
             const [rows]= await connection.execute("DELETE FROM category WHERE category_id= ?", [req.body.id])
             return res.status(200).json({delete: true})
         } catch (error) {
@@ -27,7 +27,7 @@ const category= {
     }),
     update: expressAsyncHandler(async (req, res)=> {
         try {
-            // eslint-disable-next-line
+            
             const [rows]= await connection.execute("UPDATE category SET category_name= ?, category_description= ? WHERE category_id= ?", [req.body.category_name, req.body.category_description, req.body.id])
             return res.status(200).json({update: true})
         

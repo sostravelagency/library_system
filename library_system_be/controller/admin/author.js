@@ -14,23 +14,27 @@ const author= {
     }),
 
     add: expressAsyncHandler(async(req, res)=> {
-        try {
-            // eslint-disable-next-line
+        try {    
+                   
+            // Use the connection object to execute a MySQL query to insert a new author record
             await connection.execute("INSERT INTO author VALUES(?, ?)", 
             [
-                v4(), 
-                req.body.author_name,
+                v4(), // Use the v4 function from the uuid library to generate a unique ID for the new author
+                req.body.author_name, // Get the author's name from the request body
             ]);
 
+            // If the insert operation is successful, return a success response with status 200 and a JSON object with a single property 'add' set to true
             return res.status(200).json({add: true})
+
         } catch (error) {
+
+            // If there is an error, return a server error response with status 500 and the error message
            return res.status(500).send(error) 
         }
     }),
 
     update: expressAsyncHandler(async(req, res)=> {
         try {
-            // eslint-disable-next-line
             await connection.execute("UPDATE author SET author_name= ? WHERE author.author_id =?", 
             [
                 req.body.author_name,
