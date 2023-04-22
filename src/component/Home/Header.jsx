@@ -6,6 +6,7 @@ import { AppContext } from '../../App'
 import DropDownCategory from './DropDownCategory'
 import Search from './Search/Search'
 import UserProfile from './UserProfile'
+import UserProfileRBuild from './UserProfileRBuild'
 
 
 const Header = (props) => {
@@ -41,7 +42,7 @@ const Header = (props) => {
                 }
                 {
                     auth=== true && <>
-                        <UserProfile {...user} />
+                        <UserProfileRBuild {...user} />
                         <div onClick={()=> navigate("/history")} className={"c-flex-center"} style={{cursor: "pointer"}}>
                             <HistoryOutlined />
                         </div>

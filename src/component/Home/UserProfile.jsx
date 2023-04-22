@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import Popup from 'reactjs-popup';
+// import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import {FaUserAlt } from "react-icons/fa"
-import {AiOutlineClose } from "react-icons/ai"
+// import {FaUserAlt } from "react-icons/fa"
 import { Form, Input } from 'antd';
 import update_user from '../../api/update_user';
 import swal from 'sweetalert';
 import Cookies from 'js-cookie';
+import UpdatePassword from './UpdatePassword';
 
 const UserProfile = (props) => {
   const [update, setUpdate]= useState(false)
@@ -15,19 +15,11 @@ const UserProfile = (props) => {
   const [address, setAddress]= useState(props?.user_address)
 
   return (
-    <Popup
-        trigger={<div className={"c-flex-center"} style={{cursor: "pointer"}}>
-                    <FaUserAlt size={20} />
-                </div>}
-        modal
-        nested
-    >
-        {close => (
+    <div style={{width: 550}}>
         <div className="modal" style={{borderRadius: 10}}>
-            <div onClick={()=> {close();setUpdate(false)}} className={""} style={{cursor: "pointer", width: "100%", direction: "rtl"}}>
-                    <AiOutlineClose size={20} />
+            <div onClick={()=> {setUpdate(false)}} className={""} style={{cursor: "pointer", width: "100%", direction: "rtl"}}>
                 </div>
-            <div className="header" style={{textAlign: "center", fontWeight: 600, fontSize: 24}}> Information user </div>
+            {/* <div className="header" style={{textAlign: "center", fontWeight: 600, fontSize: 24}}> Information user </div> */}
             {update=== false && 
                 <div className="content">
                     <div style={{display: "flex", alignItems: "center", fontSize: 18, margin: "12px 0", padding: "10px"}}>
@@ -46,6 +38,11 @@ const UserProfile = (props) => {
                         <div style={{width: 130}}>Address: </div>
                         <div>{props?.user_address}</div>
                     </div>
+                    <br />
+                    <div>
+                        <UpdatePassword />
+                    </div>
+                    <br />
                 </div>
             }
             {
@@ -113,7 +110,6 @@ const UserProfile = (props) => {
                     className="button"
                     onClick={() => {
                         setUpdate(()=> false)
-                        close();
                     }}
                 >
                     Close
@@ -152,8 +148,7 @@ const UserProfile = (props) => {
                 }
             </div>
         </div>
-        )}
-    </Popup>
+    </div>
   )
 }
 

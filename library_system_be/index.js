@@ -33,7 +33,9 @@ io.on("connection", socket=> {
         io.in(data?.conversation_id).emit("receive_new_message", data)
         connection.execute("INSERT INTO message(sender_id, message, conversation_id, time_created) VALUES(?, ?, ?, ?)", [data?.sender_id, data?.message, data?.conversation_id, data?.time_created])
     })
-
+    socket.on("send_request_borrow_book", (data)=> {
+        io.emit("new_request_borrow", {amount: 1})
+    })
 
 })
 

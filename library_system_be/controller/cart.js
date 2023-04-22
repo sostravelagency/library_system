@@ -1,13 +1,13 @@
 const connection = require("../database/connect")
 const expressAsyncHandler= require("express-async-handler")
-const { v4 } = require("uuid")
+// const { v4 } = require("uuid")
 
 const cart= {
     add: expressAsyncHandler(async (req, res)=> {
         try {
             
             // booked
-            const [rows1]= await connection.execute("SELECT cart.* FROM cart INNER JOIN book_in_book ON book_in_book.book_in_book_id = cart.book_id WHERE cart.book_id= ? AND cart.user_id= ?", [req.body.book_id, req.body.user_id])
+            const [rows1]= await connection.execute("SELECT cart.* FROM cart INNER JOIN book_in_book ON book_in_book.book_in_book_id = cart.book_in_book_id WHERE cart.book_id= ? AND cart.user_id= ?", [req.body.book_id, req.body.user_id])
             if(rows1.length > 0) {
                 return res.status(200).json({add: false, exist: true})
             }
@@ -18,7 +18,7 @@ const cart= {
             // const [rows2]= await connection.execute("INSERT INTO history(history_id, user_id, book_id, time_book, time_approve, state) VALUES (?, ?, ?, ?, ?, ?)", [v4(), req.body.user_id, rows0[0]?.book_in_book_id, new Date(), "0", 0])
             //eslint-disable-next-line
             const [rows3]= await connection.execute("UPDATE book_in_book SET checkouting= 1 WHERE book_in_book_id = ?", [rows0[0]?.book_in_book_id])
-            return res.status(200).json({add: true})
+            return res.status(200).json({add: true, book_in_book_id: rows0[0]?.book_in_book_id})
             
         } catch (error) {
             console.log(error)

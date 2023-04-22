@@ -15,12 +15,16 @@ import { Button } from "antd";
 import confirm_borrow_book from "../../api/confirm_borrow_book";
 import RatingComponent from "./Rating";
 import give_book_back from "../../api/give_book_back";
+import { useContext } from "react";
+import { SocketContext } from "../Socket/Socket";
+import Cookies from "js-cookie";
 
 const Cart = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [chooseBook, setChooseBook] = useState();
   const [chooseBookinbookId, setChooseBookinbookId] = useState();
+  const {socketState }= useContext(SocketContext)
   useEffect(() => {
     (async () => {
       const result = await get_cart();
@@ -70,6 +74,7 @@ const Cart = () => {
           <div
             onClick={() => {
               if (chooseBook) {
+                socketState.emit("send_request_borrow_book", {amount: 1, sender: Cookies.get("uid")})
                 checkout(chooseBook, chooseBookinbookId);
                 swal(
                   "Notice",
