@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
-//Asynchronously gets the statistics data from the API endpoint at API_URL/v2/stats.
+//API_URL/v2/statsエンドポイントから統計データを非同期で取得します。
 const get_stats= async ()=> {
     const res= await axios({
         url: API_URL+ "/api/v2/stats",

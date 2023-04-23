@@ -1,9 +1,9 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// This function gets the profile details of a user by their userId
+// この関数は、userIdによってユーザーのプロファイル詳細を取得します
 const get_detail_user = async (userId) => {
-  // Send a GET request to the API endpoint that retrieves user profile information
+  // APIエンドポイントにGETリクエストを送信して、ユーザープロファイル情報を取得します
   const res = await axios({
     url: API_URL + "/api/v3/user/profile?id=" + userId,
     method: "get",

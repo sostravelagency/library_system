@@ -1,17 +1,17 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
-// This function retrieves statistics data within a specified time range
-// The function takes two arguments: a start time and an end time
+// この関数は指定された時間範囲内の統計データを取得します
+// 関数は2つの引数を取ります：開始時間と終了時間
 const get_stats_range= async (time_start, time_end)=> {
-    // An axios request is made to the server with the specified URL, method and parameters
+    // 指定されたURL、メソッド、およびパラメータを使用してサーバーにaxiosリクエストが行われます
     const res= await axios({
         url: API_URL+ "/api/v2/stats",
         method: "get",
         params: {
-            time_range: true, // specifies that the query should use time range
-            time_start, // start time of the range
-            time_end // end time of the range
+            time_range: true, // 時間範囲を使用するようにクエリを指定します
+            time_start, // 範囲の開始時間
+            time_end // 範囲の終了時間
         }
 
     })

@@ -6,24 +6,24 @@ const conversation= {
     get: expressAsyncHandler(async (req, res)=> {
         try {
 
-            // Select all conversations with the given user id
+            // すべてのユーザーIDを持つ会話を選択します
             const [rows1]= await connection.execute("SELECT * FROM conversation WHERE conversation.user_id =? ", [req.query.user_id])
 
-            // If conversation exists
+            // 会話が存在する場合
             if(rows1.length > 0) {
 
-                // Select all messages for the conversation with the user id
+                // ユーザーIDを持つ会話のすべてのメッセージを選択します
                 const [rows] =await connection.execute("SELECT * FROM message INNER JOIN user ON user.user_id = message.sender_id WHERE message.conversation_id= ?", [rows1[0].conversation_id])
-                // Return the conversation and its messages
+                // 会話とそのメッセージを返します
                 return res.status(200).json({conversation: rows1[0].conversation_id, message: rows})
             }
             else {
 
-                // Create a new conversation id
+                // 新しい会話IDを作成します
                 const conversation_id= v4()
-                // Insert a new conversation with the new id and the user id
+                // 新しいIDとユーザーIDを持つ新しい会話を挿入します
                 const [row1]= await connection.execute("INSERT INTO conversation VALUES (?, ?)", [conversation_id, req.query.user_id])
-                // Return the new conversation and its messages
+                // 新しい会話とそのメッセージを返します
                 const [rows]= await connection.execute("SELECT * FROM message INNER JOIN user ON user.user_id = message.sender_id WHERE message.conversation_id= ?", [conversation_id])
                 return res.status(200).json({conversation: conversation_id, message: rows})
             }
@@ -34,12 +34,12 @@ const conversation= {
         }
     }),
 
-    // Define a function to get all conversations with user information
+    // ユーザー情報を持つすべての会話を取得する関数を定義します
     getAll: expressAsyncHandler(async (req, res)=> {
         try {
-            // Select all conversations with user information
+            // ユーザー情報を持つすべての会話を選択します
             const [rows]= await connection.execute("SELECT * FROM conversation INNER JOIN user ON conversation.user_id = user.user_id")
-            // Return all conversations with user information
+            // ユーザー情報を持つすべての会話を返します
             return res.status(200).json(rows)
             
         } catch (error) {

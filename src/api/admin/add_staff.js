@@ -2,22 +2,22 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../../config"
 
-// This function sends a POST request to the "/api/v3/staff/add" endpoint
-// with the necessary data to add a new staff member to the database.
-// The function uses an access token stored in a cookie to authenticate the request.
+// この関数は、新しいスタッフメンバーをデータベースに追加するために必要なデータを使用して、
+// "/api/v3/staff/add"エンドポイントにPOSTリクエストを送信します。
+// 関数は、リクエストを認証するためにクッキーに保存されたアクセストークンを使用します。
 
 const add_staff= async (userName, phoneNumber, address, email, password)=> {
     const res= await axios({
         url: API_URL+ "/api/v3/staff/add",
         method: "post",
         headers: {
-            "authorization": "Bearer "+ Cookies.get("accessToken") // Attach access token to the request headers
+            "authorization": "Bearer "+ Cookies.get("accessToken") // アクセストークンをリクエストヘッダーに添付する
         },
-        data: { // Attach user data to the request body
+        data: { // ユーザーデータをリクエストボディに添付する
             userName, phoneNumber, address, email, password
         }
     })
-    const result= await res.data // Extract data from the response object
+    const result= await res.data // レスポンスオブジェクトからデータを抽出する
     return result
 }
 

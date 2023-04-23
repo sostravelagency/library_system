@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
- // This function about action status in order librarian
+ // この関数は司書が注文の状態についてのアクションを起こすためのものです
 const action_book= async (id, status, is_borrow, day_borrow)=> {
     const res= await axios({
         url: API_URL+ "/staff/request/action",

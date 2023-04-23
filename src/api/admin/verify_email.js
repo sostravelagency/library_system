@@ -1,8 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// This function sends a verification email to the specified email address
-// and returns a response containing information about the status of the email
+// この関数は指定されたメールアドレスに確認メールを送信し、
+// メールのステータスに関する情報を含むレスポンスを返します
 const verify_email = async (email) => {
   try {
     const res = await axios({

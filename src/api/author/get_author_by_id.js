@@ -1,9 +1,9 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// Asynchronously gets the author's details by their ID
+// このコードコメントは日本語です
 const get_author_by_id = async (book_id) => {
-  // Sends a GET request to the server to retrieve the author's details
+  // サーバーに著者の詳細を取得するためのGETリクエストを送信します
   const res = await axios({
     url: API_URL + "/api/v3/author/detail?id=" + book_id,
     method: "get",

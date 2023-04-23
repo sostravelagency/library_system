@@ -1,8 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// This function sends a POST request to add a new author to the server
-// and returns the result
+// この関数は、新しい著者をサーバーに追加するためのPOSTリクエストを送信し、結果を返します
 const add_author = async (
   authorName,
   authorAvatar,
@@ -12,7 +11,7 @@ const add_author = async (
   authorPhone
 ) => {
   const res = await axios({
-    url: API_URL + "/api/v3/author", // The URL endpoint to add a new author
+    url: API_URL + "/api/v3/author", // 新しい著者を追加するためのURLエンドポイント
     method: "post",
     data: {
       author_name: authorName,

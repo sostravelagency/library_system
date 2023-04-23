@@ -16,19 +16,19 @@ const author= {
     add: expressAsyncHandler(async(req, res)=> {
         try {    
                    
-            // Use the connection object to execute a MySQL query to insert a new author record
+            // 新しい著者レコードを挿入するためにMySQLクエリを実行するために接続オブジェクトを使用する
             await connection.execute("INSERT INTO author VALUES(?, ?)", 
             [
-                v4(), // Use the v4 function from the uuid library to generate a unique ID for the new author
-                req.body.author_name, // Get the author's name from the request body
+                v4(), // uuidライブラリからv4関数を使用して新しい著者の一意のIDを生成する
+                req.body.author_name, // リクエストボディから著者の名前を取得する
             ]);
 
-            // If the insert operation is successful, return a success response with status 200 and a JSON object with a single property 'add' set to true
+            // 挿入操作が成功した場合、単一のプロパティ 'add' がtrueに設定されたJSONオブジェクトを持つ成功応答とステータス200を返す
             return res.status(200).json({add: true})
 
         } catch (error) {
 
-            // If there is an error, return a server error response with status 500 and the error message
+            // エラーがある場合、ステータス500とエラーメッセージを持つサーバーエラー応答を返す
            return res.status(500).send(error) 
         }
     }),
@@ -58,3 +58,4 @@ const author= {
 }
 
 module.exports= author
+

@@ -3,7 +3,7 @@ const connection = require("../database/connect")
 const Fuse= require("fuse.js")
 
 const options = {
-    // Define an array of keys to be used in the search
+    // 検索に使用するキーの配列を定義する
     keys: [
       "book_name",
       "author_name"
@@ -11,12 +11,12 @@ const options = {
   };
   
 const search= expressAsyncHandler(async (req, res)=> {
-    // Perform a join operation across the book, category_book, category, and author tables
+    // book、category_book、category、およびauthorテーブルを横断する結合操作を実行する
     const [rows]= await connection.execute("SELECT * FROM category_book INNER JOIN book ON book.book_id = category_book.book_id INNER JOIN category ON category.category_id = category_book.category_id INNER JOIN author ON author.author_id = book.author_id")
-    // Create a new instance of Fuse using the search keys defined in the options object
+    // オプションオブジェクトで定義された検索キーを使用して、新しいFuseインスタンスを作成する
     const fuse = new Fuse(rows, options);
     
-    // Perform a search using the query parameter provided in the request and return the result as a JSON response
+    // リクエストで提供されたクエリパラメータを使用して検索を実行し、結果をJSONレスポンスとして返す
     return res.status(200).json(fuse.search(req.query.query))
 })
 

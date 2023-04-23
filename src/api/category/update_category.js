@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
-// This function update category on the server
+// この関数はサーバー上でカテゴリを更新します
 const update_category= async (category_name, category_description, id)=> {
     const res= await axios({
         url: API_URL+ "/api/v3/category/update",

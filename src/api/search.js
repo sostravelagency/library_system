@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// Define an asynchronous function named "search"
+// 非同期関数 "search" を定義
 const search= async (query)=> {
     const res= await axios({
         url: API_URL+ "/api/search",

@@ -3,9 +3,7 @@ const connection = require("../database/connect");
 
 const finish_book= expressAsyncHandler(async (req, res)=> {
     try {
-        // Use a MySQL query to update the `history` table where the `history_id` matches
-        // the `history_id` passed in the request body and the `user_id` matches the
-        // authenticated user ID stored in the `req.user` property
+        // MySQLクエリを使用して、`history_id`がリクエストボディで渡された`history_id`に一致し、`user_id`が`req.user`に格納された認証済みユーザーIDに一致する場合に、`history`テーブルを更新します。
         const [rows]= await connection.execute("UPDATE history SET state= 5 WHERE history_id= ? AND user_id= ?", [req.body.history_id, req.user])
         return res.status(200).json({finish: true})
         

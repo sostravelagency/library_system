@@ -5,7 +5,7 @@ const md5 = require("md5")
 const reset_password = expressAsyncHandler(async (req, res)=> {
     try {
         const {email, password}= req.body
-        // Update user's password with the new password provided by the user
+        // ユーザーが提供した新しいパスワードでユーザーのパスワードを更新する
         const [rows]= await connection.execute("UPDATE user SET user_password= ? WHERE user_email= ?", [md5(password), email])
         return res.status(200).json({reset: true})
     } catch (error) {

@@ -2,7 +2,7 @@ import axios from "axios"
 import { API_URL } from "../config"
 import Cookies from "js-cookie"
 
-// Define an asynchronous function called "post_rating"
+// 非同期関数「post_rating」を定義する
 const post_rating= async (score, book_id,)=> {
     const res= await axios({
         url: API_URL+ "/api/rating/post",

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// Define an asynchronous function called "get_rating_book"
+// 非同期関数「get_rating_book」を定義する
 const get_rating_book= async (book_id)=> {
     const res= await axios({
         url: API_URL+ "/api/v1/book/score",

@@ -3,14 +3,14 @@ const mime= require("mime")
 const { v4 } = require("uuid")
 const fs= require("fs")
 
-// This function decodes a base64 image string and returns an object with the image type and data
+// この関数は、base64イメージ文字列をデコードし、イメージタイプとデータを持つオブジェクトを返します
 function decodeBase64Image(dataString) {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
       response = {};
 
-    // Check if the input string is valid
+    // 入力文字列が有効かどうかを確認します
     if (matches.length !== 3) {
-      return new Error('Invalid input string');
+      return new Error('無効な入力文字列です');
     }
   
     response.type = matches[1];
@@ -19,24 +19,24 @@ function decodeBase64Image(dataString) {
     return response;
 }
 
-// This function handles uploading an image from a base64 string
+// この関数は、base64文字列からイメージをアップロードします
 const uploadImage= expressAsyncHandler(async (req, res)=> {
     const {image }= req.body
 
     try {
-        // Decode the base64 image string
+        // base64イメージ文字列をデコードする
         const decodedImg = decodeBase64Image(image);
-        // Get the image data and type from the decoded object
+        // デコードされたオブジェクトからイメージデータとタイプを取得する
         const imageBuffer = decodedImg.data;
         const type = decodedImg.type;
-        // Get the file extension from the image type
+        // イメージタイプからファイル拡張子を取得する
         const extension = mime.getExtension(type);
-        // Generate a random filename using UUID v4
+        // UUID v4を使用してランダムなファイル名を生成する
         const fileName= v4()
         try{
-            // Write the image data to a file in the assets/i directory with the generated filename and extension
+            // 生成されたファイル名と拡張子を使用して、assets/iディレクトリにイメージデータをファイルに書き込む
             fs.writeFileSync("./assets/i/" + fileName + "."+ extension , imageBuffer, 'utf8');
-            // Return the URL of the uploaded image
+            // アップロードされたイメージのURLを返す
             return res.status(200).json({img: "http://localhost:4000/i/" + fileName + "."+ extension})
         }
         catch(err){

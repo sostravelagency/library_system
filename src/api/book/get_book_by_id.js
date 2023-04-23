@@ -1,12 +1,12 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// Define an function called that takes in a book_id parameter
+// ブックIDパラメータを受け取る関数を定義する
 const get_book_by_id = async (book_id) => {
   const res = await axios({
     url: API_URL + "/api/v3/book/detail?id=" + book_id,
     method: "get",
-    // params: {
+    // パラメータ: {
     //   book_id,
     // },
   });

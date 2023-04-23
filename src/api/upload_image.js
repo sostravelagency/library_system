@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// Define an asynchronous function named "update_image"
+// 非同期関数 "update_image" を定義する
 const upload_image= async (img)=> {
     const res= await axios({
         url: API_URL+ "/api/v1/upload-image",

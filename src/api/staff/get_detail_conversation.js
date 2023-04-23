@@ -2,7 +2,7 @@ import axios from "axios"
 import { API_URL } from "../../config"
 import Cookies from "js-cookie"
 
-// This function about get conversation about user and librarian
+// この関数は、ユーザーと司書に関する会話を取得するものです
 const get_detail_conversation= async (id_conversation)=> {
     const res= await axios({
         url: API_URL+ "/api/v3/staff/conversation",

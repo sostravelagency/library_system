@@ -2,29 +2,29 @@ const connection = require("../database/connect")
 const expressAsyncHandler= require('express-async-handler')
 const verifyMail = require("../utils/mail")
 
-// A function that generates a random integer between two numbers (inclusive)
+// 2つの数字（両方含む）の間でランダムな整数を生成する関数
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 const forgot_password= expressAsyncHandler(async (req, res)=> {
     try {
         const {email}= req.body
-        // Query the database to check if the email exists
+        // データベースをクエリして、メールアドレスが存在するかどうかを確認する
         const [rows]= await connection.execute("SELECT user_id FROM user WHERE user_email= ?", [email])
         if(rows.length <= 0) {
-            // If the email doesn't exist, return a response with "forgot_password" set to false and "exist" set to true
+            // メールアドレスが存在しない場合、「forgot_password」をfalse、「exist」をtrueに設定したレスポンスを返す
             return res.status(200).json({forgot_password: false, exist: true})
         }
         
         else {
-            // If the email exists, generate a verification code and insert it into the "verify_email" table
+            // メールアドレスが存在する場合、検証コードを生成して「verify_email」テーブルに挿入する
             const verifyCode= randomIntFromInterval(100000, 999999)
-            // The "ON DUPLICATE KEY UPDATE" syntax updates the "code" column if the email already exists in the table
-            // The verifyCode variable is used twice in the query to set both the "code" and the "updated_at" columns to the same value
-            // The result is an array with two elements: the first element contains information about the inserted row, and the second element contains information about the updated row (if applicable)
+            // 「ON DUPLICATE KEY UPDATE」構文は、テーブルにすでにメールアドレスが存在する場合、「code」列を更新します
+            // verifyCode変数は、クエリ内で2回使用され、両方の「code」と「updated_at」列を同じ値に設定します
+            // 結果は、挿入された行に関する情報を含む最初の要素と、更新された行に関する情報を含む2番目の要素を持つ配列です（該当する場合）
             const [rows]= await connection.execute("INSERT INTO verify_email VALUES (?, ?) ON DUPLICATE KEY UPDATE code= ?", [email, verifyCode, verifyCode])
             
-            // Send a verification email and return a response with the result object and "verify" set to "pending"
+            // 検証メールを送信し、結果オブジェクトと「verify」を「pending」に設定したレスポンスを返す
             const result= await verifyMail(email, verifyCode)
             return res.status(200).json({...result, verify: "pending"})
         }

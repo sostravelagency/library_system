@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// Define an asynchronous function called "get_most_popular_book"
+// 非同期関数「get_most_popular_book」を定義する
 const get_most_popular_book= async ()=> {
     const res= await axios({
         url: API_URL+ "/api/get_most_popular_book",

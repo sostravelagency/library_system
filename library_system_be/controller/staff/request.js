@@ -3,7 +3,7 @@ const connection = require("../../database/connect")
 
 const request = {
 
-    // The `get` function retrieves a list of history records from the database and returns them as JSON data
+    // `get`関数はデータベースから履歴レコードのリストを取得し、JSONデータとして返します
     get: expressAsyncHandler(async (req, res) => {
         try {
             const [rows] = await connection.execute("SELECT *, history.history_id AS id FROM history INNER JOIN user ON user.user_id = history.user_id INNER JOIN book_in_book ON book_in_book.book_in_book_id = history.book_id INNER JOIN book ON book.book_id = book_in_book.book_id")
@@ -14,7 +14,7 @@ const request = {
         }
     }),
 
-    // The `delete` function removes a specific history record from the database based on its `id` field, then returns a success message as JSON data
+    // `delete`関数は、`id`フィールドに基づいてデータベースから特定の履歴レコードを削除し、成功メッセージをJSONデータとして返します
     delete: expressAsyncHandler(async (req, res) => {
         try {           
             const [rows] = await connection.execute("DELETE FROM history WHERE history_id= ?", [req.body.id])
@@ -25,7 +25,7 @@ const request = {
         }
     }),
 
-    // The `action` function updates the status of a specific history record in the database based on its `id` field and other data in the request body. If the new status is 2 (indicating that the book has been returned), it also updates the corresponding `book_in_book` record to set its `checkouting` field to 0. The function then returns a success message as JSON data.
+    // `action`関数は、`id`フィールドとリクエストボディ内の他のデータに基づいて、データベース内の特定の履歴レコードのステータスを更新します。新しいステータスが2（書籍が返却されたことを示す）の場合、対応する`book_in_book`レコードを更新して、その`checkouting`フィールドを0に設定します。その後、関数は成功メッセージをJSONデータとして返します。
     action: expressAsyncHandler(async(req, res)=> {
         try {
             const [rows] = await connection.execute("UPDATE history SET state= ?, time_approve= ?, is_borrow= ?, borrow_time= ? WHERE history_id= ?", [req.body.status, new Date(), req.body?.is_borrow || 0, parseInt(req.body?.day_borrow) || 0, req.body.id])

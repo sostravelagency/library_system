@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// Function to get list of author from the server
+// サーバーから著者リストを取得する関数
 const get_list_author = async () => {
   const res = await axios({
     url: API_URL + "/api/v3/author",

@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
-// Define an asynchronous function called "get_cart"
+// 非同期関数「get_cart」を定義する
 const get_cart= async ()=> {
     const res= await axios({
         url: API_URL+ "/api/cart",

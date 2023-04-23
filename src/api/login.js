@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// Define an asynchronous function named "login"
+// 非同期関数"login"を定義
 const login= async (account, password)=> {
     const res= await axios({
         url: API_URL+ "/api/login",

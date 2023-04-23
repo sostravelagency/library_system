@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// This function fetches a list of books from the server
+// この関数はサーバーから書籍のリストを取得します
 const get_list_book = async () => {
   const res = await axios({
     url: API_URL + "/api/v3/book",

@@ -1,33 +1,33 @@
 const connection = require("../database/connect")
 const asyncHandler = require('express-async-handler')
-// const {v4}= require("uuid")
+// ユニークIDを生成するためのライブラリ
 const md5 = require("md5")
 const { jwtInit } = require("../middleware/jwt")
 
 const login= asyncHandler(async (req, res)=> {
     try {
-        // Check if user email and password are valid
+        // ユーザーのメールアドレスとパスワードが有効かどうかを確認する
         const [rows]= await connection.execute("SELECT user_id, role FROM user WHERE user_email= ? AND user_password=? ", [req.body.account, md5(req.body.password)])
         if(rows.length > 0) {
-            // If user is admin
+            // ユーザーが管理者の場合
             if(parseInt(rows[0]?.role)=== 3) {
-                 // Create an access token with isAdmin claim
+                 // isAdminクレームを持つアクセストークンを作成する
                 const accessToken= jwtInit({...rows[0], isAdmin: true})
                 return res.status(200).json({login: true, exist: true, ...rows[0], isAdmin: true, accessToken})
             }
-            // If user is staff
+            // ユーザーがスタッフの場合
             if(parseInt(rows[0]?.role)=== 2) {
-                // Create an access token with isStaff claim
+                // isStaffクレームを持つアクセストークンを作成する
                 const accessToken= jwtInit({...rows[0], isStaff: true})
                 return res.status(200).json({login: true, exist: true, ...rows[0], isStaff: true, accessToken})
             }
-            // Create a normal access token
+            // 通常のアクセストークンを作成する
             const accessToken= jwtInit({...rows[0]})
             return res.status(200).json({login: true, exist: true, ...rows[0], accessToken})
             
         }
         else {
-           // If email and password are not valid
+           // メールアドレスとパスワードが無効な場合
             return res.status(200).json({login: false, exist: false})
         }
     } catch (error) {

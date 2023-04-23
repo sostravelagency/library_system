@@ -11,15 +11,16 @@ const books= {
     getById: expressAsyncHandler(async(req, res)=> {
         const [books]= await connection.execute("SELECT * FROM book INNER JOIN category_book ON category_book.book_id = book.book_id INNER JOIN category ON category.category_id= category_book.category_id INNER JOIN author_book ON author_book.book_id=book.book_id INNER JOIN author ON author.author_id=author_book.author_id WHERE book.book_id = '"+req.query.id+"';");
         
-         // Create empty arrays to hold the result data, as well as book and author IDs to ensure uniqueness
+// 結果データを保持するための空の配列、および一意性を確保するための書籍と著者のIDを保持する空の配列を作成する
+
         let result = [];
         let bookIds  =[];
         
-        // Loop through each row returned by the query
+// クエリで返された各行をループする
         for(var e of books){
-            // Check if the book ID has already been added to the result array
+            // 結果配列に書籍IDが既に追加されているかどうかを確認する
             if(!bookIds.includes(e.book_id)){
-                // Round the book rating to one decimal place
+                // 書籍の評価を小数点以下1桁に丸める
                 const rating = Math.round(e.book_rating * 10) / 10;
                 let tmp = {};
                 let auths = [];
@@ -27,7 +28,7 @@ const books= {
                 let categories = [];
                 let categoryIds = [];
 
-                // Add basic book information to the result object
+                // 基本的な書籍情報を結果オブジェクトに追加する
                 tmp.book_id = e.book_id;
                 tmp.book_name = e.book_name;
                 tmp.book_quantity = e.book_quantity;
@@ -36,10 +37,10 @@ const books= {
                 tmp.link_book = e.link_book;
                 tmp.book_rating = rating;
 
-                // Loop through all rows again to find categories and authors associated with this book
+                // すべての行を再度ループして、この書籍に関連するカテゴリと著者を検索する
                 for(var value of books){
 
-                    // Check if this row corresponds to the same book ID as the current result object
+                    // この行が現在の結果オブジェクトと同じ書籍IDに対応しているかどうかを確認する
                     if(value.book_id === tmp.book_id){
                         let category = {};
                         category.category_id = value.category_id;
@@ -64,11 +65,12 @@ const books= {
                     }
                 }
 
+
                 tmp.categories = categories;
                 tmp.auths = auths;
                 result.push(tmp);
             }
-            // Add the book ID to the bookIds array to ensure uniqueness
+// 書籍IDをbookIds配列に追加して一意性を確保する
             bookIds.push(e.book_id);
         }
         return res.status(200).json(result[0])
@@ -120,9 +122,11 @@ const books= {
                 req.body.cover_photo,
                 req.body.link_book,
                 req.body.book_id
+
             ]);
 
-            // await connection.execute("DELETE FROM author_book WHERE book_id= ?", [req.body.book_id]);
+// await connection.execute("DELETE FROM author_book WHERE book_id= ?", [req.body.book_id]);
+            // 以下のコードでカテゴリーを更新する
             await connection.execute("DELETE FROM category_book WHERE book_id= ?", [req.body.book_id]);
 
             await req.body.category_book.forEach(async cb => {
@@ -154,3 +158,4 @@ const books= {
 
 
 module.exports= books
+

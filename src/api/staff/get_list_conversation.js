@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../../config"
 
-// This function about get list conversation about user and librarian
+// この関数は、ユーザーと司書に関する会話リストを取得するものです
 const get_list_conversation= async ()=> {
     const res= await axios({
         url: API_URL+ "/conversation/list",

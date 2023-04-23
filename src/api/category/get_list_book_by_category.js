@@ -2,9 +2,9 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../../config"
 
-// Define an asynchronous function called 'get_list_book_by_category', which takes in a 'category_id' parameter
+// 非同期関数 'get_list_book_by_category' を定義し、'category_id' パラメータを受け取るようにします
 const get_list_book_by_category= async (category_id)=> {
-     // Send an HTTP GET request to the API_URL + '/api/v1/category/list/book' endpoint, passing in the 'category_id' parameter as a query parameter
+     // 'category_id' パラメータをクエリパラメータとして渡して、API_URL + '/api/v1/category/list/book' エンドポイントに HTTP GET リクエストを送信します
     const res= await axios({
         url: API_URL+ "/api/v1/category/list/book",
         method: "get",
@@ -12,7 +12,7 @@ const get_list_book_by_category= async (category_id)=> {
             category_id
         },
         headers: {
-            "authorization": "Bearer "+ Cookies.get("accessToken") // Set the 'authorization' header of the request to the value of the 'accessToken' cookie
+            "authorization": "Bearer "+ Cookies.get("accessToken") // リクエストの 'authorization' ヘッダーを 'accessToken' クッキーの値に設定します
         }
     })
     const result= await res.data

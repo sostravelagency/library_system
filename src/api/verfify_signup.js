@@ -1,7 +1,7 @@
 import axios from "axios"
 import { API_URL } from "../config"
 
-// This function takes an email as input and verifies it through an API endpoint
+// この関数は、APIエンドポイントを介して入力された電子メールを検証します
 const verify_signup= async (email)=> {
     const res= await axios({
         url: API_URL+ "/api/v1/verify_email",

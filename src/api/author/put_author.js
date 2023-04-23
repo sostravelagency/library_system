@@ -1,10 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// Function to update author to the server
+// サーバーに著者を更新するための関数
 const put_author = async (
-  authorId, // the ID of the author to update
-  authorName, // the new name for the author
+  authorId, // 更新する著者のID
+  authorName, // 著者の新しい名前
 ) => {
   const res = await axios({
     url: API_URL + "/api/v3/author",

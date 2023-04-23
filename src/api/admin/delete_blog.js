@@ -2,17 +2,17 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../../config"
 
-// This function deletes a blog post from the API using its ID
+// この関数は、IDを使用してAPIからブログ投稿を削除します
 const delete_blog= async (id)=> {
     const res= await axios({
         url: API_URL+ "/api/v3/blog/delete",
         method: "post",
         headers: {
-            // Set the authorization header with the access token retrieved from cookies
+            // アクセストークンをクッキーから取得して認証ヘッダーを設定します
             "authorization": "Bearer "+ Cookies.get("accessToken")
         },
         data: {
-            // Pass the ID of the blog post to be deleted in the request body
+            // 削除するブログ投稿のIDをリクエストボディに渡します
             id: id
         }
     })

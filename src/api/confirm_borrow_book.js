@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
-// This function confirms a user's order.
+// この関数はユーザーの注文を確認します。
 const confirm_borrow_book= async (book_id)=> {
     const res= await axios({
         url: API_URL+ "/api/v1/book/borrow/confirm",

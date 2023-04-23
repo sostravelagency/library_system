@@ -2,7 +2,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
-// Define an asynchronous function called "get_conservation"
+// 非同期関数「get_conversation」を定義する
 const get_conversation= async ()=> {
     const res= await axios({
         url: API_URL+ "/conversation",

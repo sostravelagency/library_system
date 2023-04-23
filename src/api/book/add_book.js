@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../config";
 
-// This function sends a POST request to add a new book to the server
+// この関数は、新しい本をサーバーに追加するためのPOSTリクエストを送信します
 const add_book = async (
   bookName,
   bookQuantity,
