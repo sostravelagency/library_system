@@ -28,17 +28,6 @@ const Home = () => {
   return (
     <div style={{width: "100%"}}>
         <Header searchOn={searchOn} setSearchOn={setSearchOn} />
-        {/* {
-            searchOn=== true && <div style={{padding: 20, width: "100%"}} className={"c-flex-center"}>
-            
-            </div>
-        } */}
-        {/* {
-            isSeaching=== true && searchResult?.length > 0 &&  <Search />
-        } */}
-        {/* {
-            isSeaching=== true && searchResult?.length <= 0 && <div style={{padding: 10, textAlign: "center", fontSize: 18, fontWeight: 600}}>Not found any results</div> 
-        } */}
         <Category />
         <div style={{width: "100%", padding: 20}}>
             <NewRelease />
