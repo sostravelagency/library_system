@@ -13,6 +13,7 @@ import Book from "./pages/book/Book";
 import NewBook from "./pages/newBook/NewBook";
 import Author from "./pages/author/Author";
 import NewsAdmin from "./components/news/NewsAdmin";
+import Record from "./components/record/record";
 
 function IndexAdmin() {
   return (
@@ -38,6 +39,7 @@ function IndexAdmin() {
           <Route path="/category" element={<Category />} />
           <Route path={"/news/*"} element={<NewsAdmin />} />
           <Route path={"/staff/*"} element={<ManageStaff />} />
+          <Route path={"/record"} element={<Record />} />
           <Route path={"*"} element={<Navigate to={"/404"} />} />
         </Routes>
       </div>

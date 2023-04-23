@@ -44,6 +44,9 @@ const finish_book = require("../controller/finish_book")
 const get_rating_book = require("../controller/get_rating_book")
 const accept_request_book_back = require("../controller/accept_request_book_back")
 const similar_book_api = require("../controller/similar_book_api")
+const update_password = require("../controller/update_password")
+const get_list_record = require("../controller/get_list_record")
+const get_notification = require("../controller/staff/get_notification")
 
 const router= express.Router()
 
@@ -149,5 +152,10 @@ router.get("/api/category/detail", detail_category)
 router.post("/api/v1/book/action/finish", verifyToken, finish_book)
 router.get("/api/v1/book/score", get_rating_book)
 router.post("/api/v2/book/action/accept/finish", accept_request_book_back)
-router.get("/api/v2/similar/book/:book_id", similar_book_api) 
+
+router.get("/api/v2/similar/book/:book_id", similar_book_api)
+router.post("/api/v1/update-password", verifyToken, update_password)
+router.get("/api/v3/records", get_list_record)
+router.get("/api/v2/notification", get_notification)
+
 module.exports= router

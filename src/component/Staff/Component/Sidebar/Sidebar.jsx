@@ -11,9 +11,20 @@ import EqualizerIcon from '@mui/icons-material/Equalizer';
 import BookIcon from "@mui/icons-material/Book";
 // import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import CategoryIcon from "@mui/icons-material/Category";
-import { useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { SocketContext } from "../../../Socket/Socket";
 export default function Sidebar() {
+  const {socketState }= useContext(SocketContext)
+  const [notification, setNotification]= useState(0)
+  useEffect(()=> {
+    (async ()=> {
+      
+    })()
+  }, [])
   const ref= useRef()
+  useEffect(()=> {
+    socketState?.on("new_request_borrow")
+  }, [])
   return (
     <div ref={ref} className="sidebar">
       <div className="sidebarWrapper">
@@ -37,7 +48,9 @@ export default function Sidebar() {
                 {
                   (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
                   <EqualizerIcon className="sidebarIcon" />
-                    Mượn / trả sách
+                    <div style={{position: "relative"}}>Borrow / return books
+                      <div style={{position: "absolute", right: -10, top: "-50%", fontSize: 13, padding: 5, color: "#fff", background: 'red', borderRadius: "50%", width: 20, height: 20, display: "flex", justifyContent: "center", alignItems: 'center'}}>4</div>
+                    </div>
                 </li>)
                 }
               
@@ -88,30 +101,6 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-        {/* <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Quản lý sách</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <BookIcon className="sidebarIcon" />
-                Sách
-            </li>
-            <li className="sidebarListItem">
-              <AddIcon className="sidebarIcon" />
-                Thêm sách
-            </li>
-            <li className="sidebarListItem">
-              <Link to="/admin/category" className="link">
-                {
-                  (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
-                  <CategoryIcon className="sidebarIcon" />
-                    Danh mục
-                  </li>)
-                }
-              </Link>
-              
-            </li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );
