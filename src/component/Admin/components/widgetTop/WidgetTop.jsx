@@ -44,7 +44,7 @@ const WidgetTop = ({type}) => {
             wg={
                 title:"ORDERS",
                 number: data?.numOrder?.toString(),
-                link:"See all order",
+                link:<Link to ="/admin/record"> See all order </Link>,
                 icon: <box-icon name='cart' type='solid' ></box-icon>,
             };
             break;

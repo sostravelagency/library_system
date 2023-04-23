@@ -8,10 +8,20 @@ const stats= expressAsyncHandler(async (req, res)=> {
         if(Boolean(req.query.time_range)=== true ) {
             const rowsStats= rows?.filter(item=> (moment(item?.time_borrow).diff(moment(req.query.time_start, "DD-MM-YYYY")) >= 0) && (moment(item?.time_borrow).diff(moment(req.query.time_end, "DD-MM-YYYY")) <= 0)) 
             const newRowStats= rowsStats?.map(({book_id, history_id, state, time_borrow, time_book, user_id, ...rest})=> ({
-                stats: state,
+                stats: 1,
                 name: moment(time_borrow).format("DD-MM-YYYY"),
                 ...rest
             }))
+            const result = {};
+            for (const item of newRowStats) {
+                const { name } = item;
+                if (result[name]) {
+                  result[name].stats += 1;  // tăng giá trị stats lên 1
+                } else {
+                  result[name] = { ...item };  // tạo đối tượng mới cho ngày không có trong result
+                }
+              }
+              const output = Object.values(result);
             const time_start_f= moment(req.query.time_start, "DD-MM-YYYY")
             const time_end_f= moment(req.query.time_end, "DD-MM-YYYY")
             const datesArray = [];
@@ -23,8 +33,7 @@ const stats= expressAsyncHandler(async (req, res)=> {
             });
             currentDate = moment(currentDate).add(1, 'days');
             }
-
-            newRowStats.forEach((item) => {
+            output.forEach((item) => {
             const index = datesArray.findIndex((value) => value.name === item.name);
             if (index !== -1) {
                 datesArray[index] = item;

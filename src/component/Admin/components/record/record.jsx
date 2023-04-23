@@ -63,13 +63,12 @@ export default function ManageRecord() {
 
   return (
     <div className="userList">
-      <div style={{height: 500}}> 
+      <div style={{height: 700}}> 
         <DataGrid
           rows={data}
           disableSelectionOnClick
           columns={columns}
-          checkboxSelection
-          pageSize={5}
+          pageSize={10}
           pagination={true}
           paginationMode="client"
         />

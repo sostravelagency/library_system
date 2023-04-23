@@ -57,7 +57,7 @@ export default function Home() {
       <Chart data={data2.reverse()} title={timeRange?.length > 1 ? `History transaction from ${moment(timeRange[0], "DD-MM-YYYY").format("DD-MM-YYYY")} to ${moment(timeRange[1], "DD-MM-YYYY").format("DD-MM-YYYY")}` : "History transaction last 7 days"} grid dataKey="stats"/>
       <div className="homeWidgets">
         <WidgetSm data={data?.newUser?.slice(0, 5)?.reverse()} />
-        <WidgetLg data={data?.newHistory?.slice(0, 5)?.reverse()} />
+        <WidgetLg data={data?.newHistory?.sort((a, b) => new Date(b.time_borrow) - new Date(a.time_borrow)).slice(0, 5)} />
       </div>
     </div>
   );

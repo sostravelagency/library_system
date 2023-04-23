@@ -8,7 +8,7 @@ export default function WidgetLg(props) {
   };
   return (
     <div className="widgetLg">
-      <h3 className="widgetLgTitle">History transaction</h3>
+      <h3 className="widgetLgTitle">New Order</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Customer</th>

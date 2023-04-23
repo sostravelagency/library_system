@@ -6,7 +6,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export default function WidgetSm(props) {
   return (
     <div className="widgetSm">
-      <span className="widgetSmTitle">New users</span>
+      <span className="widgetSmTitle">New User</span>
       <ul className="widgetSmList">
         {props?.data?.map((item, key) => (
           <li key={key} className="widgetSmListItem">
