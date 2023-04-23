@@ -50,6 +50,7 @@ const Search = (props) => {
           const result = await search(e.target.value);
           setSearchResult(() => result);
         }}
+        autoComplete="off"
         placeholder="Search"
         type="text"
         style={{

@@ -275,6 +275,12 @@ export default function NewBook({ fetchData, setChange }) {
               if(result?.add === true ) {
                 swal("Notice", "Add book successfully", "success")
                 .then(()=> setChange(prev=> !prev))
+                .then(()=> handleClose())
+                .then(()=> {
+                    setValueForm({})
+                    setAuthorChoosen("")
+                    setImage("")
+                  })
               }
               else {
                 swal("", "Error", "error")

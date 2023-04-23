@@ -70,25 +70,26 @@ const books= {
             await connection.execute("INSERT INTO book VALUES(?, ?, ?, ?, ?, ?, ?, ?)", 
             [
                 id, 
-                req.body.book_name,
-                req.body.book_quantity,
-                req.body.book_rating,
-                req.body.book_description,
-                req.body.cover_photo?.img,
-                req.body?.author_id,
-                req.body.link_book,
+                req.body.book_name || "",
+                req.body.book_quantity || "",
+                req.body.book_rating || "",
+                req.body.book_description || "",
+                req.body.cover_photo?.img || "",
+                req.body?.author_id || "",
+                req.body?.link_book ||"",
             ]);
 
             await req.body.category_book.forEach(async category => {
                 await connection.execute("INSERT INTO category_book VALUES(?, ?)", 
                 [
                     id,
-                    category.id,
+                    category.id || "",
                 ]);
             });
 
             return res.status(200).json({add: true})
         } catch (error) {
+            console.log(error)
            return res.status(500).send(error) 
         }
     }),

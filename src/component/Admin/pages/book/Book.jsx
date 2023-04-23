@@ -283,6 +283,9 @@ export default function Book({ bookId, fetchData, props, setChange }) {
           <Button
             color={"facebook"}
             onClick={async () => {
+              if(typeof errorForm.bookQuantity !== "number") {
+                swal("Notice", "Book quantiry must be number")
+              }
               if(image?.thumbUrl) {
                 const resultImage= await upload_image(image?.thumbUrl)
                 const result= await update_book(valueForm.bookId, valueForm.bookName, valueForm.bookQuantity, valueForm.bookRating, valueForm.bookDescription, resultImage, authorChoosen, valueForm.linkBook, personCategory, personAuthor )

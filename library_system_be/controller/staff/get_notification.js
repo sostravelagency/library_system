@@ -3,7 +3,7 @@ const connection = require("../../database/connect");
 
 const get_notification= expressAsyncHandler(async (req, res)=> {
     try {
-        const [rows]= await connection.execute("SELECT * FROM notification WHERE is_seen= 0")
+        const [rows]= await connection.execute("SELECT * FROM notification WHERE seen= 0")
         return res.status(200).json(rows)
         
     } catch (error) {

@@ -75,6 +75,7 @@ const Cart = () => {
             onClick={() => {
               if (chooseBook) {
                 socketState.emit("send_request_borrow_book", {amount: 1, sender: Cookies.get("uid")})
+                
                 checkout(chooseBook, chooseBookinbookId);
                 swal(
                   "Notice",
