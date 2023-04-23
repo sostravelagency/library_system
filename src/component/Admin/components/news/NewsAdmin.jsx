@@ -72,7 +72,7 @@ const ListBlog = () => {
             <>
               <Button
                 onClick={() => {
-                  swal("Notice", "Are you sure want to delete this blog ?", {
+                  swal("Notice", "Are you sure want to delete this post?", {
                     buttons: {
                       delete: "Delete",
                       cancel: "Cancel",
@@ -117,14 +117,14 @@ const ListBlog = () => {
         variant={"contained"}
         style={{ marginBottom: 12 }}
       >
-        Add new blog
+        Add new post
       </Button>
-      <div style={{height: 500}}>
+      <div style={{height: 800}}>
         <DataGrid
           rows={data}
           disableSelectionOnClick
           columns={columns}
-          pageSize={5}
+          pageSize={9}
           pagination={true}
           paginationMode="client"
         />
@@ -220,14 +220,14 @@ class CreateBlog extends React.Component {
               }}
             >
               <span style={{ fontSize: 18 }}>Title:</span>{" "}
-              <TextField
+              <TextField style={{ width: 400 }}
                 value={this.state.title}
                 onChange={(e) => this.setState({ title: e.target.value })}
                 label={"title"}
               />
             </div>
             <UploadImage
-              title={"Ảnh tin tức khuyến mãi"}
+              title={"Cover Image"}
               setImage={this.setImage}
             />
 

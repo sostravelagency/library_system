@@ -39,7 +39,7 @@ export default function DeleteCategory(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Xóa danh mục"}</DialogTitle>
+        <DialogTitle>{"Are you sure you want to delete this?"}</DialogTitle>
         {/* <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} />
@@ -49,17 +49,17 @@ export default function DeleteCategory(props) {
           <Button color={"facebook"} onClick={async ()=> {
               const result= await delete_category(props?.id)
               if(result?.delete=== true) {
-                swal("Thông báo", "Bạn đã xóa thể loại thành công", "success")
+                swal("Notice", "Delete category successfully", "success")
                 .then(()=> {
                   handleClose()
                   props?.setChange(prev=> !prev)
                 })
               }
               else {
-                swal("Thông báo", "Error", "error")
+                swal("Notice", "Error", "error")
               }
-          }}>Xóa</Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          }}>Delete</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

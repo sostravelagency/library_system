@@ -43,7 +43,7 @@ export default function UpdateUser(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{props?.is_edit_staff === true ? "Edit staff" : "Edit user"}</DialogTitle>
+        <DialogTitle>{props?.is_edit_staff === true ? "Edit librarian" : "Edit user"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField style={{width: 350}} value={userName} onChange={(e)=> setUserName(e.target.value)} placeholder={"User name"} />

@@ -52,7 +52,7 @@ export default function ManageStaff() {
             <DeleteOutline
               className="userListDelete"
               onClick={() => {
-                swal("Notice", "Are you sure want to delete this staff ?", {buttons: {
+                swal("Notice", "Are you sure want to delete this librarian ?", {buttons: {
                   delete: "Delete",
                   cancel: "Cancel"
                 }})

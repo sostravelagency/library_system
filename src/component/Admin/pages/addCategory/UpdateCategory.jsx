@@ -43,7 +43,7 @@ export default function UpdateCategory(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Sửa danh mục"}</DialogTitle>
+        <DialogTitle>{"Update category"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} />
@@ -57,7 +57,7 @@ export default function UpdateCategory(props) {
           <Button color={"facebook"} onClick={async ()=> {
               const result= await update_category(categoryName, categoryDescription, props?.id)
               if(result?.update=== true) {
-                swal("Thông báo", "Bạn đã cập nhật thể loại thành công", "success")
+                swal("Notice", "Update category successfully", "success")
                 .then(()=> {
                   handleClose()
                   setCategoryName("")
@@ -65,10 +65,10 @@ export default function UpdateCategory(props) {
                 })
               }
               else {
-                swal("Thông báo", "Error", "error")
+                swal("Notice", "Error", "error")
               }
-          }}>Lưu</Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          }}>Save</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

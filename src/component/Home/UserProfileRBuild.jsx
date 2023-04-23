@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import {FaUserAlt } from "react-icons/fa"
 import UserProfile from './UserProfile';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,8 +26,8 @@ export default function UserProfileRBuild(props) {
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+    <div style={{fontFamily:'Open Sans'}}>
+      <Button variant="black" onClick={handleClickOpen} style={{border: "1px solid #000000", borderRadius: "4px",}}>
         <div className={"c-flex-center"} style={{cursor: "pointer"}}>
             <FaUserAlt size={20} />
         </div>
@@ -42,10 +43,6 @@ export default function UserProfileRBuild(props) {
         <DialogContent>
           <UserProfile {...props} />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

@@ -33,14 +33,14 @@ export default function MenuCategory(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <Title level={4} style={{padding: 10}}>Category</Title>
-        <Grid container>
+        <Title level={4} style={{padding: "8px 10px", fontSize: 18}}>Category</Title>
+        <Grid container spacing={1} style={{ flexWrap: 'wrap' }}>
             {
-                data?.map((item, key)=> <Grid key={key} item xs={4}>
+                data?.map((item, key)=> <Grid key={key} item xs={5}>
                     <MenuItem onClick={()=> {
                         handleClose()
                         navigate("/category/"+ item?.id)
-                    }}>{item?.category_name}</MenuItem>
+                    }}style={{padding: "1px 10px",fontSize: 15}}>{item?.category_name}</MenuItem>
                 </Grid>)
             }
         </Grid>

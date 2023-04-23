@@ -59,7 +59,7 @@ function AddAuthor({ fetchData, setChange }) {
         onClick={() => setOpen(!open)}
         style={{ margin: "8px 0", display: "flex", alignItems: "center" }}
       >
-        <span>Thêm tác giả</span>
+        <span>Add author</span>
         <AddIcon />
       </Button>
       <Dialog
@@ -71,13 +71,13 @@ function AddAuthor({ fetchData, setChange }) {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>{"Thêm tác giả"}</DialogTitle>
+        <DialogTitle>{"Add author"}</DialogTitle>
 
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField
               fullWidth
-              placeholder={"Tên tác giả"}
+              placeholder={"Author Name"}
               value={valueForm.authorName}
               name="authorName"
               onChange={handleChange}

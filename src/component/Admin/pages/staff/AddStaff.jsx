@@ -35,7 +35,7 @@ export default function AddStaff(props) {
   return (
     <div>
         <Button color={"facebook"} onClick={handleClickOpen} style={{margin: "8px 0", display: "flex", alignItems: "center"}}>
-          <span>Add staff</span>
+          <span>Add librarian</span>
           <AddIcon />
         </Button>
       <Dialog
@@ -45,7 +45,7 @@ export default function AddStaff(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Add category"}</DialogTitle>
+        <DialogTitle>{"Add librarian"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <TextField style={{width: 350}} value={userName} onChange={(e)=> setUserName(e.target.value)} placeholder={"User name"} />

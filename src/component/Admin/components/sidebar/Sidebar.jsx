@@ -11,6 +11,8 @@ import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import BookIcon from "@mui/icons-material/Book";
 // import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import CategoryIcon from "@mui/icons-material/Category";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 export default function Sidebar() {
   return (
@@ -43,8 +45,8 @@ export default function Sidebar() {
                       isActive === true ? "active" : ""
                     }`}
                   >
-                    <EqualizerIcon className="sidebarIcon" />
-                    Blogs
+                    <NewspaperIcon className="sidebarIcon" />
+                    Posts
                   </li>
                 )}
             </Link>
@@ -108,7 +110,7 @@ export default function Sidebar() {
                     isActive === true ? "active" : ""
                   }`}
                 >
-                  <BookIcon className="sidebarIcon" />
+                  <DriveFileRenameOutlineIcon className="sidebarIcon" />
                   Authors
                 </li>
               )}
@@ -142,6 +144,7 @@ export default function Sidebar() {
                     isActive === true ? "active" : ""
                   }`}
                 >
+                <EqualizerIcon className="sidebarIcon" /> 
               Records
                 </li>
               )}

@@ -6,7 +6,6 @@ const options = {
     // Define an array of keys to be used in the search
     keys: [
       "book_name",
-      "category_name",
       "author_name"
     ]
   };

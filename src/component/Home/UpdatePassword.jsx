@@ -32,7 +32,7 @@ export default function UpdatePassword() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Update password
+        Change password
       </Button>
       <Dialog
         open={open}
@@ -41,7 +41,7 @@ export default function UpdatePassword() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Update Password"}</DialogTitle>
+        <DialogTitle>{"Change Password"}</DialogTitle>
         <DialogContent style={{minWidth: 700}}>
               <TextField type="password" style={{width: 550, height: 40, marginTop: 12}} value={oldPassword} onChange={(e)=> setOldPassword(e.target.value)} label={"Old password"} />
               <div></div>

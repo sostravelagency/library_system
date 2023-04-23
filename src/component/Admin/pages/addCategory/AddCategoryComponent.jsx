@@ -46,7 +46,7 @@ export default function AddCategoryComponent(props) {
         <DialogTitle>{"Add category"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} />
+            <TextField value={categoryName} onChange={(e)=> setCategoryName(e.target.value)} placeholder={"Category name"} style={{width: 400}} />
             <div></div>
             <br />
             <div></div>
@@ -56,23 +56,29 @@ export default function AddCategoryComponent(props) {
         <DialogActions>
           <Button color={"facebook"} onClick={async ()=> {
             if(categoryName.trim().length <= 0) {
-              swal("Thông báo", "Bạn hãy nhập thể loại")
+              swal("Notice", "Please input category")
             }
+            //  else {
+              // Check if category name already exists in the database
+            //  const categoryExists = await checkCategoryExists(categoryName);
+            //  if (categoryExists) {
+            //    swal("Thông báo", "Tên thể loại đã tồn tại trong cơ sở dữ liệu", "error");
+            //  }
             else {
               const result= await add_category(categoryName, categoryDescription)
               if(result?.add=== true) {
-                swal("Thông báo", "Bạn đã tạo thể loại thành công", "success")
+                swal("Notice", "Add category successfully", "success")
                 .then(()=> {
                   handleClose()
                   props?.setChange(prev=> !prev)
                 })
               }
               else {
-                swal("Thông báo", "Error", "error")
+                swal("Notice", "Error", "error")
               }
             }
-          }}>Lưu</Button>
-          <Button onClick={handleClose}>Hủy</Button>
+          }}>Save</Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>

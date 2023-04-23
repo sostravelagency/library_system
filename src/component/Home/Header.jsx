@@ -43,7 +43,7 @@ const Header = (props) => {
                     auth=== true && <>
                         <UserProfileRBuild {...user} />
                         <div onClick={()=> navigate("/history")} className={"c-flex-center"} style={{cursor: "pointer"}}>
-                            <HistoryOutlined />
+                            <HistoryOutlined size={20} />
                         </div>
                         <div onClick={()=> navigate("/cart")} className={"c-flex-center"} style={{cursor: "pointer"}}>
                             <BsFillCartFill size={20} />

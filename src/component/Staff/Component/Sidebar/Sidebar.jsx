@@ -13,6 +13,8 @@ import BookIcon from "@mui/icons-material/Book";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useContext, useEffect, useRef, useState } from "react";
 import { SocketContext } from "../../../Socket/Socket";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+
 export default function Sidebar() {
   const {socketState }= useContext(SocketContext)
   const [notification, setNotification]= useState(0)
@@ -99,6 +101,23 @@ export default function Sidebar() {
                 )}
               </Link>
             </li>
+          </ul>
+        </div>
+        <div className="sidebarMenu">
+          <h3 className="sidebarTitle">Manage author</h3>
+          <ul className="sidebarList">
+            <Link to="/staff/author" className="link">
+              {({ isActive }) => (
+                <li
+                  className={`sidebarListItem ${
+                    isActive === true ? "active" : ""
+                  }`}
+                >
+                  <DriveFileRenameOutlineIcon className="sidebarIcon" />
+                  Authors
+                </li>
+              )}
+            </Link>
           </ul>
         </div>
       </div>

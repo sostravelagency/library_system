@@ -7,6 +7,7 @@ import Sidebar from './Component/Sidebar/Sidebar'
 import Topbar from './Component/Topbar/Topbar'
 import ProductList from '../Admin/pages/bookList/BookList'
 import Category from '../Admin/pages/addCategory/Category'
+import Author from '../Admin/pages/author/Author'
 
 const IndexStaff = () => {
   return (
@@ -20,6 +21,7 @@ const IndexStaff = () => {
               <Route path={"/feedback/message/*"} element={<Chat />} />
               <Route path={"/books"} element={<ProductList />} />
               <Route path={"/category"} element={<Category />} />
+              <Route path={"/author"} element={<Author />} />
             </Routes>
         </div>
     </>
